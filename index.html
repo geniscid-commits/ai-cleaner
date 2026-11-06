@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Cleaner — Remove AI metadata from text, images and documents</title>
+<meta name="description" content="Remove the hidden metadata and invisible traces that link your text, images and documents to AI tools. 100% in your browser.">
+<link rel="icon" href="logo.webp" type="image/webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js" defer></script>
+<style>
+  :root{
+    --bg:#f5f7fa; --surface:#ffffff; --surface-2:#f0f3f7;
+    --ink:#24344b; --ink-2:#3d5577; --muted:#6c7a8e; --faint:#9aa6b6;
+    --line:#e2e7ee; --brand:#3f5a7d; --brand-2:#5a78a0; --brand-soft:#e7edf5;
+    --ok:#3f7d68; --ok-soft:#e5f1ec; --warn:#9a6b23; --warn-soft:#f8efdf; --bad:#a24850; --bad-soft:#f7e6e8;
+    --radius:18px; --shadow:0 1px 2px rgba(36,52,75,.04), 0 8px 28px rgba(36,52,75,.06);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:
+      radial-gradient(1200px 500px at 50% -180px, #e3eaf3 0%, transparent 70%), var(--bg);
+    color:var(--ink);font:15px/1.6 Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+  code{font-family:ui-monospace,Consolas,monospace;font-size:.92em;background:var(--surface-2);padding:1px 5px;border-radius:5px}
+
+  /* Header */
+  .top{max-width:1040px;margin:0 auto;padding:22px 24px;display:flex;align-items:center;justify-content:space-between}
+  .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);font-weight:700;font-size:18px;letter-spacing:-.01em}
+  .brand img{width:38px;height:38px;object-fit:contain;mix-blend-mode:multiply}
+  .brand span b{color:var(--brand-2);font-weight:700}
+  .top a.link{color:var(--muted);text-decoration:none;font-size:14px;font-weight:500}
+  .top a.link:hover{color:var(--ink)}
+
+  .hero{max-width:760px;margin:0 auto;padding:26px 24px 8px;text-align:center}
+  .hero .logo{width:132px;height:132px;object-fit:contain;mix-blend-mode:multiply;margin-bottom:6px;animation:float 6s ease-in-out infinite}
+  @keyframes float{50%{transform:translateY(-6px)}}
+  .hero h1{margin:0;font-size:clamp(30px,5vw,44px);line-height:1.15;letter-spacing:-.03em;font-weight:700}
+  .hero h1 em{font-style:normal;color:var(--brand-2)}
+  .hero p{color:var(--muted);font-size:17px;margin:14px auto 0;max-width:560px}
+  .pill{display:inline-flex;gap:8px;align-items:center;margin-top:22px;padding:7px 14px;background:var(--surface);border:1px solid var(--line);border-radius:999px;color:var(--muted);font-size:13px;box-shadow:var(--shadow)}
+  .pill svg{color:var(--ok)}
+
+  main{max-width:860px;margin:0 auto;padding:30px 24px 40px}
+
+  /* Segmented tabs */
+  .seg{display:flex;gap:4px;padding:5px;background:var(--surface);border:1px solid var(--line);border-radius:14px;width:max-content;margin:0 auto 22px;box-shadow:var(--shadow)}
+  .seg button{display:flex;align-items:center;gap:8px;background:none;border:0;color:var(--muted);padding:9px 20px;font:inherit;font-weight:600;font-size:14px;cursor:pointer;border-radius:10px;transition:.2s}
+  .seg button:hover{color:var(--ink)}
+  .seg button[aria-selected=true]{background:var(--brand);color:#fff;box-shadow:0 4px 12px rgba(63,90,125,.25)}
+  .panel{display:none;animation:fade .35s ease}.panel.active{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}}
+
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow)}
+  textarea{width:100%;min-height:180px;background:var(--surface-2);color:var(--ink);border:1px solid transparent;border-radius:12px;padding:14px 16px;font:14px/1.6 ui-monospace,Consolas,monospace;resize:vertical;transition:.2s}
+  textarea:focus{outline:none;border-color:var(--brand-2);background:#fff;box-shadow:0 0 0 4px var(--brand-soft)}
+  textarea::placeholder{color:var(--faint)}
+
+  .opts{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:4px 18px;margin:16px 0 18px}
+  .opts label{display:flex;gap:10px;align-items:flex-start;color:var(--muted);font-size:13.5px;cursor:pointer;padding:6px 4px;border-radius:8px}
+  .opts label:hover{color:var(--ink)}
+  .opts input{appearance:none;flex:none;width:18px;height:18px;margin:1px 0 0;border:1.5px solid #c3ccd8;border-radius:5px;background:#fff;cursor:pointer;transition:.15s;display:grid;place-content:center}
+  .opts input:checked{background:var(--brand);border-color:var(--brand)}
+  .opts input:checked::after{content:"";width:9px;height:5px;border:2px solid #fff;border-top:0;border-right:0;transform:rotate(-45deg) translate(1px,-1px)}
+
+  .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .btn{display:inline-flex;align-items:center;gap:8px;background:var(--brand);color:#fff;border:0;border-radius:11px;padding:11px 20px;font:inherit;font-weight:600;font-size:14px;cursor:pointer;text-decoration:none;transition:.2s;box-shadow:0 4px 14px rgba(63,90,125,.22)}
+  .btn:hover{background:var(--ink-2);transform:translateY(-1px)}
+  .btn.ghost{background:var(--surface);color:var(--ink);border:1px solid var(--line);box-shadow:none}
+  .btn.ghost:hover{border-color:#c3ccd8;background:var(--surface-2)}
+  .live{color:var(--muted);font-size:13.5px}
+  .live.warn{color:var(--warn)}
+
+  .section-title{display:flex;align-items:center;gap:10px;margin:28px 0 10px;font-size:12px;font-weight:700;color:var(--faint);text-transform:uppercase;letter-spacing:.09em}
+  .section-title::after{content:"";flex:1;height:1px;background:var(--line)}
+  .viz{background:var(--surface-2);border-radius:12px;padding:14px 16px;white-space:pre-wrap;word-break:break-word;font:14px/1.75 ui-monospace,Consolas,monospace;max-height:260px;overflow:auto}
+  .viz mark{background:var(--bad-soft);color:var(--bad);border:1px solid #e9c6ca;border-radius:4px;padding:0 3px;font-size:10.5px;font-weight:700}
+  .viz mark.sp{background:var(--warn-soft);color:var(--warn);border-color:#ecd9b6}
+
+  /* Dropzone */
+  .drop{position:relative;border:1.5px dashed #c6d0dc;border-radius:16px;padding:44px 20px;text-align:center;color:var(--muted);cursor:pointer;transition:.25s;background:linear-gradient(180deg,#fafbfd,#f3f6fa)}
+  .drop:hover,.drop.over{border-color:var(--brand-2);background:linear-gradient(180deg,#f4f7fb,#e9eff7)}
+  .drop.over{transform:scale(1.01)}
+  .drop .ico{width:58px;height:58px;border-radius:16px;background:var(--brand-soft);color:var(--brand);display:grid;place-items:center;margin:0 auto 14px;transition:.25s}
+  .drop:hover .ico{transform:translateY(-3px)}
+  .drop strong{display:block;color:var(--ink);font-size:16px;font-weight:600;margin-bottom:6px}
+  .drop small{display:block;font-size:12.5px;color:var(--faint);letter-spacing:.02em}
+
+  /* Results */
+  .results{display:grid;gap:14px;margin-top:18px}
+  .res{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;box-shadow:var(--shadow);animation:fade .35s ease}
+  .res-head{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}
+  .res-head .name{display:flex;align-items:center;gap:10px;font-weight:600;word-break:break-all}
+  .res-head .type{flex:none;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:var(--brand);background:var(--brand-soft);padding:4px 7px;border-radius:6px;text-transform:uppercase}
+  .badge{font-size:12px;font-weight:600;padding:4px 11px;border-radius:999px;background:var(--surface-2);color:var(--muted);white-space:nowrap}
+  .badge.ok{background:var(--ok-soft);color:var(--ok)}
+  .badge.warn{background:var(--warn-soft);color:var(--warn)}
+  .badge.bad{background:var(--bad-soft);color:var(--bad)}
+  .spin{display:inline-block;width:12px;height:12px;border:2px solid #c6d0dc;border-top-color:var(--brand);border-radius:50%;animation:rot .8s linear infinite;vertical-align:-2px;margin-right:6px}
+  @keyframes rot{to{transform:rotate(360deg)}}
+  ul.items{list-style:none;margin:14px 0 4px;padding:0;display:grid;gap:6px}
+  ul.items li{background:var(--surface-2);border-radius:10px;padding:9px 12px;font-size:13.5px}
+  ul.items li .k{font-weight:600;color:var(--ink)}
+  ul.items li .d{color:var(--muted);font-family:ui-monospace,Consolas,monospace;font-size:12px;word-break:break-all;margin-top:3px;line-height:1.5}
+  .ai{display:inline-block;background:var(--bad-soft);color:var(--bad);font-size:10px;font-weight:700;letter-spacing:.04em;padding:1px 7px;border-radius:5px;margin-left:8px;vertical-align:1px}
+  .note{color:var(--muted);font-size:13px;margin:10px 0 0}
+  .note.warn{color:var(--warn)}
+  .callout{display:flex;gap:10px;align-items:flex-start;background:var(--warn-soft);color:var(--warn);border-radius:10px;padding:10px 12px;font-size:13px;margin-top:12px}
+  .callout.bad{background:var(--bad-soft);color:var(--bad);font-family:ui-monospace,Consolas,monospace}
+  .meta{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-top:14px;padding-top:14px;border-top:1px solid var(--line)}
+  .meta .size{color:var(--faint);font-size:12.5px}
+  .bulk{display:flex;justify-content:flex-end;gap:10px;margin-top:16px}
+  .bulk[hidden]{display:none}
+
+  /* Info */
+  .features{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin-top:48px}
+  .feat{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:var(--shadow)}
+  .feat .fi{width:36px;height:36px;border-radius:10px;background:var(--brand-soft);color:var(--brand);display:grid;place-items:center;margin-bottom:10px}
+  .feat h4{margin:0 0 4px;font-size:14.5px}
+  .feat p{margin:0;color:var(--muted);font-size:13px;line-height:1.55}
+  .limits{margin-top:14px;background:transparent;border:1px dashed #cfd7e2;border-radius:16px;padding:16px 18px;color:var(--muted);font-size:13.5px}
+  .limits b{color:var(--ink)}
+  footer{text-align:center;color:var(--faint);font-size:12.5px;padding:24px 24px 40px}
+  footer img{width:22px;height:22px;vertical-align:-6px;mix-blend-mode:multiply;opacity:.7;margin-right:6px}
+  @media (max-width:560px){.seg{width:100%}.seg button{flex:1;justify-content:center;padding:9px 10px}.card{padding:16px}}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <a class="brand" href="#"><img src="logo.webp" alt=""><span>AI <b>Cleaner</b></span></a>
+  <a class="link" href="#how">How it works</a>
+</div>
+
+<section class="hero">
+  <img class="logo" src="logo.webp" alt="AI Cleaner logo">
+  <h1>Clean the <em>AI traces</em><br>from your files</h1>
+  <p>Remove the hidden metadata and invisible characters that link your text, images and documents to AI tools.</p>
+  <div class="pill">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+    Everything runs in your browser. Nothing is uploaded.
+  </div>
+</section>
+
+<main>
+  <div class="seg" role="tablist">
+    <button role="tab" aria-selected="true" data-tab="text">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7V5h16v2M9 19h6M12 5v14"/></svg>Text
+    </button>
+    <button role="tab" aria-selected="false" data-tab="files">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/></svg>Images &amp; documents
+    </button>
+  </div>
+
+  <!-- ============ TEXT ============ -->
+  <section class="panel active" id="panel-text">
+    <div class="card">
+      <textarea id="txtIn" placeholder="Paste your text here…" spellcheck="false"></textarea>
+      <div class="opts" id="txtOpts"></div>
+      <div class="row">
+        <button class="btn" id="txtClean">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m14 4 6 6M4 20l9-9M15 3l6 6-3 3-6-6z"/></svg>Clean text
+        </button>
+        <span class="live" id="txtLive"></span>
+      </div>
+    </div>
+
+    <div id="txtResult" hidden>
+      <div class="section-title">Hidden characters in the original</div>
+      <div class="viz" id="txtViz"></div>
+      <div id="txtHidden"></div>
+      <ul class="items" id="txtReport"></ul>
+      <div class="section-title">Clean text</div>
+      <div class="card">
+        <textarea id="txtOut" readonly></textarea>
+        <div class="row" style="margin-top:14px">
+          <button class="btn" id="txtCopy">Copy</button>
+          <button class="btn ghost" id="txtDownload">Download .txt</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FILES ============ -->
+  <section class="panel" id="panel-files">
+    <div class="card">
+      <div class="drop" id="drop" tabindex="0" role="button" aria-label="Choose files">
+        <div class="ico">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg>
+        </div>
+        <strong>Drop files here or click to browse</strong>
+        <small>JPG · PNG · WebP · GIF · AVIF · PDF · DOCX · XLSX · PPTX · ODT · TXT · MD · CSV · HTML</small>
+      </div>
+      <input type="file" id="fileIn" multiple hidden>
+      <div class="opts" style="margin-bottom:0">
+        <label><input type="checkbox" id="optEmbedded" checked> Also clean images embedded in documents</label>
+        <label><input type="checkbox" id="optDocText" checked> Remove invisible characters from document text</label>
+        <label><input type="checkbox" id="optReencode"> Re-encode images (fresh pixels; more thorough, may slightly reduce quality)</label>
+      </div>
+    </div>
+    <div class="bulk" id="bulk" hidden>
+      <button class="btn ghost" id="clearAll">Clear list</button>
+      <button class="btn" id="dlAll" hidden>Download all (.zip)</button>
+    </div>
+    <div class="results" id="cards"></div>
+  </section>
+
+  <!-- ============ INFO ============ -->
+  <div class="features" id="how">
+    <div class="feat">
+      <div class="fi"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="9" cy="9" r="2"/><path d="m21 15-5-5L5 21"/></svg></div>
+      <h4>Images</h4>
+      <p>EXIF, XMP, IPTC, comments, C2PA / Content Credentials and embedded prompts (Stable Diffusion, ComfyUI). Lossless, colour profile kept.</p>
+    </div>
+    <div class="feat">
+      <div class="fi"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg></div>
+      <h4>Documents</h4>
+      <p>Author, company, generating app, template and custom properties in Office &amp; OpenDocument files, plus their embedded images.</p>
+    </div>
+    <div class="feat">
+      <div class="fi"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h9l5 5v15H6z"/><path d="M14 2v6h6"/><text x="7.5" y="18" font-size="6" fill="currentColor" stroke="none" font-weight="700">PDF</text></svg></div>
+      <h4>PDF</h4>
+      <p>Info dictionary (Title, Author, Creator, Producer…), XMP metadata for the document and each page, and attached C2PA manifests.</p>
+    </div>
+    <div class="feat">
+      <div class="fi"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7V5h16v2M9 19h6M12 5v14"/></svg></div>
+      <h4>Text</h4>
+      <p>Zero-width and special spaces, bidi controls, hidden Unicode tags, steganographic selectors and chat leftovers like <code>oaicite</code>.</p>
+    </div>
+  </div>
+  <div class="limits">
+    <b>What it can’t remove:</b> invisible watermarks embedded in the pixels themselves or in the statistical pattern of the words (e.g. SynthID). Those aren’t metadata — they’re part of the content.
+  </div>
+</main>
+
+<footer><img src="logo.webp" alt="">AI Cleaner · Private by design — your files never leave your device.</footer>
+
+<script>
+/* =====================================================================
+   Utilities
+   ===================================================================== */
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const latin1 = u8 => new TextDecoder('latin1').decode(u8);
+const ascii = (u8, a, n) => String.fromCharCode(...u8.subarray(a, a + n));
+const hex = cp => 'U+' + cp.toString(16).toUpperCase().padStart(4, '0');
+function concat(parts){
+  const len = parts.reduce((a, p) => a + p.length, 0);
+  const out = new Uint8Array(len); let o = 0;
+  for (const p of parts){ out.set(p, o); o += p.length; }
+  return out;
+}
+function strings(u8, max = 400){
+  const runs = latin1(u8).match(/[\x20-\x7EÀ-ÿ]{4,}/g) || [];
+  const r = runs.join(' · ').replace(/\s+/g, ' ');
+  return r.length > max ? r.slice(0, max) + '…' : r;
+}
+function clip(s, max = 400){ s = String(s).replace(/\s+/g, ' ').trim(); return s.length > max ? s.slice(0, max) + '…' : s; }
+function fmtSize(n){ return n < 1024 ? n + ' B' : n < 1048576 ? (n/1024).toFixed(1) + ' KB' : (n/1048576).toFixed(2) + ' MB'; }
+const plural = (n, w) => `${n} ${w}${n === 1 ? '' : 's'}`;
+
+/* =====================================================================
+   AI keyword detection
+   ===================================================================== */
+const AI_KEYWORDS = ['c2pa','jumbf','contentauth','content credentials','trainedAlgorithmicMedia','compositeWithTrainedAlgorithmicMedia',
+  'algorithmicMedia','digitalSourceType','openai','chatgpt','dall-e','dall·e','dalle','gpt-4o','gpt-4','gpt-5','sora','midjourney',
+  'stable diffusion','stablediffusion','sdxl','comfyui','automatic1111','invokeai','novelai','firefly','gemini','google imagen','imagen 3','imagen 4','synthid',
+  'copilot','bing image creator','microsoft designer','claude','anthropic','leonardo.ai','ideogram','flux.1','black forest labs',
+  'grok','runwayml','dreamstudio','nightcafe','craiyon','negative prompt','cfg scale','ai generated','ai-generated',
+  'generated by ai','generated with ai','made with ai','generative ai','oaicite'];
+const AI_RES = AI_KEYWORDS.map(k => ({k, re: new RegExp('(?<![a-z0-9])' + k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '(?![a-z0-9])', 'gi')}));
+function scanAI(str){
+  const found = [];
+  for (const {k, re} of AI_RES){ re.lastIndex = 0; const m = str.match(re); if (m) found.push(k + (m.length > 1 ? ` ×${m.length}` : '')); }
+  return found;
+}
+const hasAI = s => AI_RES.some(({re}) => { re.lastIndex = 0; return re.test(s); });
+
+/* =====================================================================
+   TEXT: invisible characters and AI chat leftovers
+   ===================================================================== */
+const CHAR_NAMES = {
+  0x200B:'Zero-width space', 0x200C:'Zero-width non-joiner', 0x200D:'Zero-width joiner',
+  0x2060:'Word joiner', 0xFEFF:'Byte-order mark / zero-width no-break space', 0x00AD:'Soft hyphen',
+  0x180E:'Mongolian vowel separator', 0x034F:'Combining grapheme joiner', 0x115F:'Hangul filler', 0x1160:'Hangul filler',
+  0x3164:'Hangul filler', 0xFFA0:'Half-width Hangul filler', 0x200E:'Left-to-right mark', 0x200F:'Right-to-left mark',
+  0x00A0:'No-break space', 0x202F:'Narrow no-break space', 0x2007:'Figure space', 0x2009:'Thin space',
+  0x200A:'Hair space', 0x205F:'Medium mathematical space', 0x3000:'Ideographic space'
+};
+function charName(cp){
+  if (CHAR_NAMES[cp]) return CHAR_NAMES[cp];
+  if (cp >= 0x2061 && cp <= 0x2064) return 'Invisible math operator';
+  if ((cp >= 0x202A && cp <= 0x202E) || (cp >= 0x2066 && cp <= 0x2069)) return 'Bidirectional control';
+  if (cp >= 0x2000 && cp <= 0x2008) return 'Special typographic space';
+  if (cp >= 0xE0000 && cp <= 0xE007F) return 'Invisible Unicode tag';
+  if ((cp >= 0xFE00 && cp <= 0xFE0F) || (cp >= 0xE0100 && cp <= 0xE01EF)) return 'Variation selector';
+  if (cp >= 0xE000 && cp <= 0xF8FF) return 'Private-use character';
+  return null;
+}
+const isSpaceLike = cp => cp === 0xA0 || cp === 0x202F || cp === 0x205F || cp === 0x3000 || (cp >= 0x2000 && cp <= 0x200A);
+
+function rep(s, re, r){
+  let n = 0;
+  const out = s.replace(re, (...a) => { const v = typeof r === 'function' ? r(...a) : r; if (v !== a[0]) n++; return v; });
+  return [out, n];
+}
+const EMOJI_BEFORE = /(\p{Extended_Pictographic}|[\u{1F3FB}-\u{1F3FF}]|️)$/u;
+const EMOJI_AFTER = /^\p{Extended_Pictographic}/u;
+
+const TEXT_RULES = [
+  {id:'zw', label:'Zero-width and invisible filler characters', def:true, xml:true, fn:s => {
+    let [a, n1] = rep(s, /[​‌⁠﻿᠎͏⁡-⁤­ᅟᅠㅤﾠ]/g, '');
+    // ZWJ is kept only inside compound emoji (👨‍👩‍👧)
+    let [b, n2] = rep(a, /‍/g, (m, off, str) =>
+      EMOJI_BEFORE.test(str.slice(Math.max(0, off - 4), off)) && EMOJI_AFTER.test(str.slice(off + 1, off + 3)) ? m : '');
+    return [b, n1 + n2];
+  }},
+  {id:'bidi', label:'Hidden bidirectional controls', def:true, xml:true, fn:s => rep(s, /[‎‏‪-‮⁦-⁩]/g, '')},
+  {id:'sp', label:'Special spaces → regular space', def:true, xml:true, fn:s => rep(s, /[   -  　]/g, ' ')},
+  {id:'tags', label:'Invisible Unicode tags (can hide messages)', def:true, xml:true, fn:s =>
+    rep(s, /[\u{E0000}-\u{E007F}]+/gu, (m, off, str) => (str.codePointAt(off - 2) === 0x1F3F4 && m.endsWith('\u{E007F}')) ? m : '')},
+  {id:'vs', label:'Stray variation selectors (steganography)', def:true, xml:true, fn:s => {
+    let [a, n1] = rep(s, /[\u{E0100}-\u{E01EF}]/gu, '');
+    let [b, n2] = rep(a, /[︀-️]/g, (m, off, str) => /[\p{Extended_Pictographic}0-9#*©®™]$/u.test(str.slice(Math.max(0, off - 2), off)) && m >= '︎' ? m : '');
+    return [b, n1 + n2];
+  }},
+  {id:'chat', label:'Chat leftovers: oaicite, 【…†…】, utm_source=chatgpt.com…', def:true, xml:false, fn:s => {
+    let t = 0, n;
+    [s, n] = rep(s, /[^]{0,300}/g, ''); t += n;
+    [s, n] = rep(s, /\s?:?contentReference\[oaicite:\d+\]\{index=\d+\}/g, ''); t += n;
+    [s, n] = rep(s, /【[^【】\n]{0,80}†[^【】\n]{0,80}】/g, ''); t += n;
+    [s, n] = rep(s, /\[oaicite:\d+\]/g, ''); t += n;
+    [s, n] = rep(s, /\bturn\d+(?:search|news|view|fetch|file|image|product)\d+\b/g, ''); t += n;
+    [s, n] = rep(s, /([?&])utm_source=(?:chatgpt\.com|openai(?:\.com)?|copilot(?:\.com)?|perplexity(?:\.ai)?|gemini|claude(?:\.ai)?)(&)?/gi,
+      (m, p1, amp) => amp ? p1 : ''); t += n;
+    if (t) [s] = rep(s, /(\S) {2,}(?=\S)/g, (m, a) => a + ' '); // collapse gaps left behind
+    return [s, t];
+  }},
+  {id:'pua', label:'Private-use characters (internal chat markers)', def:true, xml:false, fn:s => rep(s, /[-]/g, '')},
+  {id:'typo', label:'Normalise typography (“” ‘’ — – … → " \' - - ...)', def:false, xml:false, fn:s => {
+    let t = 0, n;
+    [s, n] = rep(s, /[“”„«»]/g, '"'); t += n;
+    [s, n] = rep(s, /[‘’‚]/g, "'"); t += n;
+    [s, n] = rep(s, /\s?—\s?/g, ' - '); t += n;
+    [s, n] = rep(s, /–/g, '-'); t += n;
+    [s, n] = rep(s, /…/g, '...'); t += n;
+    return [s, t];
+  }},
+];
+
+function cleanText(s, enabledIds, xmlSafe = false){
+  const report = [];
+  for (const r of TEXT_RULES){
+    if (!enabledIds.has(r.id) || (xmlSafe && !r.xml)) continue;
+    const [out, n] = r.fn(s);
+    s = out;
+    if (n) report.push({label: r.label, n});
+  }
+  return [s, report];
+}
+
+function inventory(s){
+  const counts = new Map(); let html = ''; let hiddenTag = '';
+  const chars = [...s];
+  for (let i = 0; i < chars.length; i++){
+    const ch = chars[i], cp = ch.codePointAt(0);
+    // Subdivision flag (🏴 + tags) is legitimate: copy as-is
+    if (cp === 0x1F3F4){
+      let j = i + 1; while (j < chars.length && chars[j].codePointAt(0) >= 0xE0020 && chars[j].codePointAt(0) <= 0xE007E) j++;
+      if (j > i + 1 && chars[j] && chars[j].codePointAt(0) === 0xE007F){ html += esc(chars.slice(i, j + 1).join('')); i = j; continue; }
+    }
+    const name = charName(cp);
+    if (cp >= 0xE0020 && cp <= 0xE007E) hiddenTag += String.fromCharCode(cp - 0xE0000);
+    if (name && !(cp === 0xFE0F || cp === 0x200D)){
+      const key = (cp >= 0xE0000 && cp <= 0xE007F) ? 'U+E00xx ' + name : hex(cp) + ' ' + name;
+      counts.set(key, (counts.get(key) || 0) + 1);
+      html += `<mark class="${isSpaceLike(cp) ? 'sp' : ''}" title="${esc(key)}">${hex(cp).slice(2)}</mark>`;
+    } else html += esc(ch);
+  }
+  return {counts, html, hiddenTag};
+}
+
+/* ---------- Text UI ---------- */
+const txtOpts = $('#txtOpts');
+TEXT_RULES.forEach(r => txtOpts.insertAdjacentHTML('beforeend',
+  `<label><input type="checkbox" data-rule="${r.id}" ${r.def ? 'checked' : ''}> ${esc(r.label)}</label>`));
+const enabledRules = () => new Set([...txtOpts.querySelectorAll('input:checked')].map(i => i.dataset.rule));
+
+$('#txtIn').addEventListener('input', () => {
+  const v = $('#txtIn').value, live = $('#txtLive');
+  const total = [...inventory(v).counts.values()].reduce((a, b) => a + b, 0);
+  live.className = 'live' + (total ? ' warn' : '');
+  live.textContent = !v ? '' : total ? `${plural(total, 'hidden character')} detected` : 'No hidden characters detected';
+});
+
+$('#txtClean').addEventListener('click', () => {
+  const src = $('#txtIn').value;
+  if (!src) return $('#txtIn').focus();
+  const inv = inventory(src);
+  const [out, report] = cleanText(src, enabledRules());
+  $('#txtResult').hidden = false;
+  $('#txtViz').innerHTML = inv.html;
+  $('#txtHidden').innerHTML = inv.hiddenTag.trim()
+    ? `<div class="callout bad">Hidden message found in Unicode tags: <b>${esc(inv.hiddenTag)}</b></div>` : '';
+  const items = [];
+  for (const [k, n] of inv.counts) items.push(`<li><span class="k">${esc(k)}</span> <span class="muted">×${n}</span></li>`);
+  for (const r of report) items.push(`<li><span class="k">✓ ${esc(r.label)}</span> — ${plural(r.n, 'change')}</li>`);
+  if (!items.length) items.push('<li>✓ Nothing to clean — your text is already spotless.</li>');
+  $('#txtReport').innerHTML = items.join('');
+  $('#txtOut').value = out;
+  $('#txtResult').scrollIntoView({behavior:'smooth', block:'start'});
+});
+$('#txtCopy').addEventListener('click', async () => {
+  await navigator.clipboard.writeText($('#txtOut').value);
+  $('#txtCopy').textContent = 'Copied ✓'; setTimeout(() => $('#txtCopy').textContent = 'Copy', 1500);
+});
+$('#txtDownload').addEventListener('click', () => download(new Blob([$('#txtOut').value], {type:'text/plain;charset=utf-8'}), 'clean-text.txt'));
+
+/* =====================================================================
+   IMAGES: lossless byte-level cleaning
+   ===================================================================== */
+function cleanPNG(u8){
+  const SIG = [137,80,78,71,13,10,26,10];
+  if (!SIG.every((b, i) => u8[i] === b)) throw new Error('Invalid PNG file');
+  const KEEP = new Set(['IHDR','PLTE','IDAT','IEND','tRNS','gAMA','cHRM','sRGB','iCCP','sBIT','pHYs','bKGD','acTL','fcTL','fdAT']);
+  const dv = new DataView(u8.buffer, u8.byteOffset, u8.byteLength);
+  const out = [u8.subarray(0, 8)], removed = [];
+  let p = 8;
+  while (p + 12 <= u8.length){
+    const len = dv.getUint32(p), type = ascii(u8, p + 4, 4), end = p + 12 + len;
+    if (end > u8.length) throw new Error('Truncated PNG file');
+    const data = u8.subarray(p + 8, p + 8 + len);
+    if (KEEP.has(type)) out.push(u8.subarray(p, end));
+    else removed.push({name: `PNG chunk ${type}`, detail: describePNG(type, data)});
+    p = end;
+    if (type === 'IEND') break;
+  }
+  if (p < u8.length) removed.push({name:'Data appended after end of image', detail: fmtSize(u8.length - p) + ' · ' + strings(u8.subarray(p), 200)});
+  return {bytes: concat(out), removed};
+}
+function describePNG(type, d){
+  try{
+    if (type === 'tEXt'){ const z = d.indexOf(0); return latin1(d.subarray(0, z)) + ': ' + clip(latin1(d.subarray(z + 1))); }
+    if (type === 'iTXt'){
+      const z = d.indexOf(0), kw = latin1(d.subarray(0, z)), comp = d[z + 1];
+      let q = z + 3; q = d.indexOf(0, q) + 1; q = d.indexOf(0, q) + 1;
+      return kw + ': ' + (comp ? '(compressed)' : clip(new TextDecoder().decode(d.subarray(q))));
+    }
+    if (type === 'zTXt') return latin1(d.subarray(0, d.indexOf(0))) + ': (compressed text)';
+    if (type === 'tIME') return 'Last-modified timestamp';
+    if (type === 'caBX') return 'C2PA manifest / Content Credentials · ' + strings(d, 250);
+  }catch{}
+  return fmtSize(d.length) + (d.length ? ' · ' + strings(d, 250) : '');
+}
+
+function jpegAppName(m, id){
+  if (m === 0xE1 && id.startsWith('Exif')) return 'EXIF (APP1)';
+  if (m === 0xE1 && id.includes('ns.adobe.com/xap')) return 'XMP (APP1)';
+  if (m === 0xE1) return 'APP1';
+  if (m === 0xEB) return 'JUMBF / C2PA Content Credentials (APP11)';
+  if (m === 0xED) return 'IPTC / Photoshop (APP13)';
+  if (m === 0xE2 && id.startsWith('MPF')) return 'Multi-Picture Format (APP2)';
+  return 'APP' + (m - 0xE0);
+}
+function exifOrientation(data){
+  try{
+    if (ascii(data, 0, 4) !== 'Exif') return 1;
+    const t = 6, le = data[t] === 0x49;
+    const dv = new DataView(data.buffer, data.byteOffset, data.byteLength);
+    const ifd = t + dv.getUint32(t + 4, le), n = dv.getUint16(ifd, le);
+    for (let i = 0; i < n; i++){
+      const e = ifd + 2 + i * 12;
+      if (dv.getUint16(e, le) === 0x0112) return dv.getUint16(e + 8, le);
+    }
+  }catch{}
+  return 1;
+}
+function cleanJPEG(u8){
+  if (u8[0] !== 0xFF || u8[1] !== 0xD8) throw new Error('Invalid JPEG file');
+  const out = [u8.subarray(0, 2)], removed = [];
+  let p = 2, orientation = 1;
+  while (p < u8.length){
+    if (u8[p] !== 0xFF) throw new Error('Corrupted JPEG file');
+    const m = u8[p + 1];
+    if (m === 0xFF){ p++; continue; }
+    if (m === 0xD9){ out.push(u8.subarray(p, p + 2)); p += 2; break; }
+    if (m === 0x01 || (m >= 0xD0 && m <= 0xD7)){ out.push(u8.subarray(p, p + 2)); p += 2; continue; }
+    const len = (u8[p + 2] << 8) | u8[p + 3], end = p + 2 + len;
+    if (m === 0xDA){
+      // Image data: copy up to the EOI marker (FFD9)
+      let q = end;
+      while (q < u8.length - 1 && !(u8[q] === 0xFF && u8[q + 1] === 0xD9)) q++;
+      out.push(u8.subarray(p, Math.min(q + 2, u8.length)));
+      p = q + 2; break;
+    }
+    const data = u8.subarray(p + 4, end);
+    let drop = false, name = '';
+    if (m >= 0xE0 && m <= 0xEF){
+      const id = ascii(data, 0, Math.min(40, data.length));
+      const keep = (m === 0xE0 && id.startsWith('JFIF')) || (m === 0xE2 && id.startsWith('ICC_PROFILE')) || (m === 0xEE && id.startsWith('Adobe'));
+      if (!keep){ drop = true; name = jpegAppName(m, id); if (id.startsWith('Exif')) orientation = exifOrientation(data); }
+    } else if (m === 0xFE){ drop = true; name = 'JPEG comment (COM)'; }
+    if (drop) removed.push({name, detail: fmtSize(data.length) + ' · ' + strings(data, 350)});
+    else out.push(u8.subarray(p, end));
+    p = end;
+  }
+  if (p < u8.length) removed.push({name:'Data appended after end of image', detail: fmtSize(u8.length - p) + ' · ' + strings(u8.subarray(p), 200)});
+  return {bytes: concat(out), removed, orientation};
+}
+
+function cleanWEBP(u8){
+  if (ascii(u8, 0, 4) !== 'RIFF' || ascii(u8, 8, 4) !== 'WEBP') throw new Error('Invalid WebP file');
+  const dv = new DataView(u8.buffer, u8.byteOffset, u8.byteLength);
+  const KEEP = new Set(['VP8 ','VP8L','VP8X','ALPH','ANIM','ANMF','ICCP']);
+  const chunks = [], removed = [];
+  let p = 12;
+  while (p + 8 <= u8.length){
+    const cc = ascii(u8, p, 4), size = dv.getUint32(p + 4, true);
+    const end = Math.min(p + 8 + size + (size & 1), u8.length);
+    if (KEEP.has(cc)){
+      const c = u8.slice(p, end);
+      if (cc === 'VP8X') c[8] &= ~(0x08 | 0x04); // clear EXIF and XMP flags
+      chunks.push(c);
+    } else removed.push({name: `WebP chunk ${cc.trim()}`, detail: fmtSize(size) + ' · ' + strings(u8.subarray(p + 8, end), 350)});
+    p = end;
+  }
+  const body = concat(chunks);
+  const head = new Uint8Array(12); head.set([82,73,70,70]); new DataView(head.buffer).setUint32(4, body.length + 4, true); head.set([87,69,66,80], 8);
+  return {bytes: concat([head, body]), removed};
+}
+
+async function reencodeImage(blob, mime){
+  const bmp = await createImageBitmap(blob, {imageOrientation:'from-image'});
+  const c = document.createElement('canvas'); c.width = bmp.width; c.height = bmp.height;
+  c.getContext('2d').drawImage(bmp, 0, 0);
+  const type = ['image/jpeg','image/png','image/webp'].includes(mime) ? mime : 'image/png';
+  const out = await new Promise(r => c.toBlob(r, type, 0.95));
+  return {bytes: new Uint8Array(await out.arrayBuffer()), mime: type};
+}
+
+function sniff(u8){
+  if (u8[0] === 0x89 && u8[1] === 0x50 && u8[2] === 0x4E && u8[3] === 0x47) return 'png';
+  if (u8[0] === 0xFF && u8[1] === 0xD8) return 'jpeg';
+  if (ascii(u8, 0, 4) === 'RIFF' && ascii(u8, 8, 4) === 'WEBP') return 'webp';
+  if (ascii(u8, 0, 5) === '%PDF-') return 'pdf';
+  if (u8[0] === 0x50 && u8[1] === 0x4B) return 'zip';
+  return null;
+}
+
+/** Cleans an image. Returns {bytes, removed, mime, notes} */
+async function cleanImageBytes(u8, mimeHint, reencode){
+  const kind = sniff(u8), notes = [];
+  let res;
+  if (kind === 'png') res = {...cleanPNG(u8), mime:'image/png'};
+  else if (kind === 'jpeg'){
+    res = {...cleanJPEG(u8), mime:'image/jpeg'};
+    if (res.orientation && res.orientation !== 1 && !reencode){
+      const r = await reencodeImage(new Blob([u8], {type:'image/jpeg'}), 'image/jpeg');
+      res.bytes = r.bytes;
+      notes.push('The photo had an EXIF rotation, so it was re-encoded to keep it the right way up.');
+    }
+  }
+  else if (kind === 'webp') res = {...cleanWEBP(u8), mime:'image/webp'};
+  else {
+    const r = await reencodeImage(new Blob([u8], {type: mimeHint}), mimeHint);
+    notes.push('Re-encoded as ' + r.mime.split('/')[1].toUpperCase() + ' — all container metadata discarded (animations are not kept).');
+    return {bytes: r.bytes, removed: [{name:'All metadata from the original container', detail: strings(u8.subarray(0, 4096), 300)}], mime: r.mime, notes};
+  }
+  if (reencode){
+    const r = await reencodeImage(new Blob([res.bytes], {type: res.mime}), res.mime);
+    res.bytes = r.bytes; notes.push('Pixels re-encoded.');
+  }
+  return {...res, notes};
+}
+
+/* =====================================================================
+   DOCUMENTS
+   ===================================================================== */
+const CORE_EMPTY = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\r\n<cp:coreProperties xmlns:cp="http://schemas.openxmlformats.org/package/2006/metadata/core-properties" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dcmitype="http://purl.org/dc/dcmitype/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"></cp:coreProperties>';
+const FIXED_DATE = new Date(Date.UTC(2000, 0, 1));
+
+function xmlFields(x){
+  const out = [];
+  for (const m of x.matchAll(/<([\w:]+)(?:\s[^>]*)?>([^<]+)<\/\1>/g)) if (m[2].trim()) out.push([m[1], m[2].trim()]);
+  return out;
+}
+
+async function cleanZipDoc(u8, ext, opts){
+  if (!window.JSZip) throw new Error('Could not load the JSZip library (are you offline?)');
+  const zip = await JSZip.loadAsync(u8);
+  const removed = [];
+  const isODF = ['odt','ods','odp','odg'].includes(ext);
+  let textChanges = 0, imgCount = 0;
+
+  if (isODF){
+    const meta = zip.file('meta.xml');
+    if (meta){
+      const x = await meta.async('string');
+      for (const [k, v] of xmlFields(x)) removed.push({name: k, detail: clip(v, 300)});
+      zip.file('meta.xml', x.replace(/<office:meta>[\s\S]*?<\/office:meta>/, '<office:meta/>'));
+    }
+  } else {
+    const core = zip.file('docProps/core.xml');
+    if (core){
+      const x = await core.async('string');
+      for (const [k, v] of xmlFields(x)) removed.push({name: k, detail: clip(v, 300)});
+      zip.file('docProps/core.xml', CORE_EMPTY);
+    }
+    const app = zip.file('docProps/app.xml');
+    if (app){
+      let x = await app.async('string');
+      for (const tag of ['Application','AppVersion','Company','Manager','Template','HyperlinkBase','TotalTime','DocSecurity']){
+        const re = new RegExp(`<${tag}>([\\s\\S]*?)</${tag}>|<${tag}\\s*/>`, 'g');
+        x = x.replace(re, (m, v) => { if (v && v.trim()) removed.push({name: tag, detail: clip(v, 300)}); return ''; });
+      }
+      zip.file('docProps/app.xml', x);
+    }
+    const custom = zip.file('docProps/custom.xml');
+    if (custom){
+      const x = await custom.async('string');
+      let found = 0;
+      for (const m of x.matchAll(/<property[^>]*\bname="([^"]*)"[^>]*>([\s\S]*?)<\/property>/g)){
+        found++; removed.push({name: 'Custom property: ' + m[1], detail: clip(m[2].replace(/<[^>]+>/g, ''), 300)});
+      }
+      if (!found) removed.push({name:'docProps/custom.xml', detail: clip(x.replace(/<[^>]+>/g, ' '), 300)});
+      zip.remove('docProps/custom.xml');
+      const rels = zip.file('_rels/.rels');
+      if (rels) zip.file('_rels/.rels', (await rels.async('string')).replace(/<Relationship\b[^>]*Target="\/?docProps\/custom\.xml"[^>]*\/>/g, ''));
+      const ct = zip.file('[Content_Types].xml');
+      if (ct) zip.file('[Content_Types].xml', (await ct.async('string')).replace(/<Override\b[^>]*PartName="\/docProps\/custom\.xml"[^>]*\/>/g, ''));
+    }
+  }
+
+  // Text and images inside the document
+  const enabled = new Set(TEXT_RULES.filter(r => r.xml).map(r => r.id));
+  for (const [path, f] of Object.entries(zip.files)){
+    if (f.dir) continue;
+    if (opts.docText && /\.xml$/i.test(path) && (isODF ? /^(content|styles)\.xml$/.test(path) : /^(word|xl|ppt)\//.test(path))){
+      const x = await f.async('string');
+      const [y, rp] = cleanText(x, enabled, true);
+      const n = rp.reduce((a, r) => a + r.n, 0);
+      if (n){ textChanges += n; zip.file(path, y); }
+    }
+    if (opts.embedded && /\.(png|jpe?g|webp)$/i.test(path)){
+      try{
+        const b = await f.async('uint8array');
+        const r = await cleanImageBytes(b, '', false);
+        if (r.removed.length){ imgCount++; zip.file(path, r.bytes); }
+      }catch{}
+    }
+  }
+  if (textChanges) removed.push({name:'Invisible characters in the text', detail: textChanges + ' removed or normalised'});
+  if (imgCount) removed.push({name:'Embedded images', detail: plural(imgCount, 'image') + ' stripped of metadata'});
+
+  // Neutral timestamps inside the ZIP
+  for (const f of Object.values(zip.files)) f.date = FIXED_DATE;
+  if (isODF && zip.file('mimetype')) zip.file('mimetype', await zip.file('mimetype').async('string'), {compression:'STORE', date: FIXED_DATE});
+
+  const bytes = await zip.generateAsync({type:'uint8array', compression:'DEFLATE', compressionOptions:{level:6}});
+  let rest = '';
+  for (const p of ['docProps/core.xml','docProps/app.xml','meta.xml']) if (zip.file(p)) rest += await zip.file(p).async('string');
+  return {bytes, removed, rest};
+}
+
+async function cleanPDF(u8){
+  if (!window.PDFLib) throw new Error('Could not load the pdf-lib library (are you offline?)');
+  const {PDFDocument, PDFName, PDFRef, PDFArray, PDFDict} = PDFLib;
+  let pdf;
+  try{ pdf = await PDFDocument.load(u8, {updateMetadata:false}); }
+  catch(e){ throw new Error(/encrypt/i.test(e.message) ? 'This PDF is encrypted or password-protected and cannot be modified.' : 'Could not read the PDF: ' + e.message); }
+  const removed = [];
+  const info = pdf.getInfoDict();
+  for (const [k, v] of info.entries()){
+    let val = '';
+    try{ val = v.decodeText ? v.decodeText() : String(v); }catch{ val = String(v); }
+    removed.push({name: 'Info / ' + k.asString().slice(1), detail: clip(val, 300)});
+  }
+  for (const k of info.keys()) info.delete(k);
+
+  const dropMeta = (dict, label) => {
+    for (const key of ['Metadata','PieceInfo']){
+      const v = dict.get(PDFName.of(key));
+      if (!v) continue;
+      let detail = '';
+      try{ const s = pdf.context.lookup(v); if (s && s.getContents) detail = strings(s.getContents(), 400); }catch{}
+      removed.push({name: `${label} ${key === 'Metadata' ? 'XMP metadata' : key}`, detail});
+      dict.delete(PDFName.of(key));
+      if (v instanceof PDFRef) pdf.context.delete(v);
+    }
+  };
+  dropMeta(pdf.catalog, 'Document:');
+  pdf.getPages().forEach((pg, i) => dropMeta(pg.node, `Page ${i + 1}:`));
+
+  // Attached C2PA manifests (Associated Files)
+  const af = pdf.catalog.lookupMaybe(PDFName.of('AF'), PDFArray);
+  if (af){
+    for (let i = af.size() - 1; i >= 0; i--){
+      const fs = af.lookup(i, PDFDict);
+      const rel = fs && fs.get(PDFName.of('AFRelationship'));
+      const fname = fs && (fs.get(PDFName.of('UF')) || fs.get(PDFName.of('F')));
+      const desc = String(rel || '') + ' ' + (fname && fname.decodeText ? fname.decodeText() : String(fname || ''));
+      if (/c2pa/i.test(desc)){ removed.push({name:'Attached C2PA manifest', detail: clip(desc, 200)}); af.remove(i); }
+    }
+    if (af.size() === 0) pdf.catalog.delete(PDFName.of('AF'));
+  }
+  const bytes = await pdf.save({updateFieldAppearances:false});
+  return {bytes, removed};
+}
+
+/* =====================================================================
+   File handling
+   ===================================================================== */
+const results = []; // {name, blob}
+const TEXT_EXT = ['txt','md','markdown','csv','tsv','html','htm','json','srt','vtt','xml','rtf','tex','log'];
+const ZIP_EXT = ['docx','xlsx','pptx','docm','xlsm','pptm','odt','ods','odp','odg'];
+const MIME = {pdf:'application/pdf', docx:'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+  xlsx:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', pptx:'application/vnd.openxmlformats-officedocument.presentationml.presentation'};
+
+function outName(name, newExt){
+  const i = name.lastIndexOf('.');
+  const base = i > 0 ? name.slice(0, i) : name, ext = newExt || (i > 0 ? name.slice(i + 1) : '');
+  return base + '-clean' + (ext ? '.' + ext : '');
+}
+function download(blob, name){
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name;
+  document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+}
+const head = (file, badge) => {
+  const ext = (file.name.includes('.') ? file.name.split('.').pop() : 'file').slice(0, 5);
+  return `<div class="res-head"><span class="name"><span class="type">${esc(ext)}</span>${esc(file.name)}</span>${badge}</div>`;
+};
+
+async function processFile(file){
+  const card = document.createElement('div'); card.className = 'res';
+  card.innerHTML = head(file, '<span class="badge"><span class="spin"></span>Cleaning…</span>');
+  $('#cards').prepend(card);
+  $('#bulk').hidden = false;
+  const opts = {embedded: $('#optEmbedded').checked, docText: $('#optDocText').checked, reencode: $('#optReencode').checked};
+  try{
+    const u8 = new Uint8Array(await file.arrayBuffer());
+    const ext = (file.name.split('.').pop() || '').toLowerCase();
+    const kind = sniff(u8);
+    const beforeAI = scanAI(latin1(u8));
+    let res, mime = file.type || 'application/octet-stream', newExt = null, afterStr;
+
+    if (kind === 'pdf'){ res = await cleanPDF(u8); mime = MIME.pdf; }
+    else if (kind === 'zip' && ZIP_EXT.includes(ext)){
+      res = await cleanZipDoc(u8, ext, opts); mime = MIME[ext] || file.type || 'application/zip';
+      afterStr = res.rest;
+      // ZIP content is compressed: scan the decompressed metadata XML
+      const z = await JSZip.loadAsync(u8); let s = '';
+      for (const p of ['docProps/core.xml','docProps/app.xml','docProps/custom.xml','meta.xml']) if (z.file(p)) s += await z.file(p).async('string');
+      beforeAI.push(...scanAI(s).filter(k => !beforeAI.includes(k)));
+    }
+    else if (['png','jpeg','webp'].includes(kind) || file.type.startsWith('image/')){
+      res = await cleanImageBytes(u8, file.type, opts.reencode); mime = res.mime;
+      newExt = {'image/png':'png','image/jpeg':'jpg','image/webp':'webp'}[mime];
+      if (newExt === 'jpg' && ext === 'jpeg') newExt = ext;
+    }
+    else if (TEXT_EXT.includes(ext) || file.type.startsWith('text/')){
+      const src = new TextDecoder().decode(u8);
+      const ids = new Set(TEXT_RULES.filter(r => r.def).map(r => r.id));
+      const [out, rp] = cleanText(src, ids);
+      res = {bytes: new TextEncoder().encode(out), removed: rp.map(r => ({name: r.label, detail: plural(r.n, 'change')}))};
+    }
+    else throw new Error('Unsupported file format.');
+
+    const after = scanAI(afterStr !== undefined ? afterStr : latin1(res.bytes));
+    const blob = new Blob([res.bytes], {type: mime});
+    const name = outName(file.name, newExt);
+    results.push({name, blob});
+
+    const aiItems = res.removed.filter(r => hasAI(r.name + ' ' + r.detail)).length;
+    const badge = after.length ? `<span class="badge warn">Possible traces remain</span>`
+      : res.removed.length ? `<span class="badge ok">✓ Clean · ${plural(res.removed.length, 'item')} removed</span>`
+      : `<span class="badge ok">✓ No metadata found</span>`;
+    card.innerHTML = head(file, badge) + `
+      ${beforeAI.length ? `<div class="callout">AI traces found in the original: ${esc(beforeAI.join(', '))}</div>` : ''}
+      ${res.removed.length ? `<ul class="items">${res.removed.map(r => `<li><span class="k">${esc(r.name)}</span>${hasAI(r.name + ' ' + r.detail) ? '<span class="ai">AI</span>' : ''}${r.detail ? `<div class="d">${esc(r.detail)}</div>` : ''}</li>`).join('')}</ul>` : ''}
+      ${(res.notes || []).map(n => `<p class="note">${esc(n)}</p>`).join('')}
+      ${after.length ? `<p class="note warn">After cleaning, these words still appear in the file (they may be part of the visible content): ${esc(after.join(', '))}</p>` : ''}
+      <div class="meta">
+        <span class="size">${fmtSize(u8.length)} → ${fmtSize(res.bytes.length)}${aiItems ? ` · ${plural(aiItems, 'AI-related item')} removed` : ''}</span>
+        <button class="btn">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v12M7 11l5 5 5-5M5 20h14"/></svg>Download
+        </button>
+      </div>`;
+    card.querySelector('.btn').onclick = () => download(blob, name);
+  }catch(e){
+    console.error(e);
+    card.innerHTML = head(file, '<span class="badge bad">Error</span>') + `<p class="note warn">${esc(e.message || e)}</p>`;
+  }
+  $('#dlAll').hidden = results.length < 2;
+}
+
+const drop = $('#drop'), fileIn = $('#fileIn');
+drop.onclick = () => fileIn.click();
+drop.onkeydown = e => { if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); fileIn.click(); } };
+fileIn.onchange = () => { [...fileIn.files].forEach(processFile); fileIn.value = ''; };
+['dragenter','dragover'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.add('over'); }));
+['dragleave','drop'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.remove('over'); }));
+drop.addEventListener('drop', e => [...e.dataTransfer.files].forEach(processFile));
+$('#dlAll').onclick = async () => {
+  const z = new JSZip(); const used = new Set();
+  for (const r of results){ let n = r.name, i = 1; while (used.has(n)) n = r.name.replace(/(\.[^.]+)?$/, `-${i++}$1`); used.add(n); z.file(n, r.blob, {date: FIXED_DATE}); }
+  download(await z.generateAsync({type:'blob'}), 'ai-cleaner-files.zip');
+};
+$('#clearAll').onclick = () => { results.length = 0; $('#cards').innerHTML = ''; $('#bulk').hidden = true; };
+
+/* Tabs */
+document.querySelectorAll('.seg button').forEach(t => t.onclick = () => {
+  document.querySelectorAll('.seg button').forEach(x => x.setAttribute('aria-selected', x === t));
+  document.querySelectorAll('.panel').forEach(p => p.classList.toggle('active', p.id === 'panel-' + t.dataset.tab));
+});
+</script>
+</body>
+</html>
