@@ -1,4 +1,4 @@
-# AI Cleaner
+# IA Cleaner
 
 Remove the hidden metadata and invisible characters that link your text, images and documents to AI tools.
 

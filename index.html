@@ -3,9 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AI Cleaner — Remove AI metadata from text, images and documents</title>
+<title>IA Cleaner — Remove AI metadata from text, images and documents</title>
 <meta name="description" content="Remove the hidden metadata and invisible traces that link your text, images and documents to AI tools. 100% in your browser.">
+<meta name="application-name" content="IA Cleaner">
+<meta name="theme-color" content="#3f5a7d">
+<meta property="og:site_name" content="IA Cleaner">
+<meta property="og:title" content="IA Cleaner — Remove AI metadata from your files">
+<meta property="og:description" content="Remove hidden metadata and invisible characters from text, images and documents. 100% in your browser.">
+<meta property="og:image" content="logo.webp">
+<meta name="twitter:card" content="summary">
 <link rel="icon" href="logo.webp" type="image/webp">
+<link rel="apple-touch-icon" href="logo.webp">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -33,6 +41,11 @@
   .brand span b{color:var(--brand-2);font-weight:700}
   .top a.link{color:var(--muted);text-decoration:none;font-size:14px;font-weight:500}
   .top a.link:hover{color:var(--ink)}
+  .top-right{display:flex;align-items:center;gap:18px}
+  .lang{display:flex;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:3px;box-shadow:var(--shadow)}
+  .lang button{border:0;background:none;font:inherit;font-size:12px;font-weight:700;letter-spacing:.04em;color:var(--muted);padding:5px 10px;border-radius:7px;cursor:pointer;transition:.2s}
+  .lang button:hover{color:var(--ink)}
+  .lang button[aria-pressed=true]{background:var(--brand);color:#fff}
 
   .hero{max-width:760px;margin:0 auto;padding:26px 24px 8px;text-align:center}
   .hero .logo{width:132px;height:132px;object-fit:contain;mix-blend-mode:multiply;margin-bottom:6px;animation:float 6s ease-in-out infinite}
@@ -130,54 +143,57 @@
 <body>
 
 <div class="top">
-  <a class="brand" href="#"><img src="logo.webp" alt=""><span>AI <b>Cleaner</b></span></a>
-  <a class="link" href="#how">How it works</a>
+  <a class="brand" href="#"><img src="logo.webp" alt=""><span>IA <b>Cleaner</b></span></a>
+  <div class="top-right">
+    <a class="link" href="#how" data-i18n="nav.how">How it works</a>
+    <div class="lang" role="group" aria-label="Language"><button data-lang="en" aria-pressed="true">EN</button><button data-lang="es" aria-pressed="false">ES</button></div>
+  </div>
 </div>
 
 <section class="hero">
-  <img class="logo" src="logo.webp" alt="AI Cleaner logo">
-  <h1>Clean the <em>AI traces</em><br>from your files</h1>
-  <p>Remove the hidden metadata and invisible characters that link your text, images and documents to AI tools.</p>
+  <img class="logo" src="logo.webp" alt="IA Cleaner logo">
+  <h1 data-i18n="hero.title">Clean the <em>AI traces</em><br>from your files</h1>
+  <p data-i18n="hero.sub">Remove the hidden metadata and invisible characters that link your text, images and documents to AI tools.</p>
   <div class="pill">
     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
-    Everything runs in your browser. Nothing is uploaded.
+    <span data-i18n="hero.pill">Everything runs in your browser. Nothing is uploaded.</span>
   </div>
 </section>
 
 <main>
   <div class="seg" role="tablist">
     <button role="tab" aria-selected="true" data-tab="text">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7V5h16v2M9 19h6M12 5v14"/></svg>Text
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7V5h16v2M9 19h6M12 5v14"/></svg><span data-i18n="tab.text">Text</span>
     </button>
     <button role="tab" aria-selected="false" data-tab="files">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/></svg>Images &amp; documents
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/></svg><span data-i18n="tab.files">Images &amp; documents</span>
     </button>
   </div>
 
   <!-- ============ TEXT ============ -->
   <section class="panel active" id="panel-text">
     <div class="card">
-      <textarea id="txtIn" placeholder="Paste your text here…" spellcheck="false"></textarea>
+      <textarea id="txtIn" placeholder="Paste your text here…" data-i18n-ph="txt.ph" spellcheck="false"></textarea>
       <div class="opts" id="txtOpts"></div>
       <div class="row">
         <button class="btn" id="txtClean">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m14 4 6 6M4 20l9-9M15 3l6 6-3 3-6-6z"/></svg>Clean text
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m14 4 6 6M4 20l9-9M15 3l6 6-3 3-6-6z"/></svg><span data-i18n="txt.clean">Clean text</span>
         </button>
         <span class="live" id="txtLive"></span>
       </div>
     </div>
 
     <div id="txtResult" hidden>
-      <div class="section-title">Hidden characters in the original</div>
+      <div class="section-title" data-i18n="txt.hiddenTitle">Hidden characters in the original</div>
       <div class="viz" id="txtViz"></div>
       <div id="txtHidden"></div>
       <ul class="items" id="txtReport"></ul>
-      <div class="section-title">Clean text</div>
+      <div class="section-title" data-i18n="txt.cleanTitle">Clean text</div>
       <div class="card">
         <textarea id="txtOut" readonly></textarea>
         <div class="row" style="margin-top:14px">
-          <button class="btn" id="txtCopy">Copy</button>
-          <button class="btn ghost" id="txtDownload">Download .txt</button>
+          <button class="btn" id="txtCopy" data-i18n="txt.copy">Copy</button>
+          <button class="btn ghost" id="txtDownload" data-i18n="txt.download">Download .txt</button>
         </div>
       </div>
     </div>
@@ -186,23 +202,23 @@
   <!-- ============ FILES ============ -->
   <section class="panel" id="panel-files">
     <div class="card">
-      <div class="drop" id="drop" tabindex="0" role="button" aria-label="Choose files">
+      <div class="drop" id="drop" tabindex="0" role="button" aria-label="Choose files" data-i18n-aria="drop.aria">
         <div class="ico">
           <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg>
         </div>
-        <strong>Drop files here or click to browse</strong>
+        <strong data-i18n="drop.title">Drop files here or click to browse</strong>
         <small>JPG · PNG · WebP · GIF · AVIF · PDF · DOCX · XLSX · PPTX · ODT · TXT · MD · CSV · HTML</small>
       </div>
       <input type="file" id="fileIn" multiple hidden>
       <div class="opts" style="margin-bottom:0">
-        <label><input type="checkbox" id="optEmbedded" checked> Also clean images embedded in documents</label>
-        <label><input type="checkbox" id="optDocText" checked> Remove invisible characters from document text</label>
-        <label><input type="checkbox" id="optReencode"> Re-encode images (fresh pixels; more thorough, may slightly reduce quality)</label>
+        <label><input type="checkbox" id="optEmbedded" checked> <span data-i18n="opt.embedded">Also clean images embedded in documents</span></label>
+        <label><input type="checkbox" id="optDocText" checked> <span data-i18n="opt.doctext">Remove invisible characters from document text</span></label>
+        <label><input type="checkbox" id="optReencode"> <span data-i18n="opt.reencode">Re-encode images (fresh pixels; more thorough, may slightly reduce quality)</span></label>
       </div>
     </div>
     <div class="bulk" id="bulk" hidden>
-      <button class="btn ghost" id="clearAll">Clear list</button>
-      <button class="btn" id="dlAll" hidden>Download all (.zip)</button>
+      <button class="btn ghost" id="clearAll" data-i18n="bulk.clear">Clear list</button>
+      <button class="btn" id="dlAll" hidden data-i18n="bulk.all">Download all (.zip)</button>
     </div>
     <div class="results" id="cards"></div>
   </section>
@@ -211,33 +227,166 @@
   <div class="features" id="how">
     <div class="feat">
       <div class="fi"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="9" cy="9" r="2"/><path d="m21 15-5-5L5 21"/></svg></div>
-      <h4>Images</h4>
-      <p>EXIF, XMP, IPTC, comments, C2PA / Content Credentials and embedded prompts (Stable Diffusion, ComfyUI). Lossless, colour profile kept.</p>
+      <h4 data-i18n="feat.img.h">Images</h4>
+      <p data-i18n="feat.img.p">EXIF, XMP, IPTC, comments, C2PA / Content Credentials and embedded prompts (Stable Diffusion, ComfyUI). Lossless, colour profile kept.</p>
     </div>
     <div class="feat">
       <div class="fi"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg></div>
-      <h4>Documents</h4>
-      <p>Author, company, generating app, template and custom properties in Office &amp; OpenDocument files, plus their embedded images.</p>
+      <h4 data-i18n="feat.doc.h">Documents</h4>
+      <p data-i18n="feat.doc.p">Author, company, generating app, template and custom properties in Office &amp; OpenDocument files, plus their embedded images.</p>
     </div>
     <div class="feat">
       <div class="fi"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h9l5 5v15H6z"/><path d="M14 2v6h6"/><text x="7.5" y="18" font-size="6" fill="currentColor" stroke="none" font-weight="700">PDF</text></svg></div>
-      <h4>PDF</h4>
-      <p>Info dictionary (Title, Author, Creator, Producer…), XMP metadata for the document and each page, and attached C2PA manifests.</p>
+      <h4 data-i18n="feat.pdf.h">PDF</h4>
+      <p data-i18n="feat.pdf.p">Info dictionary (Title, Author, Creator, Producer…), XMP metadata for the document and each page, and attached C2PA manifests.</p>
     </div>
     <div class="feat">
       <div class="fi"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7V5h16v2M9 19h6M12 5v14"/></svg></div>
-      <h4>Text</h4>
-      <p>Zero-width and special spaces, bidi controls, hidden Unicode tags, steganographic selectors and chat leftovers like <code>oaicite</code>.</p>
+      <h4 data-i18n="feat.txt.h">Text</h4>
+      <p data-i18n="feat.txt.p">Zero-width and special spaces, bidi controls, hidden Unicode tags, steganographic selectors and chat leftovers like <code>oaicite</code>.</p>
     </div>
   </div>
-  <div class="limits">
+  <div class="limits" data-i18n="limits">
     <b>What it can’t remove:</b> invisible watermarks embedded in the pixels themselves or in the statistical pattern of the words (e.g. SynthID). Those aren’t metadata — they’re part of the content.
   </div>
 </main>
 
-<footer><img src="logo.webp" alt="">AI Cleaner · Private by design — your files never leave your device.</footer>
+<footer><img src="logo.webp" alt=""><span data-i18n="footer">IA Cleaner · Private by design — your files never leave your device.</span></footer>
 
 <script>
+/* =====================================================================
+   i18n — English (default) / Español
+   ===================================================================== */
+let LANG = 'en';
+const META = {
+  en: {title: 'IA Cleaner — Remove AI metadata from text, images and documents',
+       desc: 'Remove the hidden metadata and invisible traces that link your text, images and documents to AI tools. 100% in your browser.'},
+  es: {title: 'IA Cleaner — Elimina los metadatos de IA de textos, imágenes y documentos',
+       desc: 'Elimina los metadatos ocultos y los rastros invisibles que vinculan tus textos, imágenes y documentos con herramientas de IA. 100 % en tu navegador.'}
+};
+/* Static page blocks (key → Spanish HTML). English comes from the page itself. */
+const UI_ES = {
+  'nav.how': 'Cómo funciona',
+  'hero.title': 'Limpia los <em>rastros de IA</em><br>de tus archivos',
+  'hero.sub': 'Elimina los metadatos ocultos y los caracteres invisibles que vinculan tus textos, imágenes y documentos con herramientas de IA.',
+  'hero.pill': 'Todo se procesa en tu navegador. No se sube nada.',
+  'tab.text': 'Texto',
+  'tab.files': 'Imágenes y documentos',
+  'txt.ph': 'Pega aquí tu texto…',
+  'txt.clean': 'Limpiar texto',
+  'txt.hiddenTitle': 'Caracteres ocultos en el original',
+  'txt.cleanTitle': 'Texto limpio',
+  'txt.copy': 'Copiar',
+  'txt.download': 'Descargar .txt',
+  'drop.aria': 'Elegir archivos',
+  'drop.title': 'Arrastra archivos aquí o haz clic para elegirlos',
+  'opt.embedded': 'Limpiar también las imágenes incrustadas en documentos',
+  'opt.doctext': 'Quitar caracteres invisibles del texto de los documentos',
+  'opt.reencode': 'Re-codificar imágenes (píxeles nuevos; más a fondo, puede reducir algo la calidad)',
+  'bulk.clear': 'Vaciar lista',
+  'bulk.all': 'Descargar todo (.zip)',
+  'feat.img.h': 'Imágenes',
+  'feat.img.p': 'EXIF, XMP, IPTC, comentarios, C2PA / Content Credentials y prompts incrustados (Stable Diffusion, ComfyUI). Sin pérdida de calidad y conservando el perfil de color.',
+  'feat.doc.h': 'Documentos',
+  'feat.doc.p': 'Autor, empresa, aplicación generadora, plantilla y propiedades personalizadas de archivos Office y OpenDocument, además de sus imágenes incrustadas.',
+  'feat.pdf.h': 'PDF',
+  'feat.pdf.p': 'Diccionario Info (Título, Autor, Creator, Producer…), metadatos XMP del documento y de cada página, y manifiestos C2PA adjuntos.',
+  'feat.txt.h': 'Texto',
+  'feat.txt.p': 'Espacios de ancho cero y especiales, controles bidi, etiquetas Unicode ocultas, selectores esteganográficos y restos de chats como <code>oaicite</code>.',
+  'limits': '<b>Lo que no puede eliminar:</b> marcas de agua invisibles incrustadas en los propios píxeles o en el patrón estadístico de las palabras (p. ej. SynthID). Eso no son metadatos: forma parte del contenido.',
+  'footer': 'IA Cleaner · Privado por diseño: tus archivos nunca salen de tu dispositivo.'
+};
+/* Dynamic messages (English source → Spanish) */
+const ES = {
+  // text rules
+  'Zero-width and invisible filler characters': 'Caracteres de ancho cero y de relleno invisibles',
+  'Hidden bidirectional controls': 'Controles de dirección (bidi) ocultos',
+  'Special spaces → regular space': 'Espacios especiales → espacio normal',
+  'Invisible Unicode tags (can hide messages)': 'Etiquetas Unicode invisibles (pueden ocultar mensajes)',
+  'Stray variation selectors (steganography)': 'Selectores de variación sueltos (esteganografía)',
+  'Chat leftovers: oaicite, 【…†…】, utm_source=chatgpt.com…': 'Restos de chats: oaicite, 【…†…】, utm_source=chatgpt.com…',
+  'Private-use characters (internal chat markers)': 'Caracteres de uso privado (marcadores internos de chats)',
+  "Normalise typography (“” ‘’ — – … → \" ' - - ...)": "Normalizar tipografía (“” ‘’ — – … → \" ' - - ...)",
+  // character names
+  'Zero-width space': 'Espacio de ancho cero', 'Zero-width non-joiner': 'No-unión de ancho cero', 'Zero-width joiner': 'Unión de ancho cero',
+  'Word joiner': 'Unión de palabras invisible', 'Byte-order mark / zero-width no-break space': 'BOM / espacio de no separación de ancho cero',
+  'Soft hyphen': 'Guion suave', 'Mongolian vowel separator': 'Separador vocal mongol', 'Combining grapheme joiner': 'Unión de grafemas',
+  'Hangul filler': 'Relleno Hangul', 'Half-width Hangul filler': 'Relleno Hangul de ancho medio',
+  'Left-to-right mark': 'Marca de izquierda a derecha', 'Right-to-left mark': 'Marca de derecha a izquierda',
+  'No-break space': 'Espacio de no separación', 'Narrow no-break space': 'Espacio estrecho de no separación', 'Figure space': 'Espacio de cifra',
+  'Thin space': 'Espacio fino', 'Hair space': 'Espacio ultrafino', 'Medium mathematical space': 'Espacio matemático',
+  'Ideographic space': 'Espacio ideográfico', 'Invisible math operator': 'Operador matemático invisible',
+  'Bidirectional control': 'Control de dirección (bidi)', 'Special typographic space': 'Espacio tipográfico especial',
+  'Invisible Unicode tag': 'Etiqueta Unicode invisible', 'Variation selector': 'Selector de variación', 'Private-use character': 'Carácter de uso privado',
+  // text tab
+  '{x} detected': 'Detectados: {x}',
+  'No hidden characters detected': 'No se han detectado caracteres ocultos',
+  'Hidden message found in Unicode tags:': 'Mensaje oculto encontrado en etiquetas Unicode:',
+  'Nothing to clean — your text is already spotless.': 'Nada que limpiar: tu texto ya está impecable.',
+  'Copy': 'Copiar', 'Copied ✓': 'Copiado ✓', 'clean-text.txt': 'texto-limpio.txt',
+  // images
+  'Invalid PNG file': 'Archivo PNG no válido', 'Truncated PNG file': 'Archivo PNG incompleto',
+  'Invalid JPEG file': 'Archivo JPEG no válido', 'Corrupted JPEG file': 'Archivo JPEG dañado', 'Invalid WebP file': 'Archivo WebP no válido',
+  'PNG chunk': 'Bloque PNG', 'WebP chunk': 'Bloque WebP', 'Data appended after end of image': 'Datos añadidos tras el final de la imagen',
+  '(compressed)': '(comprimido)', '(compressed text)': '(texto comprimido)', 'Last-modified timestamp': 'Fecha de última modificación',
+  'C2PA manifest / Content Credentials': 'Manifiesto C2PA / Content Credentials', 'JPEG comment (COM)': 'Comentario JPEG (COM)',
+  'The photo had an EXIF rotation, so it was re-encoded to keep it the right way up.': 'La foto tenía una rotación EXIF, así que se ha re-codificado para que no aparezca girada.',
+  'Re-encoded as {f} — all container metadata discarded (animations are not kept).': 'Re-codificada como {f}: se descartan todos los metadatos del contenedor (las animaciones no se conservan).',
+  'All metadata from the original container': 'Todos los metadatos del contenedor original', 'Pixels re-encoded.': 'Píxeles re-codificados.',
+  // documents
+  'Could not load the JSZip library (are you offline?)': 'No se pudo cargar la librería JSZip (¿estás sin conexión?)',
+  'Could not load the pdf-lib library (are you offline?)': 'No se pudo cargar la librería pdf-lib (¿estás sin conexión?)',
+  'Custom property:': 'Propiedad personalizada:', 'Invisible characters in the text': 'Caracteres invisibles en el texto',
+  '{n} removed or normalised': '{n} eliminados o normalizados', 'Embedded images': 'Imágenes incrustadas',
+  '{x} stripped of metadata': '{x} sin metadatos',
+  'This PDF is encrypted or password-protected and cannot be modified.': 'Este PDF está cifrado o protegido con contraseña y no se puede modificar.',
+  'Could not read the PDF:': 'No se pudo leer el PDF:', 'XMP metadata': 'metadatos XMP', 'Document:': 'Documento:', 'Page {n}:': 'Página {n}:',
+  'Attached C2PA manifest': 'Manifiesto C2PA adjunto',
+  // results
+  '-clean': '-limpio', 'Cleaning…': 'Limpiando…', 'Unsupported file format.': 'Formato de archivo no compatible.',
+  'Possible traces remain': 'Pueden quedar rastros', '✓ Clean · {x} removed': '✓ Limpio · eliminados: {x}', '✓ No metadata found': '✓ Sin metadatos',
+  'AI traces found in the original:': 'Rastros de IA encontrados en el original:', 'AI': 'IA',
+  'After cleaning, these words still appear in the file (they may be part of the visible content):': 'Tras limpiar, estas palabras siguen apareciendo en el archivo (pueden formar parte del contenido visible):',
+  '{x} removed': 'eliminados: {x}', 'Download': 'Descargar', 'ia-cleaner-files.zip': 'ia-cleaner-archivos.zip'
+};
+const PL_ES = {
+  'hidden character': ['carácter oculto', 'caracteres ocultos'], 'change': ['cambio', 'cambios'], 'item': ['elemento', 'elementos'],
+  'image': ['imagen', 'imágenes'], 'AI-related item': ['elemento relacionado con IA', 'elementos relacionados con IA']
+};
+function tr(s, v){
+  let r = (LANG === 'es' && ES[s]) || s;
+  if (v) r = r.replace(/\{(\w+)\}/g, (m, k) => v[k] ?? m);
+  return r;
+}
+function initialLang(){
+  const q = new URLSearchParams(location.search).get('lang');
+  if (q === 'es' || q === 'en') return q;
+  try{ const saved = localStorage.getItem('iacleaner-lang'); if (saved) return saved; }catch{}
+  return (navigator.languages || [navigator.language]).some(l => /^es\b/i.test(l || '')) ? 'es' : 'en';
+}
+function setLang(l){
+  LANG = l === 'es' ? 'es' : 'en';
+  document.documentElement.lang = LANG;
+  try{ localStorage.setItem('iacleaner-lang', LANG); }catch{}
+  const swap = (sel, attr, get, put) => document.querySelectorAll(sel).forEach(el => {
+    const key = el.getAttribute(attr), store = 'en' + attr.replace(/\W/g, '');
+    if (el.dataset[store] === undefined) el.dataset[store] = get(el);
+    put(el, LANG === 'es' && UI_ES[key] !== undefined ? UI_ES[key] : el.dataset[store]);
+  });
+  swap('[data-i18n]', 'data-i18n', el => el.innerHTML, (el, v) => el.innerHTML = v);
+  swap('[data-i18n-ph]', 'data-i18n-ph', el => el.placeholder, (el, v) => el.placeholder = v);
+  swap('[data-i18n-aria]', 'data-i18n-aria', el => el.getAttribute('aria-label'), (el, v) => el.setAttribute('aria-label', v));
+  document.querySelectorAll('[data-tr]').forEach(el => el.textContent = tr(el.dataset.tr));
+  document.title = META[LANG].title;
+  document.querySelector('meta[name=description]').setAttribute('content', META[LANG].desc);
+  document.querySelectorAll('.lang button').forEach(b => b.setAttribute('aria-pressed', b.dataset.lang === LANG));
+  const url = new URL(location.href);
+  if (LANG === 'es') url.searchParams.set('lang', 'es'); else url.searchParams.delete('lang');
+  history.replaceState(null, '', url);
+  const ti = document.getElementById('txtIn'); if (ti) ti.dispatchEvent(new Event('input'));
+}
+document.addEventListener('click', e => { const b = e.target.closest('.lang button'); if (b) setLang(b.dataset.lang); });
+
 /* =====================================================================
    Utilities
    ===================================================================== */
@@ -259,7 +408,7 @@ function strings(u8, max = 400){
 }
 function clip(s, max = 400){ s = String(s).replace(/\s+/g, ' ').trim(); return s.length > max ? s.slice(0, max) + '…' : s; }
 function fmtSize(n){ return n < 1024 ? n + ' B' : n < 1048576 ? (n/1024).toFixed(1) + ' KB' : (n/1048576).toFixed(2) + ' MB'; }
-const plural = (n, w) => `${n} ${w}${n === 1 ? '' : 's'}`;
+const plural = (n, w) => LANG === 'es' && PL_ES[w] ? `${n} ${PL_ES[w][n === 1 ? 0 : 1]}` : `${n} ${w}${n === 1 ? '' : 's'}`;
 
 /* =====================================================================
    AI keyword detection
@@ -374,7 +523,7 @@ function inventory(s){
     const name = charName(cp);
     if (cp >= 0xE0020 && cp <= 0xE007E) hiddenTag += String.fromCharCode(cp - 0xE0000);
     if (name && !(cp === 0xFE0F || cp === 0x200D)){
-      const key = (cp >= 0xE0000 && cp <= 0xE007F) ? 'U+E00xx ' + name : hex(cp) + ' ' + name;
+      const key = (cp >= 0xE0000 && cp <= 0xE007F) ? 'U+E00xx ' + tr(name) : hex(cp) + ' ' + tr(name);
       counts.set(key, (counts.get(key) || 0) + 1);
       html += `<mark class="${isSpaceLike(cp) ? 'sp' : ''}" title="${esc(key)}">${hex(cp).slice(2)}</mark>`;
     } else html += esc(ch);
@@ -385,14 +534,14 @@ function inventory(s){
 /* ---------- Text UI ---------- */
 const txtOpts = $('#txtOpts');
 TEXT_RULES.forEach(r => txtOpts.insertAdjacentHTML('beforeend',
-  `<label><input type="checkbox" data-rule="${r.id}" ${r.def ? 'checked' : ''}> ${esc(r.label)}</label>`));
+  `<label><input type="checkbox" data-rule="${r.id}" ${r.def ? 'checked' : ''}> <span data-tr="${esc(r.label)}">${esc(r.label)}</span></label>`));
 const enabledRules = () => new Set([...txtOpts.querySelectorAll('input:checked')].map(i => i.dataset.rule));
 
 $('#txtIn').addEventListener('input', () => {
   const v = $('#txtIn').value, live = $('#txtLive');
   const total = [...inventory(v).counts.values()].reduce((a, b) => a + b, 0);
   live.className = 'live' + (total ? ' warn' : '');
-  live.textContent = !v ? '' : total ? `${plural(total, 'hidden character')} detected` : 'No hidden characters detected';
+  live.textContent = !v ? '' : total ? tr('{x} detected', {x: plural(total, 'hidden character')}) : tr('No hidden characters detected');
 });
 
 $('#txtClean').addEventListener('click', () => {
@@ -403,41 +552,41 @@ $('#txtClean').addEventListener('click', () => {
   $('#txtResult').hidden = false;
   $('#txtViz').innerHTML = inv.html;
   $('#txtHidden').innerHTML = inv.hiddenTag.trim()
-    ? `<div class="callout bad">Hidden message found in Unicode tags: <b>${esc(inv.hiddenTag)}</b></div>` : '';
+    ? `<div class="callout bad">${tr('Hidden message found in Unicode tags:')} <b>${esc(inv.hiddenTag)}</b></div>` : '';
   const items = [];
   for (const [k, n] of inv.counts) items.push(`<li><span class="k">${esc(k)}</span> <span class="muted">×${n}</span></li>`);
-  for (const r of report) items.push(`<li><span class="k">✓ ${esc(r.label)}</span> — ${plural(r.n, 'change')}</li>`);
-  if (!items.length) items.push('<li>✓ Nothing to clean — your text is already spotless.</li>');
+  for (const r of report) items.push(`<li><span class="k">✓ ${esc(tr(r.label))}</span> — ${plural(r.n, 'change')}</li>`);
+  if (!items.length) items.push('<li>✓ ' + tr('Nothing to clean — your text is already spotless.') + '</li>');
   $('#txtReport').innerHTML = items.join('');
   $('#txtOut').value = out;
   $('#txtResult').scrollIntoView({behavior:'smooth', block:'start'});
 });
 $('#txtCopy').addEventListener('click', async () => {
   await navigator.clipboard.writeText($('#txtOut').value);
-  $('#txtCopy').textContent = 'Copied ✓'; setTimeout(() => $('#txtCopy').textContent = 'Copy', 1500);
+  $('#txtCopy').textContent = tr('Copied ✓'); setTimeout(() => $('#txtCopy').textContent = tr('Copy'), 1500);
 });
-$('#txtDownload').addEventListener('click', () => download(new Blob([$('#txtOut').value], {type:'text/plain;charset=utf-8'}), 'clean-text.txt'));
+$('#txtDownload').addEventListener('click', () => download(new Blob([$('#txtOut').value], {type:'text/plain;charset=utf-8'}), tr('clean-text.txt')));
 
 /* =====================================================================
    IMAGES: lossless byte-level cleaning
    ===================================================================== */
 function cleanPNG(u8){
   const SIG = [137,80,78,71,13,10,26,10];
-  if (!SIG.every((b, i) => u8[i] === b)) throw new Error('Invalid PNG file');
+  if (!SIG.every((b, i) => u8[i] === b)) throw new Error(tr('Invalid PNG file'));
   const KEEP = new Set(['IHDR','PLTE','IDAT','IEND','tRNS','gAMA','cHRM','sRGB','iCCP','sBIT','pHYs','bKGD','acTL','fcTL','fdAT']);
   const dv = new DataView(u8.buffer, u8.byteOffset, u8.byteLength);
   const out = [u8.subarray(0, 8)], removed = [];
   let p = 8;
   while (p + 12 <= u8.length){
     const len = dv.getUint32(p), type = ascii(u8, p + 4, 4), end = p + 12 + len;
-    if (end > u8.length) throw new Error('Truncated PNG file');
+    if (end > u8.length) throw new Error(tr('Truncated PNG file'));
     const data = u8.subarray(p + 8, p + 8 + len);
     if (KEEP.has(type)) out.push(u8.subarray(p, end));
-    else removed.push({name: `PNG chunk ${type}`, detail: describePNG(type, data)});
+    else removed.push({name: tr('PNG chunk') + ' ' + type, detail: describePNG(type, data)});
     p = end;
     if (type === 'IEND') break;
   }
-  if (p < u8.length) removed.push({name:'Data appended after end of image', detail: fmtSize(u8.length - p) + ' · ' + strings(u8.subarray(p), 200)});
+  if (p < u8.length) removed.push({name: tr('Data appended after end of image'), detail: fmtSize(u8.length - p) + ' · ' + strings(u8.subarray(p), 200)});
   return {bytes: concat(out), removed};
 }
 function describePNG(type, d){
@@ -446,11 +595,11 @@ function describePNG(type, d){
     if (type === 'iTXt'){
       const z = d.indexOf(0), kw = latin1(d.subarray(0, z)), comp = d[z + 1];
       let q = z + 3; q = d.indexOf(0, q) + 1; q = d.indexOf(0, q) + 1;
-      return kw + ': ' + (comp ? '(compressed)' : clip(new TextDecoder().decode(d.subarray(q))));
+      return kw + ': ' + (comp ? tr('(compressed)') : clip(new TextDecoder().decode(d.subarray(q))));
     }
-    if (type === 'zTXt') return latin1(d.subarray(0, d.indexOf(0))) + ': (compressed text)';
-    if (type === 'tIME') return 'Last-modified timestamp';
-    if (type === 'caBX') return 'C2PA manifest / Content Credentials · ' + strings(d, 250);
+    if (type === 'zTXt') return latin1(d.subarray(0, d.indexOf(0))) + ': ' + tr('(compressed text)');
+    if (type === 'tIME') return tr('Last-modified timestamp');
+    if (type === 'caBX') return tr('C2PA manifest / Content Credentials') + ' · ' + strings(d, 250);
   }catch{}
   return fmtSize(d.length) + (d.length ? ' · ' + strings(d, 250) : '');
 }
@@ -478,11 +627,11 @@ function exifOrientation(data){
   return 1;
 }
 function cleanJPEG(u8){
-  if (u8[0] !== 0xFF || u8[1] !== 0xD8) throw new Error('Invalid JPEG file');
+  if (u8[0] !== 0xFF || u8[1] !== 0xD8) throw new Error(tr('Invalid JPEG file'));
   const out = [u8.subarray(0, 2)], removed = [];
   let p = 2, orientation = 1;
   while (p < u8.length){
-    if (u8[p] !== 0xFF) throw new Error('Corrupted JPEG file');
+    if (u8[p] !== 0xFF) throw new Error(tr('Corrupted JPEG file'));
     const m = u8[p + 1];
     if (m === 0xFF){ p++; continue; }
     if (m === 0xD9){ out.push(u8.subarray(p, p + 2)); p += 2; break; }
@@ -501,17 +650,17 @@ function cleanJPEG(u8){
       const id = ascii(data, 0, Math.min(40, data.length));
       const keep = (m === 0xE0 && id.startsWith('JFIF')) || (m === 0xE2 && id.startsWith('ICC_PROFILE')) || (m === 0xEE && id.startsWith('Adobe'));
       if (!keep){ drop = true; name = jpegAppName(m, id); if (id.startsWith('Exif')) orientation = exifOrientation(data); }
-    } else if (m === 0xFE){ drop = true; name = 'JPEG comment (COM)'; }
+    } else if (m === 0xFE){ drop = true; name = tr('JPEG comment (COM)'); }
     if (drop) removed.push({name, detail: fmtSize(data.length) + ' · ' + strings(data, 350)});
     else out.push(u8.subarray(p, end));
     p = end;
   }
-  if (p < u8.length) removed.push({name:'Data appended after end of image', detail: fmtSize(u8.length - p) + ' · ' + strings(u8.subarray(p), 200)});
+  if (p < u8.length) removed.push({name: tr('Data appended after end of image'), detail: fmtSize(u8.length - p) + ' · ' + strings(u8.subarray(p), 200)});
   return {bytes: concat(out), removed, orientation};
 }
 
 function cleanWEBP(u8){
-  if (ascii(u8, 0, 4) !== 'RIFF' || ascii(u8, 8, 4) !== 'WEBP') throw new Error('Invalid WebP file');
+  if (ascii(u8, 0, 4) !== 'RIFF' || ascii(u8, 8, 4) !== 'WEBP') throw new Error(tr('Invalid WebP file'));
   const dv = new DataView(u8.buffer, u8.byteOffset, u8.byteLength);
   const KEEP = new Set(['VP8 ','VP8L','VP8X','ALPH','ANIM','ANMF','ICCP']);
   const chunks = [], removed = [];
@@ -523,7 +672,7 @@ function cleanWEBP(u8){
       const c = u8.slice(p, end);
       if (cc === 'VP8X') c[8] &= ~(0x08 | 0x04); // clear EXIF and XMP flags
       chunks.push(c);
-    } else removed.push({name: `WebP chunk ${cc.trim()}`, detail: fmtSize(size) + ' · ' + strings(u8.subarray(p + 8, end), 350)});
+    } else removed.push({name: tr('WebP chunk') + ' ' + cc.trim(), detail: fmtSize(size) + ' · ' + strings(u8.subarray(p + 8, end), 350)});
     p = end;
   }
   const body = concat(chunks);
@@ -559,18 +708,18 @@ async function cleanImageBytes(u8, mimeHint, reencode){
     if (res.orientation && res.orientation !== 1 && !reencode){
       const r = await reencodeImage(new Blob([u8], {type:'image/jpeg'}), 'image/jpeg');
       res.bytes = r.bytes;
-      notes.push('The photo had an EXIF rotation, so it was re-encoded to keep it the right way up.');
+      notes.push(tr('The photo had an EXIF rotation, so it was re-encoded to keep it the right way up.'));
     }
   }
   else if (kind === 'webp') res = {...cleanWEBP(u8), mime:'image/webp'};
   else {
     const r = await reencodeImage(new Blob([u8], {type: mimeHint}), mimeHint);
-    notes.push('Re-encoded as ' + r.mime.split('/')[1].toUpperCase() + ' — all container metadata discarded (animations are not kept).');
-    return {bytes: r.bytes, removed: [{name:'All metadata from the original container', detail: strings(u8.subarray(0, 4096), 300)}], mime: r.mime, notes};
+    notes.push(tr('Re-encoded as {f} — all container metadata discarded (animations are not kept).', {f: r.mime.split('/')[1].toUpperCase()}));
+    return {bytes: r.bytes, removed: [{name: tr('All metadata from the original container'), detail: strings(u8.subarray(0, 4096), 300)}], mime: r.mime, notes};
   }
   if (reencode){
     const r = await reencodeImage(new Blob([res.bytes], {type: res.mime}), res.mime);
-    res.bytes = r.bytes; notes.push('Pixels re-encoded.');
+    res.bytes = r.bytes; notes.push(tr('Pixels re-encoded.'));
   }
   return {...res, notes};
 }
@@ -588,7 +737,7 @@ function xmlFields(x){
 }
 
 async function cleanZipDoc(u8, ext, opts){
-  if (!window.JSZip) throw new Error('Could not load the JSZip library (are you offline?)');
+  if (!window.JSZip) throw new Error(tr('Could not load the JSZip library (are you offline?)'));
   const zip = await JSZip.loadAsync(u8);
   const removed = [];
   const isODF = ['odt','ods','odp','odg'].includes(ext);
@@ -622,7 +771,7 @@ async function cleanZipDoc(u8, ext, opts){
       const x = await custom.async('string');
       let found = 0;
       for (const m of x.matchAll(/<property[^>]*\bname="([^"]*)"[^>]*>([\s\S]*?)<\/property>/g)){
-        found++; removed.push({name: 'Custom property: ' + m[1], detail: clip(m[2].replace(/<[^>]+>/g, ''), 300)});
+        found++; removed.push({name: tr('Custom property:') + ' ' + m[1], detail: clip(m[2].replace(/<[^>]+>/g, ''), 300)});
       }
       if (!found) removed.push({name:'docProps/custom.xml', detail: clip(x.replace(/<[^>]+>/g, ' '), 300)});
       zip.remove('docProps/custom.xml');
@@ -651,8 +800,8 @@ async function cleanZipDoc(u8, ext, opts){
       }catch{}
     }
   }
-  if (textChanges) removed.push({name:'Invisible characters in the text', detail: textChanges + ' removed or normalised'});
-  if (imgCount) removed.push({name:'Embedded images', detail: plural(imgCount, 'image') + ' stripped of metadata'});
+  if (textChanges) removed.push({name: tr('Invisible characters in the text'), detail: tr('{n} removed or normalised', {n: textChanges})});
+  if (imgCount) removed.push({name: tr('Embedded images'), detail: tr('{x} stripped of metadata', {x: plural(imgCount, 'image')})});
 
   // Neutral timestamps inside the ZIP
   for (const f of Object.values(zip.files)) f.date = FIXED_DATE;
@@ -665,11 +814,11 @@ async function cleanZipDoc(u8, ext, opts){
 }
 
 async function cleanPDF(u8){
-  if (!window.PDFLib) throw new Error('Could not load the pdf-lib library (are you offline?)');
+  if (!window.PDFLib) throw new Error(tr('Could not load the pdf-lib library (are you offline?)'));
   const {PDFDocument, PDFName, PDFRef, PDFArray, PDFDict} = PDFLib;
   let pdf;
   try{ pdf = await PDFDocument.load(u8, {updateMetadata:false}); }
-  catch(e){ throw new Error(/encrypt/i.test(e.message) ? 'This PDF is encrypted or password-protected and cannot be modified.' : 'Could not read the PDF: ' + e.message); }
+  catch(e){ throw new Error(/encrypt/i.test(e.message) ? tr('This PDF is encrypted or password-protected and cannot be modified.') : tr('Could not read the PDF:') + ' ' + e.message); }
   const removed = [];
   const info = pdf.getInfoDict();
   for (const [k, v] of info.entries()){
@@ -685,13 +834,13 @@ async function cleanPDF(u8){
       if (!v) continue;
       let detail = '';
       try{ const s = pdf.context.lookup(v); if (s && s.getContents) detail = strings(s.getContents(), 400); }catch{}
-      removed.push({name: `${label} ${key === 'Metadata' ? 'XMP metadata' : key}`, detail});
+      removed.push({name: `${label} ${key === 'Metadata' ? tr('XMP metadata') : key}`, detail});
       dict.delete(PDFName.of(key));
       if (v instanceof PDFRef) pdf.context.delete(v);
     }
   };
-  dropMeta(pdf.catalog, 'Document:');
-  pdf.getPages().forEach((pg, i) => dropMeta(pg.node, `Page ${i + 1}:`));
+  dropMeta(pdf.catalog, tr('Document:'));
+  pdf.getPages().forEach((pg, i) => dropMeta(pg.node, tr('Page {n}:', {n: i + 1})));
 
   // Attached C2PA manifests (Associated Files)
   const af = pdf.catalog.lookupMaybe(PDFName.of('AF'), PDFArray);
@@ -701,7 +850,7 @@ async function cleanPDF(u8){
       const rel = fs && fs.get(PDFName.of('AFRelationship'));
       const fname = fs && (fs.get(PDFName.of('UF')) || fs.get(PDFName.of('F')));
       const desc = String(rel || '') + ' ' + (fname && fname.decodeText ? fname.decodeText() : String(fname || ''));
-      if (/c2pa/i.test(desc)){ removed.push({name:'Attached C2PA manifest', detail: clip(desc, 200)}); af.remove(i); }
+      if (/c2pa/i.test(desc)){ removed.push({name: tr('Attached C2PA manifest'), detail: clip(desc, 200)}); af.remove(i); }
     }
     if (af.size() === 0) pdf.catalog.delete(PDFName.of('AF'));
   }
@@ -721,7 +870,7 @@ const MIME = {pdf:'application/pdf', docx:'application/vnd.openxmlformats-office
 function outName(name, newExt){
   const i = name.lastIndexOf('.');
   const base = i > 0 ? name.slice(0, i) : name, ext = newExt || (i > 0 ? name.slice(i + 1) : '');
-  return base + '-clean' + (ext ? '.' + ext : '');
+  return base + tr('-clean') + (ext ? '.' + ext : '');
 }
 function download(blob, name){
   const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name;
@@ -734,7 +883,7 @@ const head = (file, badge) => {
 
 async function processFile(file){
   const card = document.createElement('div'); card.className = 'res';
-  card.innerHTML = head(file, '<span class="badge"><span class="spin"></span>Cleaning…</span>');
+  card.innerHTML = head(file, `<span class="badge"><span class="spin"></span>${tr('Cleaning…')}</span>`);
   $('#cards').prepend(card);
   $('#bulk').hidden = false;
   const opts = {embedded: $('#optEmbedded').checked, docText: $('#optDocText').checked, reencode: $('#optReencode').checked};
@@ -763,9 +912,9 @@ async function processFile(file){
       const src = new TextDecoder().decode(u8);
       const ids = new Set(TEXT_RULES.filter(r => r.def).map(r => r.id));
       const [out, rp] = cleanText(src, ids);
-      res = {bytes: new TextEncoder().encode(out), removed: rp.map(r => ({name: r.label, detail: plural(r.n, 'change')}))};
+      res = {bytes: new TextEncoder().encode(out), removed: rp.map(r => ({name: tr(r.label), detail: plural(r.n, 'change')}))};
     }
-    else throw new Error('Unsupported file format.');
+    else throw new Error(tr('Unsupported file format.'));
 
     const after = scanAI(afterStr !== undefined ? afterStr : latin1(res.bytes));
     const blob = new Blob([res.bytes], {type: mime});
@@ -773,18 +922,18 @@ async function processFile(file){
     results.push({name, blob});
 
     const aiItems = res.removed.filter(r => hasAI(r.name + ' ' + r.detail)).length;
-    const badge = after.length ? `<span class="badge warn">Possible traces remain</span>`
-      : res.removed.length ? `<span class="badge ok">✓ Clean · ${plural(res.removed.length, 'item')} removed</span>`
-      : `<span class="badge ok">✓ No metadata found</span>`;
+    const badge = after.length ? `<span class="badge warn">${tr('Possible traces remain')}</span>`
+      : res.removed.length ? `<span class="badge ok">${tr('✓ Clean · {x} removed', {x: plural(res.removed.length, 'item')})}</span>`
+      : `<span class="badge ok">${tr('✓ No metadata found')}</span>`;
     card.innerHTML = head(file, badge) + `
-      ${beforeAI.length ? `<div class="callout">AI traces found in the original: ${esc(beforeAI.join(', '))}</div>` : ''}
-      ${res.removed.length ? `<ul class="items">${res.removed.map(r => `<li><span class="k">${esc(r.name)}</span>${hasAI(r.name + ' ' + r.detail) ? '<span class="ai">AI</span>' : ''}${r.detail ? `<div class="d">${esc(r.detail)}</div>` : ''}</li>`).join('')}</ul>` : ''}
+      ${beforeAI.length ? `<div class="callout">${tr('AI traces found in the original:')} ${esc(beforeAI.join(', '))}</div>` : ''}
+      ${res.removed.length ? `<ul class="items">${res.removed.map(r => `<li><span class="k">${esc(r.name)}</span>${hasAI(r.name + ' ' + r.detail) ? `<span class="ai">${tr('AI')}</span>` : ''}${r.detail ? `<div class="d">${esc(r.detail)}</div>` : ''}</li>`).join('')}</ul>` : ''}
       ${(res.notes || []).map(n => `<p class="note">${esc(n)}</p>`).join('')}
-      ${after.length ? `<p class="note warn">After cleaning, these words still appear in the file (they may be part of the visible content): ${esc(after.join(', '))}</p>` : ''}
+      ${after.length ? `<p class="note warn">${tr('After cleaning, these words still appear in the file (they may be part of the visible content):')} ${esc(after.join(', '))}</p>` : ''}
       <div class="meta">
-        <span class="size">${fmtSize(u8.length)} → ${fmtSize(res.bytes.length)}${aiItems ? ` · ${plural(aiItems, 'AI-related item')} removed` : ''}</span>
+        <span class="size">${fmtSize(u8.length)} → ${fmtSize(res.bytes.length)}${aiItems ? ` · ${tr('{x} removed', {x: plural(aiItems, 'AI-related item')})}` : ''}</span>
         <button class="btn">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v12M7 11l5 5 5-5M5 20h14"/></svg>Download
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v12M7 11l5 5 5-5M5 20h14"/></svg>${tr('Download')}
         </button>
       </div>`;
     card.querySelector('.btn').onclick = () => download(blob, name);
@@ -805,7 +954,7 @@ drop.addEventListener('drop', e => [...e.dataTransfer.files].forEach(processFile
 $('#dlAll').onclick = async () => {
   const z = new JSZip(); const used = new Set();
   for (const r of results){ let n = r.name, i = 1; while (used.has(n)) n = r.name.replace(/(\.[^.]+)?$/, `-${i++}$1`); used.add(n); z.file(n, r.blob, {date: FIXED_DATE}); }
-  download(await z.generateAsync({type:'blob'}), 'ai-cleaner-files.zip');
+  download(await z.generateAsync({type:'blob'}), tr('ia-cleaner-files.zip'));
 };
 $('#clearAll').onclick = () => { results.length = 0; $('#cards').innerHTML = ''; $('#bulk').hidden = true; };
 
@@ -814,6 +963,8 @@ document.querySelectorAll('.seg button').forEach(t => t.onclick = () => {
   document.querySelectorAll('.seg button').forEach(x => x.setAttribute('aria-selected', x === t));
   document.querySelectorAll('.panel').forEach(p => p.classList.toggle('active', p.id === 'panel-' + t.dataset.tab));
 });
+
+setLang(initialLang());
 </script>
 </body>
 </html>
