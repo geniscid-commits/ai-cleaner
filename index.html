@@ -3,17 +3,40 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>IA Cleaner — Remove AI metadata from text, images and documents</title>
-<meta name="description" content="Remove the hidden metadata and invisible traces that link your text, images and documents to AI tools. 100% in your browser.">
+<!-- SEO:START -->
+<title>IA Cleaner — Remove AI Metadata from Images, PDFs &amp; Text (Free, Private)</title>
+<meta name="description" content="Free online tool to remove AI metadata: C2PA / Content Credentials, EXIF, XMP, PNG prompts, document properties and ChatGPT hidden characters. Runs 100% in your browser — nothing is uploaded.">
+<link rel="canonical" href="https://iacleaner.com/">
+<meta property="og:url" content="https://iacleaner.com/">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="es_ES">
+<meta property="og:title" content="IA Cleaner — Remove AI metadata from your files">
+<meta property="og:description" content="Strip C2PA, EXIF, prompts and hidden characters from images, documents and text. Free and 100% private: everything runs in your browser.">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"IA Cleaner","url":"https://iacleaner.com/","inLanguage":"en",
+ "applicationCategory":"UtilitiesApplication","operatingSystem":"Any (web browser)","browserRequirements":"Requires JavaScript",
+ "isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"image":"https://iacleaner.com/logo.webp",
+ "description":"Free tool that removes AI-related metadata and invisible characters from images, PDFs, Office documents and text, entirely in your browser.",
+ "featureList":["Remove C2PA / Content Credentials","Remove EXIF, XMP and IPTC metadata","Remove Stable Diffusion and ComfyUI prompts from PNG","Clean PDF and Office document properties","Remove ChatGPT hidden characters and oaicite markers","100% client-side processing"]}
+</script>
+<!-- SEO:END -->
+<link rel="alternate" hreflang="en" href="https://iacleaner.com/">
+<link rel="alternate" hreflang="es" href="https://iacleaner.com/es/">
+<link rel="alternate" hreflang="x-default" href="https://iacleaner.com/">
 <meta name="application-name" content="IA Cleaner">
 <meta name="theme-color" content="#3f5a7d">
+<meta property="og:type" content="website">
 <meta property="og:site_name" content="IA Cleaner">
-<meta property="og:title" content="IA Cleaner — Remove AI metadata from your files">
-<meta property="og:description" content="Remove hidden metadata and invisible characters from text, images and documents. 100% in your browser.">
-<meta property="og:image" content="logo.webp">
+<meta property="og:image" content="https://iacleaner.com/logo.webp">
 <meta name="twitter:card" content="summary">
-<link rel="icon" href="logo.webp" type="image/webp">
-<link rel="apple-touch-icon" href="logo.webp">
+<link rel="icon" href="/logo.webp" type="image/webp">
+<link rel="apple-touch-icon" href="/logo.webp">
+<script>/* Language routing: send Spanish-speaking visitors to /es/ unless they chose English */
+(function(){ if (document.documentElement.lang !== 'en' || location.protocol === 'file:') return;
+  try{ var q = new URLSearchParams(location.search).get('lang'), s = localStorage.getItem('iacleaner-lang'),
+    b = (navigator.languages || [navigator.language]).some(function(l){ return /^es\b/i.test(l || ''); });
+    if (q === 'es' || (!q && (s === 'es' || (!s && b)))) location.replace('/es/' + location.hash);
+  }catch(e){} })();</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -43,9 +66,17 @@
   .top a.link:hover{color:var(--ink)}
   .top-right{display:flex;align-items:center;gap:18px}
   .lang{display:flex;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:3px;box-shadow:var(--shadow)}
-  .lang button{border:0;background:none;font:inherit;font-size:12px;font-weight:700;letter-spacing:.04em;color:var(--muted);padding:5px 10px;border-radius:7px;cursor:pointer;transition:.2s}
-  .lang button:hover{color:var(--ink)}
-  .lang button[aria-pressed=true]{background:var(--brand);color:#fff}
+  .lang a{font-size:12px;font-weight:700;letter-spacing:.04em;color:var(--muted);padding:5px 10px;border-radius:7px;text-decoration:none;transition:.2s}
+  .lang a:hover{color:var(--ink)}
+  .lang a[aria-current=page]{background:var(--brand);color:#fff}
+  .faq{margin-top:48px}
+  .faq h2{font-size:22px;letter-spacing:-.02em;margin:0 0 14px;text-align:center}
+  .faq details{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:0 18px;margin-bottom:10px;box-shadow:var(--shadow)}
+  .faq summary{cursor:pointer;list-style:none;padding:15px 0;font-weight:600;display:flex;justify-content:space-between;gap:12px}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary::after{content:"+";display:inline-block;color:var(--brand-2);font-size:20px;line-height:1;transition:.2s}
+  .faq details[open] summary::after{transform:rotate(45deg)}
+  .faq details p{margin:0 0 16px;color:var(--muted);font-size:14px}
 
   .hero{max-width:760px;margin:0 auto;padding:26px 24px 8px;text-align:center}
   .hero .logo{width:132px;height:132px;object-fit:contain;mix-blend-mode:multiply;margin-bottom:6px;animation:float 6s ease-in-out infinite}
@@ -143,15 +174,15 @@
 <body>
 
 <div class="top">
-  <a class="brand" href="#"><img src="logo.webp" alt=""><span>IA <b>Cleaner</b></span></a>
+  <a class="brand" href="/"><img src="/logo.webp" alt=""><span>IA <b>Cleaner</b></span></a>
   <div class="top-right">
     <a class="link" href="#how" data-i18n="nav.how">How it works</a>
-    <div class="lang" role="group" aria-label="Language"><button data-lang="en" aria-pressed="true">EN</button><button data-lang="es" aria-pressed="false">ES</button></div>
+    <nav class="lang" aria-label="Language"><a href="/" hreflang="en" lang="en" data-lang="en" aria-current="page">EN</a><a href="/es/" hreflang="es" lang="es" data-lang="es">ES</a></nav>
   </div>
 </div>
 
 <section class="hero">
-  <img class="logo" src="logo.webp" alt="IA Cleaner logo">
+  <img class="logo" src="/logo.webp" alt="IA Cleaner logo">
   <h1 data-i18n="hero.title">Clean the <em>AI traces</em><br>from your files</h1>
   <p data-i18n="hero.sub">Remove the hidden metadata and invisible characters that link your text, images and documents to AI tools.</p>
   <div class="pill">
@@ -249,21 +280,24 @@
   <div class="limits" data-i18n="limits">
     <b>What it can’t remove:</b> invisible watermarks embedded in the pixels themselves or in the statistical pattern of the words (e.g. SynthID). Those aren’t metadata — they’re part of the content.
   </div>
+  <section class="faq" id="faq">
+    <h2 data-i18n="faq.title">Frequently asked questions</h2>
+    <details><summary data-i18n="faq.q1">Are my files uploaded anywhere?</summary><p data-i18n="faq.a1">No. IA Cleaner runs entirely in your browser with JavaScript. Your text, images and documents never leave your device, and the page keeps working even if you disconnect after it loads.</p></details>
+    <details><summary data-i18n="faq.q2">What is C2PA / Content Credentials?</summary><p data-i18n="faq.a2">C2PA is a standard that embeds a signed record in an image or document saying how it was made — for example, that it was generated with DALL·E, Firefly or Midjourney. IA Cleaner removes that manifest along with EXIF, XMP and IPTC metadata.</p></details>
+    <details><summary data-i18n="faq.q3">Why does text copied from ChatGPT contain hidden characters?</summary><p data-i18n="faq.a3">Text copied from AI chats can include invisible characters (zero-width spaces, special spaces, private-use markers) and leftovers such as <code>contentReference[oaicite:0]</code> or <code>utm_source=chatgpt.com</code>. IA Cleaner highlights and removes them.</p></details>
+    <details><summary data-i18n="faq.q4">Will my images lose quality?</summary><p data-i18n="faq.a4">No. JPG, PNG and WebP files are cleaned losslessly: only the metadata blocks are removed and the pixels stay untouched. Re-encoding is optional.</p></details>
+    <details><summary data-i18n="faq.q5">Can it remove watermarks like SynthID?</summary><p data-i18n="faq.a5">No. Watermarks such as SynthID are woven into the pixels or the wording itself, not stored as metadata, so no metadata tool can remove them.</p></details>
+    <details><summary data-i18n="faq.q6">Is IA Cleaner free?</summary><p data-i18n="faq.a6">Yes, it is free to use with no sign-up.</p></details>
+  </section>
 </main>
 
-<footer><img src="logo.webp" alt=""><span data-i18n="footer">IA Cleaner · Private by design — your files never leave your device.</span></footer>
+<footer><img src="/logo.webp" alt=""><span data-i18n="footer">IA Cleaner · Private by design — your files never leave your device.</span></footer>
 
 <script>
 /* =====================================================================
    i18n — English (default) / Español
    ===================================================================== */
 let LANG = 'en';
-const META = {
-  en: {title: 'IA Cleaner — Remove AI metadata from text, images and documents',
-       desc: 'Remove the hidden metadata and invisible traces that link your text, images and documents to AI tools. 100% in your browser.'},
-  es: {title: 'IA Cleaner — Elimina los metadatos de IA de textos, imágenes y documentos',
-       desc: 'Elimina los metadatos ocultos y los rastros invisibles que vinculan tus textos, imágenes y documentos con herramientas de IA. 100 % en tu navegador.'}
-};
 /* Static page blocks (key → Spanish HTML). English comes from the page itself. */
 const UI_ES = {
   'nav.how': 'Cómo funciona',
@@ -294,7 +328,20 @@ const UI_ES = {
   'feat.txt.h': 'Texto',
   'feat.txt.p': 'Espacios de ancho cero y especiales, controles bidi, etiquetas Unicode ocultas, selectores esteganográficos y restos de chats como <code>oaicite</code>.',
   'limits': '<b>Lo que no puede eliminar:</b> marcas de agua invisibles incrustadas en los propios píxeles o en el patrón estadístico de las palabras (p. ej. SynthID). Eso no son metadatos: forma parte del contenido.',
-  'footer': 'IA Cleaner · Privado por diseño: tus archivos nunca salen de tu dispositivo.'
+  'footer': 'IA Cleaner · Privado por diseño: tus archivos nunca salen de tu dispositivo.',
+  'faq.title': 'Preguntas frecuentes',
+  'faq.q1': '¿Se suben mis archivos a algún sitio?',
+  'faq.a1': 'No. IA Cleaner funciona por completo en tu navegador con JavaScript. Tus textos, imágenes y documentos nunca salen de tu dispositivo, y la página sigue funcionando aunque te desconectes después de cargarla.',
+  'faq.q2': '¿Qué es C2PA / Content Credentials?',
+  'faq.a2': 'C2PA es un estándar que incrusta en una imagen o documento un registro firmado que dice cómo se creó; por ejemplo, que se generó con DALL·E, Firefly o Midjourney. IA Cleaner elimina ese manifiesto junto con los metadatos EXIF, XMP e IPTC.',
+  'faq.q3': '¿Por qué el texto copiado de ChatGPT tiene caracteres ocultos?',
+  'faq.a3': 'El texto copiado de chats de IA puede incluir caracteres invisibles (espacios de ancho cero, espacios especiales, marcadores de uso privado) y restos como <code>contentReference[oaicite:0]</code> o <code>utm_source=chatgpt.com</code>. IA Cleaner los resalta y los elimina.',
+  'faq.q4': '¿Pierden calidad mis imágenes?',
+  'faq.a4': 'No. Los JPG, PNG y WebP se limpian sin pérdida: solo se eliminan los bloques de metadatos y los píxeles no se tocan. Re-codificar es opcional.',
+  'faq.q5': '¿Puede quitar marcas de agua como SynthID?',
+  'faq.a5': 'No. Las marcas de agua como SynthID van integradas en los propios píxeles o en la forma de redactar, no se guardan como metadatos, así que ninguna herramienta de metadatos puede quitarlas.',
+  'faq.q6': '¿IA Cleaner es gratis?',
+  'faq.a6': 'Sí, es gratis y no necesitas registrarte.'
 };
 /* Dynamic messages (English source → Spanish) */
 const ES = {
@@ -358,34 +405,26 @@ function tr(s, v){
   if (v) r = r.replace(/\{(\w+)\}/g, (m, k) => v[k] ?? m);
   return r;
 }
-function initialLang(){
-  const q = new URLSearchParams(location.search).get('lang');
-  if (q === 'es' || q === 'en') return q;
-  try{ const saved = localStorage.getItem('iacleaner-lang'); if (saved) return saved; }catch{}
-  return (navigator.languages || [navigator.language]).some(l => /^es\b/i.test(l || '')) ? 'es' : 'en';
-}
+const PAGE_LANG = document.documentElement.lang === 'es' ? 'es' : 'en';
 function setLang(l){
   LANG = l === 'es' ? 'es' : 'en';
-  document.documentElement.lang = LANG;
-  try{ localStorage.setItem('iacleaner-lang', LANG); }catch{}
   const swap = (sel, attr, get, put) => document.querySelectorAll(sel).forEach(el => {
     const key = el.getAttribute(attr), store = 'en' + attr.replace(/\W/g, '');
     if (el.dataset[store] === undefined) el.dataset[store] = get(el);
     put(el, LANG === 'es' && UI_ES[key] !== undefined ? UI_ES[key] : el.dataset[store]);
   });
-  swap('[data-i18n]', 'data-i18n', el => el.innerHTML, (el, v) => el.innerHTML = v);
-  swap('[data-i18n-ph]', 'data-i18n-ph', el => el.placeholder, (el, v) => el.placeholder = v);
-  swap('[data-i18n-aria]', 'data-i18n-aria', el => el.getAttribute('aria-label'), (el, v) => el.setAttribute('aria-label', v));
+  // The /es/ page is pre-rendered in Spanish; this only fills gaps
+  if (PAGE_LANG !== LANG){
+    swap('[data-i18n]', 'data-i18n', el => el.innerHTML, (el, v) => el.innerHTML = v);
+    swap('[data-i18n-ph]', 'data-i18n-ph', el => el.placeholder, (el, v) => el.placeholder = v);
+    swap('[data-i18n-aria]', 'data-i18n-aria', el => el.getAttribute('aria-label'), (el, v) => el.setAttribute('aria-label', v));
+  }
   document.querySelectorAll('[data-tr]').forEach(el => el.textContent = tr(el.dataset.tr));
-  document.title = META[LANG].title;
-  document.querySelector('meta[name=description]').setAttribute('content', META[LANG].desc);
-  document.querySelectorAll('.lang button').forEach(b => b.setAttribute('aria-pressed', b.dataset.lang === LANG));
-  const url = new URL(location.href);
-  if (LANG === 'es') url.searchParams.set('lang', 'es'); else url.searchParams.delete('lang');
-  history.replaceState(null, '', url);
+  document.querySelectorAll('.lang a').forEach(a => a.dataset.lang === LANG ? a.setAttribute('aria-current', 'page') : a.removeAttribute('aria-current'));
   const ti = document.getElementById('txtIn'); if (ti) ti.dispatchEvent(new Event('input'));
 }
-document.addEventListener('click', e => { const b = e.target.closest('.lang button'); if (b) setLang(b.dataset.lang); });
+// Remember an explicit language choice (the link itself navigates)
+document.addEventListener('click', e => { const a = e.target.closest('.lang a'); if (a){ try{ localStorage.setItem('iacleaner-lang', a.dataset.lang); }catch{} } });
 
 /* =====================================================================
    Utilities
@@ -964,7 +1003,7 @@ document.querySelectorAll('.seg button').forEach(t => t.onclick = () => {
   document.querySelectorAll('.panel').forEach(p => p.classList.toggle('active', p.id === 'panel-' + t.dataset.tab));
 });
 
-setLang(initialLang());
+setLang(PAGE_LANG);
 </script>
 </body>
 </html>

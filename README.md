@@ -10,3 +10,14 @@ Everything runs locally in your browser — no file is ever uploaded.
 - **Text**: zero-width characters, special spaces, bidi controls, hidden Unicode tags and chat leftovers (`oaicite`, `utm_source=chatgpt.com`…).
 
 It cannot remove watermarks embedded in the content itself (e.g. SynthID).
+
+## Development
+
+- `index.html` is the English page and the source of truth. Spanish texts live in the `UI_ES` / `ES` objects inside it.
+- After editing `index.html`, regenerate the Spanish page and commit both files:
+
+```bash
+python tools/build_es.py
+```
+
+- `sitemap.xml`, `robots.txt` and `404.html` are served as-is by GitHub Pages at https://iacleaner.com.
