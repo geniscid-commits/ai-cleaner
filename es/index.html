@@ -293,7 +293,7 @@
   </section>
   <section class="faq" id="faq">
     <h2 data-i18n="faq.title">Preguntas frecuentes</h2>
-    <details><summary data-i18n="faq.q1">¿Se suben mis archivos a algún sitio?</summary><p data-i18n="faq.a1">No. IA Cleaner funciona por completo en tu navegador con JavaScript. Tus textos, imágenes y documentos nunca salen de tu dispositivo, y la página sigue funcionando aunque te desconectes después de cargarla.</p></details>
+    <details><summary data-i18n="faq.q1">¿Se suben mis archivos a algún sitio?</summary><p data-i18n="faq.a1">No. IA Cleaner funciona por completo en tu navegador con JavaScript. Tus textos, imágenes y documentos nunca salen de tu dispositivo, y la página sigue funcionando aunque te desconectes después de cargarla. Solo contamos visitas anónimas con Cloudflare Web Analytics, que no usa cookies.</p></details>
     <details><summary data-i18n="faq.q2">¿Qué es C2PA / Content Credentials?</summary><p data-i18n="faq.a2">C2PA es un estándar que incrusta en una imagen o documento un registro firmado que dice cómo se creó; por ejemplo, que se generó con DALL·E, Firefly o Midjourney. IA Cleaner elimina ese manifiesto junto con los metadatos EXIF, XMP e IPTC.</p></details>
     <details><summary data-i18n="faq.q3">¿Por qué el texto copiado de ChatGPT tiene caracteres ocultos?</summary><p data-i18n="faq.a3">El texto copiado de chats de IA puede incluir caracteres invisibles (espacios de ancho cero, espacios especiales, marcadores de uso privado) y restos como <code>contentReference[oaicite:0]</code> o <code>utm_source=chatgpt.com</code>. IA Cleaner los resalta y los elimina.</p></details>
     <details><summary data-i18n="faq.q4">¿Pierden calidad mis imágenes?</summary><p data-i18n="faq.a4">No. Los JPG, PNG y WebP se limpian sin pérdida: solo se eliminan los bloques de metadatos y los píxeles no se tocan. Re-codificar es opcional.</p></details>
@@ -345,7 +345,7 @@ const UI_ES = {
   'guides.list': '<a href="/es/guias/etiqueta-ia-instagram/"><strong>Etiqueta «Información de IA» de Instagram</strong><span>Por qué sale en tu foto y cómo quitar los metadatos que la activan.</span></a><a href="/es/guias/quitar-c2pa-content-credentials/"><strong>Quitar C2PA / Content Credentials</strong><span>Qué es el registro de procedencia de la IA y cómo quitarlo de tus imágenes.</span></a><a href="/es/guias/caracteres-ocultos-chatgpt/"><strong>Caracteres ocultos de ChatGPT</strong><span>Caracteres invisibles, marcas oaicite y enlaces utm_source: cómo limpiarlos.</span></a><a href="/es/guias/borrar-metadatos-pdf/"><strong>Borrar los metadatos de un PDF</strong><span>Autor, aplicación, fechas y XMP: mira qué contiene y elimínalo.</span></a>',
   'faq.title': 'Preguntas frecuentes',
   'faq.q1': '¿Se suben mis archivos a algún sitio?',
-  'faq.a1': 'No. IA Cleaner funciona por completo en tu navegador con JavaScript. Tus textos, imágenes y documentos nunca salen de tu dispositivo, y la página sigue funcionando aunque te desconectes después de cargarla.',
+  'faq.a1': 'No. IA Cleaner funciona por completo en tu navegador con JavaScript. Tus textos, imágenes y documentos nunca salen de tu dispositivo, y la página sigue funcionando aunque te desconectes después de cargarla. Solo contamos visitas anónimas con Cloudflare Web Analytics, que no usa cookies.',
   'faq.q2': '¿Qué es C2PA / Content Credentials?',
   'faq.a2': 'C2PA es un estándar que incrusta en una imagen o documento un registro firmado que dice cómo se creó; por ejemplo, que se generó con DALL·E, Firefly o Midjourney. IA Cleaner elimina ese manifiesto junto con los metadatos EXIF, XMP e IPTC.',
   'faq.q3': '¿Por qué el texto copiado de ChatGPT tiene caracteres ocultos?',
@@ -1021,5 +1021,7 @@ document.querySelectorAll('.seg button').forEach(t => t.onclick = () => {
 if (location.hash === '#files') document.querySelector('.seg button[data-tab=files]').click();
 setLang(PAGE_LANG);
 </script>
+<!-- Cloudflare Web Analytics: cookieless, anonymous page-view counts -->
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "fa9ba728ece1485f8ff40f3ab5f2eb02"}'></script>
 </body>
 </html>
