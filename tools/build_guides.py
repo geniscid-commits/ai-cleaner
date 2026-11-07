@@ -111,6 +111,93 @@ GUIDES = [
 '''},
  },
  {
+  'id': 'tiktok',
+  'en': {
+   'slug': 'tiktok-ai-generated-label',
+   'title': 'Why TikTok labels your photo or video “AI-generated” — and how to remove the metadata behind it',
+   'seo_title': 'TikTok “AI-generated” Label on Your Photo or Video? Why It Happens & How to Remove It',
+   'desc': 'TikTok reads C2PA Content Credentials in the photos and videos you upload to add the “AI-generated” label automatically. Here is how to check your images (JPG, PNG) and videos (MP4, MOV) and clean them before posting.',
+   'lead': 'Posted a photo, a carousel or a video and TikTok tagged it “AI-generated” even though you only used AI for a small part of it? The label is often triggered by metadata inside the file. Here is how it works and how to clean it.',
+   'cta': 'files', 'mins': 5,
+   'body': '''
+<h2>What is TikTok’s “AI-generated” label?</h2>
+<p>TikTok shows an <strong>“AI-generated”</strong> label on videos and photos that were created or significantly edited with AI. It can appear because you turned on the AI-generated content setting yourself, because the content was made with TikTok’s own AI effects, or because TikTok detected it automatically.</p>
+
+<h2>How TikTok detects it automatically</h2>
+<p>TikTok reads <strong>C2PA Content Credentials</strong>: a signed record that many AI generators and some editing apps embed in the file, saying how it was made. If the record says AI was involved, TikTok can add the label as soon as you upload.</p>
+<p>In a video, that information lives in special boxes of the MP4 or MOV container, next to other metadata:</p>
+<ul>
+<li><strong>C2PA manifest</strong> — the Content Credentials themselves.</li>
+<li><strong>XMP</strong> — can include the IPTC field <code>DigitalSourceType</code> with values like <code>trainedAlgorithmicMedia</code>.</li>
+<li><strong>User data</strong> — the app or encoder that produced the video, and often the <strong>GPS location</strong> where it was recorded.</li>
+</ul>
+<h2>Photos and carousels</h2>
+<p>Photo posts work the same way. An image made or edited with an AI tool can carry C2PA Content Credentials and XMP fields such as <code>DigitalSourceType</code>, plus EXIF data like the camera, the editing app and the GPS location. If you post several images in a carousel, each one can carry its own metadata, so clean all of them — IA Cleaner lets you drop them at once and download everything in a single ZIP.</p>
+
+<h2>Step 1 — Check what your video contains</h2>
+<ol>
+<li>Open <a href="/#files">IA Cleaner → Images &amp; documents</a>.</li>
+<li>Drop the photos (JPG, PNG, WebP) or the video (MP4, MOV) you were going to post. You can also do it from your phone’s browser.</li>
+<li>Look for entries such as <em>C2PA / Content Credentials (uuid)</em>, <em>XMP (uuid)</em> or <em>User data (udta)</em>, and for AI-related words in the report.</li>
+</ol>
+
+<h2>Step 2 — Remove the metadata and upload the clean copy</h2>
+<ol>
+<li>Click <strong>Download clean image</strong> or <strong>Download clean video</strong> (or <em>Download all</em> for a carousel). Cleaning is <strong>lossless</strong>: pixels and frames are not re-encoded, so quality stays the same.</li>
+<li>Upload those files to TikTok.</li>
+<li>Clean it as the <strong>last step</strong>: if you open and export the video again in an editor, it may write the metadata back.</li>
+</ol>
+
+<h2>What this can’t guarantee</h2>
+<ul>
+<li>Metadata is <strong>one</strong> of the signals. Content made with TikTok’s own AI effects is labeled by TikTok itself, TikTok has its own detection, and it has announced invisible watermarks for AI content made with its tools. Removing metadata doesn’t affect any of that.</li>
+<li>TikTok’s rules ask you to <strong>label realistic content that was generated or significantly edited with AI</strong>, and unlabeled content can be labeled, limited or removed. If your video is AI-generated, label it — this tool is for files whose metadata doesn’t reflect what you actually did, and for removing private data like your location.</li>
+</ul>
+'''},
+  'es': {
+   'slug': 'etiqueta-ia-tiktok',
+   'title': 'Por qué TikTok marca tu foto o vídeo como «Generado por IA» y cómo quitar los metadatos que lo activan',
+   'seo_title': '¿TikTok pone «Generado por IA» en tu foto o vídeo? Por qué pasa y cómo quitarlo',
+   'desc': 'TikTok lee las Content Credentials (C2PA) de las fotos y vídeos que subes para añadir automáticamente la etiqueta «Generado por IA». Así puedes revisar tus imágenes (JPG, PNG) y vídeos (MP4, MOV) y limpiarlos antes de publicarlos.',
+   'lead': '¿Has subido una foto, un carrusel o un vídeo y TikTok lo ha marcado como «Generado por IA» aunque solo usaste la IA para una parte pequeña? Muchas veces la etiqueta la activan los metadatos del archivo. Te explicamos cómo funciona y cómo limpiarlo.',
+   'cta': 'files', 'mins': 5,
+   'body': '''
+<h2>¿Qué es la etiqueta «Generado por IA» de TikTok?</h2>
+<p>TikTok muestra la etiqueta <strong>«Generado por IA»</strong> en vídeos y fotos creados o muy editados con IA. Puede aparecer porque tú activaste el ajuste de contenido generado por IA, porque usaste los efectos de IA de TikTok o porque TikTok lo detectó automáticamente.</p>
+
+<h2>Cómo lo detecta TikTok automáticamente</h2>
+<p>TikTok lee las <strong>Content Credentials (C2PA)</strong>: un registro firmado que muchos generadores de IA y algunas apps de edición incrustan en el archivo para indicar cómo se hizo. Si ese registro dice que intervino la IA, TikTok puede añadir la etiqueta en cuanto subes el archivo.</p>
+<p>En un vídeo, esa información va en bloques especiales del contenedor MP4 o MOV, junto a otros metadatos:</p>
+<ul>
+<li><strong>Manifiesto C2PA</strong>: las Content Credentials propiamente dichas.</li>
+<li><strong>XMP</strong>: puede incluir el campo IPTC <code>DigitalSourceType</code> con valores como <code>trainedAlgorithmicMedia</code>.</li>
+<li><strong>Datos de usuario</strong>: la app o el codificador que generó el vídeo y, a menudo, la <strong>ubicación GPS</strong> donde se grabó.</li>
+</ul>
+<h2>Fotos y carruseles</h2>
+<p>Las publicaciones de fotos funcionan igual. Una imagen creada o editada con una herramienta de IA puede llevar Content Credentials (C2PA) y campos XMP como <code>DigitalSourceType</code>, además de datos EXIF como la cámara, la app de edición y la ubicación GPS. Si publicas varias imágenes en un carrusel, cada una puede llevar sus propios metadatos, así que límpialas todas: IA Cleaner te deja arrastrarlas a la vez y descargarlas juntas en un ZIP.</p>
+
+<h2>Paso 1: revisa qué contiene tu vídeo</h2>
+<ol>
+<li>Abre <a href="/es/#files">IA Cleaner → Imágenes y documentos</a>.</li>
+<li>Arrastra las fotos (JPG, PNG, WebP) o el vídeo (MP4, MOV) que ibas a publicar. También puedes hacerlo desde el navegador del móvil.</li>
+<li>Busca entradas como <em>C2PA / Content Credentials (uuid)</em>, <em>XMP (uuid)</em> o <em>Datos de usuario (udta)</em>, y palabras relacionadas con IA en el informe.</li>
+</ol>
+
+<h2>Paso 2: quita los metadatos y sube la copia limpia</h2>
+<ol>
+<li>Pulsa <strong>Descargar imagen limpia</strong> o <strong>Descargar vídeo limpio</strong> (o <em>Descargar todo</em> si es un carrusel). La limpieza es <strong>sin pérdida</strong>: no se vuelven a codificar los píxeles ni los fotogramas, así que la calidad no cambia.</li>
+<li>Sube esos archivos a TikTok.</li>
+<li>Haz que limpiar sea el <strong>último paso</strong>: si vuelves a abrir y exportar el vídeo en un editor, puede volver a escribir los metadatos.</li>
+</ol>
+
+<h2>Lo que no puede garantizar</h2>
+<ul>
+<li>Los metadatos son <strong>una</strong> de las señales. El contenido hecho con los efectos de IA de TikTok lo etiqueta la propia TikTok, que además tiene su propia detección y ha anunciado marcas de agua invisibles para el contenido de IA creado con sus herramientas. Quitar los metadatos no afecta a nada de eso.</li>
+<li>Las normas de TikTok piden <strong>etiquetar el contenido realista generado o muy editado con IA</strong>, y el que no se etiqueta puede ser etiquetado, limitado o eliminado. Si tu vídeo está generado con IA, etiquétalo: esta herramienta es para archivos cuyos metadatos no reflejan lo que de verdad hiciste y para quitar datos privados como tu ubicación.</li>
+</ul>
+'''},
+ },
+ {
   'id': 'c2pa',
   'en': {
    'slug': 'remove-c2pa-content-credentials',

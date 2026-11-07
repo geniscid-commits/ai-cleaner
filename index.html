@@ -256,7 +256,7 @@
           <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg>
         </div>
         <strong data-i18n="drop.title">Drop files here or click to browse</strong>
-        <small>JPG · PNG · WebP · GIF · AVIF · PDF · DOCX · XLSX · PPTX · ODT · TXT · MD · CSV · HTML</small>
+        <small>JPG · PNG · WebP · MP4 · MOV · GIF · AVIF · PDF · DOCX · XLSX · PPTX · ODT · TXT · MD · CSV · HTML</small>
       </div>
       <input type="file" id="fileIn" multiple hidden>
       <div class="opts" style="margin-bottom:0">
@@ -276,8 +276,8 @@
   <div class="features" id="how">
     <div class="feat">
       <div class="fi"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="9" cy="9" r="2"/><path d="m21 15-5-5L5 21"/></svg></div>
-      <h4 data-i18n="feat.img.h">Images</h4>
-      <p data-i18n="feat.img.p">EXIF, XMP, IPTC, comments, C2PA / Content Credentials and embedded prompts (Stable Diffusion, ComfyUI). Lossless, colour profile kept.</p>
+      <h4 data-i18n="feat.img.h">Images &amp; video</h4>
+      <p data-i18n="feat.img.p">EXIF, XMP, IPTC, comments, C2PA / Content Credentials and embedded prompts (Stable Diffusion, ComfyUI). Lossless, colour profile kept. MP4/MOV video: C2PA, XMP and user data such as GPS location — frames are never re-encoded.</p>
     </div>
     <div class="feat">
       <div class="fi"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg></div>
@@ -300,7 +300,7 @@
   </div>
   <section class="guides" id="guides">
     <h2 data-i18n="guides.title">Guides</h2>
-    <div class="guide-cards" data-i18n="guides.list"><a href="/guides/instagram-ai-info-label/"><strong>Instagram “AI info” label</strong><span>Why your photo gets it and how to remove the metadata that triggers it.</span></a><a href="/guides/remove-c2pa-content-credentials/"><strong>Remove C2PA / Content Credentials</strong><span>What the AI provenance record is and how to strip it from images.</span></a><a href="/guides/chatgpt-hidden-characters/"><strong>ChatGPT hidden characters</strong><span>Invisible characters, oaicite markers and utm_source links — and how to clean them.</span></a><a href="/guides/remove-pdf-metadata/"><strong>Remove metadata from a PDF</strong><span>Author, creator app, dates and XMP: see what’s inside and remove it.</span></a></div>
+    <div class="guide-cards" data-i18n="guides.list"><a href="/guides/instagram-ai-info-label/"><strong>Instagram “AI info” label</strong><span>Why your photo gets it and how to remove the metadata that triggers it.</span></a><a href="/guides/tiktok-ai-generated-label/"><strong>TikTok “AI-generated” label</strong><span>How TikTok reads C2PA in your photos and videos, and how to clean them before posting.</span></a><a href="/guides/remove-c2pa-content-credentials/"><strong>Remove C2PA / Content Credentials</strong><span>What the AI provenance record is and how to strip it from images.</span></a><a href="/guides/chatgpt-hidden-characters/"><strong>ChatGPT hidden characters</strong><span>Invisible characters, oaicite markers and utm_source links — and how to clean them.</span></a><a href="/guides/remove-ai-traces-documents-emails/"><strong>AI traces in documents and emails</strong><span>Metadata, embedded AI images and copy-paste leftovers in Word, PDF and email.</span></a><a href="/guides/remove-pdf-metadata/"><strong>Remove metadata from a PDF</strong><span>Author, creator app, dates and XMP: see what’s inside and remove it.</span></a></div>
   </section>
   <section class="faq" id="faq">
     <h2 data-i18n="faq.title">Frequently asked questions</h2>
@@ -341,8 +341,8 @@ const UI_ES = {
   'opt.reencode': 'Re-codificar imágenes (píxeles nuevos; más a fondo, puede reducir algo la calidad)',
   'bulk.clear': 'Vaciar lista',
   'bulk.all': 'Descargar todo (.zip)',
-  'feat.img.h': 'Imágenes',
-  'feat.img.p': 'EXIF, XMP, IPTC, comentarios, C2PA / Content Credentials y prompts incrustados (Stable Diffusion, ComfyUI). Sin pérdida de calidad y conservando el perfil de color.',
+  'feat.img.h': 'Imágenes y vídeo',
+  'feat.img.p': 'EXIF, XMP, IPTC, comentarios, C2PA / Content Credentials y prompts incrustados (Stable Diffusion, ComfyUI). Sin pérdida de calidad y conservando el perfil de color. Vídeo MP4/MOV: C2PA, XMP y datos de usuario como la ubicación GPS, sin volver a codificar los fotogramas.',
   'feat.doc.h': 'Documentos',
   'feat.doc.p': 'Autor, empresa, aplicación generadora, plantilla y propiedades personalizadas de archivos Office y OpenDocument, además de sus imágenes incrustadas.',
   'feat.pdf.h': 'PDF',
@@ -353,7 +353,7 @@ const UI_ES = {
   'footer': 'IA Cleaner · Privado por diseño: tus archivos nunca salen de tu dispositivo.',
   'nav.guides': '<a class="link" href="/es/guias/">Guías</a>',
   'guides.title': 'Guías',
-  'guides.list': '<a href="/es/guias/etiqueta-ia-instagram/"><strong>Etiqueta «Información de IA» de Instagram</strong><span>Por qué sale en tu foto y cómo quitar los metadatos que la activan.</span></a><a href="/es/guias/quitar-c2pa-content-credentials/"><strong>Quitar C2PA / Content Credentials</strong><span>Qué es el registro de procedencia de la IA y cómo quitarlo de tus imágenes.</span></a><a href="/es/guias/caracteres-ocultos-chatgpt/"><strong>Caracteres ocultos de ChatGPT</strong><span>Caracteres invisibles, marcas oaicite y enlaces utm_source: cómo limpiarlos.</span></a><a href="/es/guias/borrar-metadatos-pdf/"><strong>Borrar los metadatos de un PDF</strong><span>Autor, aplicación, fechas y XMP: mira qué contiene y elimínalo.</span></a>',
+  'guides.list': '<a href="/es/guias/etiqueta-ia-instagram/"><strong>Etiqueta «Información de IA» de Instagram</strong><span>Por qué sale en tu foto y cómo quitar los metadatos que la activan.</span></a><a href="/es/guias/etiqueta-ia-tiktok/"><strong>Etiqueta «Generado por IA» de TikTok</strong><span>Cómo lee TikTok el C2PA de tus fotos y vídeos, y cómo limpiarlos antes de publicar.</span></a><a href="/es/guias/quitar-c2pa-content-credentials/"><strong>Quitar C2PA / Content Credentials</strong><span>Qué es el registro de procedencia de la IA y cómo quitarlo de tus imágenes.</span></a><a href="/es/guias/caracteres-ocultos-chatgpt/"><strong>Caracteres ocultos de ChatGPT</strong><span>Caracteres invisibles, marcas oaicite y enlaces utm_source: cómo limpiarlos.</span></a><a href="/es/guias/quitar-rastros-ia-documentos-correos/"><strong>Rastros de IA en documentos y correos</strong><span>Metadatos, imágenes de IA incrustadas y restos de copiar y pegar en Word, PDF y correos.</span></a><a href="/es/guias/borrar-metadatos-pdf/"><strong>Borrar los metadatos de un PDF</strong><span>Autor, aplicación, fechas y XMP: mira qué contiene y elimínalo.</span></a>',
   'faq.title': 'Preguntas frecuentes',
   'faq.q1': '¿Se suben mis archivos a algún sitio?',
   'faq.a1': 'No. IA Cleaner funciona por completo en tu navegador con JavaScript. Tus textos, imágenes y documentos nunca salen de tu dispositivo, y la página sigue funcionando aunque te desconectes después de cargarla. Solo contamos visitas anónimas con Cloudflare Web Analytics, que no usa cookies.',
@@ -421,6 +421,9 @@ const ES = {
   'After cleaning, these words still appear in the file (they may be part of the visible content):': 'Tras limpiar, estas palabras siguen apareciendo en el archivo (pueden formar parte del contenido visible):',
   '{x} removed': 'eliminados: {x}', 'Download': 'Descargar',
   'Your clean image is ready': 'Tu imagen limpia está lista', 'Your clean document is ready': 'Tu documento limpio está listo', 'Your clean file is ready': 'Tu archivo limpio está listo',
+  'Your clean video is ready': 'Tu vídeo limpio está listo', 'Download clean video': 'Descargar vídeo limpio',
+  'Invalid MP4/MOV file': 'Archivo MP4/MOV no válido', 'User data (udta)': 'Datos de usuario (udta)', 'Metadata (meta)': 'Metadatos (meta)',
+  'Random-access index (mfra)': 'Índice de acceso aleatorio (mfra)', 'Optional; not needed for playback': 'Opcional; no hace falta para reproducir el vídeo',
   'Download clean image': 'Descargar imagen limpia', 'Download clean document': 'Descargar documento limpio', 'Download clean file': 'Descargar archivo limpio',
   'What was removed': 'Qué se ha eliminado', 'ia-cleaner-files.zip': 'ia-cleaner-archivos.zip'
 };
@@ -747,6 +750,97 @@ function cleanWEBP(u8){
   return {bytes: concat([head, body]), removed};
 }
 
+/* =====================================================================
+   VIDEO: lossless MP4 / MOV (ISO-BMFF) metadata cleaning
+   Removes C2PA and XMP uuid boxes, udta and meta boxes, and rewrites the
+   absolute sample offsets (stco/co64, tfhd) so the video still plays.
+   ===================================================================== */
+const BMFF_CONT = new Set(['moov','trak','mdia','minf','stbl','edts','dinf','moof','traf','mvex']);
+const UUID_C2PA = 'd8fec3d61b0e483c92975828877ec481', UUID_XMP = 'be7acfcb97a942e89c71999491e3afac';
+const BMFF_IMAGE_BRANDS = new Set(['heic','heix','hevc','hevx','heim','heis','mif1','msf1','avif','avis','avci']);
+const hexOf = u8 => [...u8].map(b => b.toString(16).padStart(2, '0')).join('');
+function bmffBoxes(u8, s, e){
+  const dv = new DataView(u8.buffer, u8.byteOffset, u8.byteLength), out = [];
+  let p = s;
+  while (p + 8 <= e){
+    let n = dv.getUint32(p), h = 8;
+    const t = ascii(u8, p + 4, 4);
+    if (n === 1){ n = Number(dv.getBigUint64(p + 8)); h = 16; }
+    else if (n === 0) n = e - p;
+    if (n < h || p + n > e) throw new Error(tr('Invalid MP4/MOV file'));
+    out.push({type: t, start: p, hdr: h, size: n});
+    p += n;
+  }
+  return out;
+}
+function bmffMetaText(u8){
+  try{ return bmffBoxes(u8, 0, u8.length).filter(b => b.type !== 'mdat').map(b => latin1(u8.subarray(b.start, b.start + b.size))).join(' '); }
+  catch{ return latin1(u8.subarray(0, Math.min(u8.length, 4 << 20))); }
+}
+function bmffDropName(b, u8){
+  if (b.type === 'uuid'){
+    const id = hexOf(u8.subarray(b.start + b.hdr, b.start + b.hdr + 16));
+    return id === UUID_C2PA ? 'C2PA / Content Credentials (uuid)' : id === UUID_XMP ? 'XMP (uuid)' : 'uuid ' + id.slice(0, 8);
+  }
+  return b.type === 'udta' ? tr('User data (udta)') : tr('Metadata (meta)');
+}
+function cleanBMFF(u8){
+  const removed = [], top = bmffBoxes(u8, 0, u8.length);
+  const note = (b) => removed.push({name: bmffDropName(b, u8), detail: fmtSize(b.size) + ' · ' + strings(u8.subarray(b.start + b.hdr, b.start + b.size), 300)});
+  // Rebuild a container box without udta/meta children; remember where offset tables land
+  function rebuild(b, patches, base){
+    const parts = []; let pos = 8;
+    for (const k of bmffBoxes(u8, b.start + b.hdr, b.start + b.size)){
+      if (k.type === 'udta' || k.type === 'meta'){ note(k); continue; }
+      let bytes;
+      if (BMFF_CONT.has(k.type)) bytes = rebuild(k, patches, base + pos);
+      else {
+        bytes = u8.subarray(k.start, k.start + k.size);
+        if (k.type === 'stco' || k.type === 'co64' || k.type === 'tfhd') patches.push({type: k.type, at: base + pos + k.hdr});
+      }
+      parts.push(bytes); pos += bytes.length;
+    }
+    const out = new Uint8Array(pos), dv = new DataView(out.buffer);
+    dv.setUint32(0, pos); out.set(new TextEncoder().encode(b.type), 4);
+    let o = 8; for (const part of parts){ out.set(part, o); o += part.length; }
+    return out;
+  }
+  const pieces = [], map = [], patches = [];
+  let outPos = 0, shifted = false;
+  for (const b of top){
+    const drop = b.type === 'uuid' || b.type === 'udta' || b.type === 'meta' || (b.type === 'mfra' && shifted);
+    if (drop){
+      if (b.type === 'mfra') removed.push({name: tr('Random-access index (mfra)'), detail: tr('Optional; not needed for playback')});
+      else note(b);
+      shifted = true; continue;
+    }
+    const bytes = (b.type === 'moov' || b.type === 'moof') ? rebuild(b, patches, outPos) : u8.subarray(b.start, b.start + b.size);
+    if (bytes.length !== b.size || outPos !== b.start) shifted = true;
+    map.push({oldStart: b.start, oldEnd: b.start + b.size, newStart: outPos});
+    pieces.push(bytes); outPos += bytes.length;
+  }
+  if (!removed.length) return {bytes: u8, removed};
+  const out = concat(pieces), dv = new DataView(out.buffer);
+  const mapOff = x => {
+    for (const m of map) if (x >= m.oldStart && x < m.oldEnd) return x - m.oldStart + m.newStart;
+    throw new Error(tr('Invalid MP4/MOV file'));
+  };
+  for (const pt of patches){
+    if (pt.type === 'stco' || pt.type === 'co64'){
+      const n = dv.getUint32(pt.at + 4), w = pt.type === 'stco' ? 4 : 8;
+      for (let i = 0; i < n; i++){
+        const o = pt.at + 8 + i * w;
+        if (w === 4) dv.setUint32(o, mapOff(dv.getUint32(o)));
+        else dv.setBigUint64(o, BigInt(mapOff(Number(dv.getBigUint64(o)))));
+      }
+    } else if (dv.getUint32(pt.at) & 1){ // tfhd with explicit base-data-offset
+      const o = pt.at + 8;
+      dv.setBigUint64(o, BigInt(mapOff(Number(dv.getBigUint64(o)))));
+    }
+  }
+  return {bytes: out, removed};
+}
+
 async function reencodeImage(blob, mime){
   const bmp = await createImageBitmap(blob, {imageOrientation:'from-image'});
   const c = document.createElement('canvas'); c.width = bmp.width; c.height = bmp.height;
@@ -762,6 +856,8 @@ function sniff(u8){
   if (ascii(u8, 0, 4) === 'RIFF' && ascii(u8, 8, 4) === 'WEBP') return 'webp';
   if (ascii(u8, 0, 5) === '%PDF-') return 'pdf';
   if (u8[0] === 0x50 && u8[1] === 0x4B) return 'zip';
+  if (u8.length > 12 && ascii(u8, 4, 4) === 'ftyp') return BMFF_IMAGE_BRANDS.has(ascii(u8, 8, 4)) ? 'heif' : 'bmff';
+  if (u8.length > 8 && ['moov','mdat','wide','free','skip'].includes(ascii(u8, 4, 4))) return 'bmff';
   return null;
 }
 
@@ -858,6 +954,13 @@ async function cleanZipDoc(u8, ext, opts){
       const [y, rp] = cleanText(x, enabled, true);
       const n = rp.reduce((a, r) => a + r.n, 0);
       if (n){ textChanges += n; zip.file(path, y); }
+    }
+    if (opts.embedded && /\.(mp4|m4v|mov)$/i.test(path)){
+      try{
+        const b = await f.async('uint8array');
+        const r = cleanBMFF(b);
+        if (r.removed.length){ imgCount++; zip.file(path, r.bytes); }
+      }catch{}
     }
     if (opts.embedded && /\.(png|jpe?g|webp)$/i.test(path)){
       try{
@@ -958,7 +1061,7 @@ async function processFile(file){
     const u8 = new Uint8Array(await file.arrayBuffer());
     const ext = (file.name.split('.').pop() || '').toLowerCase();
     const kind = sniff(u8);
-    const beforeAI = scanAI(latin1(u8));
+    const beforeAI = scanAI(kind === 'bmff' ? bmffMetaText(u8) : latin1(u8));
     let res, mime = file.type || 'application/octet-stream', newExt = null, afterStr;
 
     if (kind === 'pdf'){ res = await cleanPDF(u8); mime = MIME.pdf; }
@@ -969,6 +1072,10 @@ async function processFile(file){
       const z = await JSZip.loadAsync(u8); let s = '';
       for (const p of ['docProps/core.xml','docProps/app.xml','docProps/custom.xml','meta.xml']) if (z.file(p)) s += await z.file(p).async('string');
       beforeAI.push(...scanAI(s).filter(k => !beforeAI.includes(k)));
+    }
+    else if (kind === 'bmff'){
+      res = cleanBMFF(u8); mime = file.type || (ext === 'mov' ? 'video/quicktime' : 'video/mp4');
+      afterStr = bmffMetaText(res.bytes);
     }
     else if (['png','jpeg','webp'].includes(kind) || file.type.startsWith('image/')){
       res = await cleanImageBytes(u8, file.type, opts.reencode); mime = res.mime;
@@ -992,9 +1099,9 @@ async function processFile(file){
     const badge = after.length ? `<span class="badge warn">${tr('Possible traces remain')}</span>`
       : res.removed.length ? `<span class="badge ok">${tr('✓ Clean · {x} removed', {x: plural(res.removed.length, 'item')})}</span>`
       : `<span class="badge ok">${tr('✓ No metadata found')}</span>`;
-    const what = mime.startsWith('image/') ? 'image' : (kind === 'pdf' || kind === 'zip') ? 'document' : 'file';
-    const READY = {image: 'Your clean image is ready', document: 'Your clean document is ready', file: 'Your clean file is ready'};
-    const DL = {image: 'Download clean image', document: 'Download clean document', file: 'Download clean file'};
+    const what = mime.startsWith('image/') ? 'image' : kind === 'bmff' ? 'video' : (kind === 'pdf' || kind === 'zip') ? 'document' : 'file';
+    const READY = {video: 'Your clean video is ready', image: 'Your clean image is ready', document: 'Your clean document is ready', file: 'Your clean file is ready'};
+    const DL = {video: 'Download clean video', image: 'Download clean image', document: 'Download clean document', file: 'Download clean file'};
     card.innerHTML = head(file, badge) + `
       <div class="dl">
         <div class="dl-ok"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
