@@ -73,7 +73,7 @@
   .faq{margin-top:48px}
   .guides{margin-top:48px}
   .guides h2{font-size:22px;letter-spacing:-.02em;margin:0 0 14px;text-align:center}
-  .guide-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+  .guide-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:12px}
   .guide-cards a{display:block;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px 18px;text-decoration:none;color:var(--ink);box-shadow:var(--shadow);transition:.2s}
   .guide-cards a:hover{border-color:var(--brand-2);transform:translateY(-2px)}
   .guide-cards strong{display:block;font-size:15px;margin-bottom:4px}
@@ -289,7 +289,7 @@
   <div class="limits" data-i18n="limits"><b>Lo que no puede eliminar:</b> marcas de agua invisibles incrustadas en los propios píxeles o en el patrón estadístico de las palabras (p. ej. SynthID). Eso no son metadatos: forma parte del contenido.</div>
   <section class="guides" id="guides">
     <h2 data-i18n="guides.title">Guías</h2>
-    <div class="guide-cards" data-i18n="guides.list"><a href="/es/guias/quitar-c2pa-content-credentials/"><strong>Quitar C2PA / Content Credentials</strong><span>Qué es el registro de procedencia de la IA y cómo quitarlo de tus imágenes.</span></a><a href="/es/guias/caracteres-ocultos-chatgpt/"><strong>Caracteres ocultos de ChatGPT</strong><span>Caracteres invisibles, marcas oaicite y enlaces utm_source: cómo limpiarlos.</span></a><a href="/es/guias/borrar-metadatos-pdf/"><strong>Borrar los metadatos de un PDF</strong><span>Autor, aplicación, fechas y XMP: mira qué contiene y elimínalo.</span></a></div>
+    <div class="guide-cards" data-i18n="guides.list"><a href="/es/guias/etiqueta-ia-instagram/"><strong>Etiqueta «Información de IA» de Instagram</strong><span>Por qué sale en tu foto y cómo quitar los metadatos que la activan.</span></a><a href="/es/guias/quitar-c2pa-content-credentials/"><strong>Quitar C2PA / Content Credentials</strong><span>Qué es el registro de procedencia de la IA y cómo quitarlo de tus imágenes.</span></a><a href="/es/guias/caracteres-ocultos-chatgpt/"><strong>Caracteres ocultos de ChatGPT</strong><span>Caracteres invisibles, marcas oaicite y enlaces utm_source: cómo limpiarlos.</span></a><a href="/es/guias/borrar-metadatos-pdf/"><strong>Borrar los metadatos de un PDF</strong><span>Autor, aplicación, fechas y XMP: mira qué contiene y elimínalo.</span></a></div>
   </section>
   <section class="faq" id="faq">
     <h2 data-i18n="faq.title">Preguntas frecuentes</h2>
@@ -342,7 +342,7 @@ const UI_ES = {
   'footer': 'IA Cleaner · Privado por diseño: tus archivos nunca salen de tu dispositivo.',
   'nav.guides': '<a class="link" href="/es/guias/">Guías</a>',
   'guides.title': 'Guías',
-  'guides.list': '<a href="/es/guias/quitar-c2pa-content-credentials/"><strong>Quitar C2PA / Content Credentials</strong><span>Qué es el registro de procedencia de la IA y cómo quitarlo de tus imágenes.</span></a><a href="/es/guias/caracteres-ocultos-chatgpt/"><strong>Caracteres ocultos de ChatGPT</strong><span>Caracteres invisibles, marcas oaicite y enlaces utm_source: cómo limpiarlos.</span></a><a href="/es/guias/borrar-metadatos-pdf/"><strong>Borrar los metadatos de un PDF</strong><span>Autor, aplicación, fechas y XMP: mira qué contiene y elimínalo.</span></a>',
+  'guides.list': '<a href="/es/guias/etiqueta-ia-instagram/"><strong>Etiqueta «Información de IA» de Instagram</strong><span>Por qué sale en tu foto y cómo quitar los metadatos que la activan.</span></a><a href="/es/guias/quitar-c2pa-content-credentials/"><strong>Quitar C2PA / Content Credentials</strong><span>Qué es el registro de procedencia de la IA y cómo quitarlo de tus imágenes.</span></a><a href="/es/guias/caracteres-ocultos-chatgpt/"><strong>Caracteres ocultos de ChatGPT</strong><span>Caracteres invisibles, marcas oaicite y enlaces utm_source: cómo limpiarlos.</span></a><a href="/es/guias/borrar-metadatos-pdf/"><strong>Borrar los metadatos de un PDF</strong><span>Autor, aplicación, fechas y XMP: mira qué contiene y elimínalo.</span></a>',
   'faq.title': 'Preguntas frecuentes',
   'faq.q1': '¿Se suben mis archivos a algún sitio?',
   'faq.a1': 'No. IA Cleaner funciona por completo en tu navegador con JavaScript. Tus textos, imágenes y documentos nunca salen de tu dispositivo, y la página sigue funcionando aunque te desconectes después de cargarla.',

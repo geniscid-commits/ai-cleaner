@@ -28,6 +28,89 @@ T = {
 
 GUIDES = [
  {
+  'id': 'instagram',
+  'en': {
+   'slug': 'instagram-ai-info-label',
+   'title': 'Why Instagram shows “AI info” on your photo — and how to remove the metadata behind it',
+   'seo_title': 'Instagram “AI info” Label on Your Photo? Why It Happens & How to Remove the Metadata',
+   'desc': 'Instagram and Facebook read C2PA and IPTC metadata to add the “AI info” label — even to real photos with small AI edits. Here is how to check and clean your image before posting.',
+   'lead': 'Posted a real photo and Instagram tagged it with “AI info”? It is usually not the pixels — it is the metadata your editing app wrote into the file. Here is how it works and how to clean it.',
+   'cta': 'files', 'mins': 5,
+   'body': '''
+<h2>What is the “AI info” label?</h2>
+<p>Meta adds an <strong>“AI info”</strong> label (formerly “Made with AI”) to posts, Reels and Stories on Instagram, Facebook and Threads when it believes an image was created or modified with AI. Depending on the case it appears under your username or in the post’s menu.</p>
+
+<h2>Why does my real photo get the label?</h2>
+<p>One of the main signals Meta reads is the <strong>metadata inside the file</strong>, using two industry standards:</p>
+<ul>
+<li><strong>C2PA / Content Credentials:</strong> a signed record that AI generators and some editors embed in the image.</li>
+<li><strong>IPTC <code>DigitalSourceType</code></strong> in the XMP metadata, with values such as <code>trainedAlgorithmicMedia</code> (fully AI-generated) or <code>compositeWithTrainedAlgorithmicMedia</code> (a photo edited with AI).</li>
+</ul>
+<p>Editing apps can write these fields as soon as you use a generative feature — for example <strong>Generative Fill or Generative Remove</strong> in Photoshop or Lightroom, or AI erase tools on some phones. That is why photographers often see the label on genuine photos where AI only removed a small object.</p>
+
+<h2>Step 1 — Check what your image contains</h2>
+<ol>
+<li>Open <a href="/#files">IA Cleaner → Images &amp; documents</a>.</li>
+<li>Drop the exact file you were going to post.</li>
+<li>Look for entries marked <strong>AI</strong>, such as <em>XMP</em> with <code>DigitalSourceType</code> or <em>JUMBF / C2PA Content Credentials</em>.</li>
+</ol>
+
+<h2>Step 2 — Remove the metadata and post the clean copy</h2>
+<ol>
+<li>Click <strong>Download</strong> to get the cleaned image. It is cleaned <strong>losslessly</strong> — same pixels, no extra compression.</li>
+<li>Upload that cleaned file to Instagram.</li>
+<li>Make cleaning the <strong>last step</strong>: if you open and re-export the image in an editor afterwards, it may write the metadata again.</li>
+</ol>
+<p>On a phone, open <a href="/#files">iacleaner.com</a> in your browser, choose the photo from your gallery, download the clean copy and post that one.</p>
+
+<h2>What this can’t guarantee</h2>
+<ul>
+<li>Metadata is <strong>one</strong> of the signals. Meta also looks for invisible watermarks embedded in the pixels (such as Google’s SynthID), uses its own detection, and applies the label when you turn on <em>“Add AI label”</em> yourself. Removing metadata doesn’t affect those.</li>
+<li>Meta’s rules ask you to <strong>disclose realistic content made or significantly altered with AI</strong>, and it may add a label or take action if you don’t. If your image is AI-generated, label it — this tool is for files where the metadata doesn’t reflect what you actually did.</li>
+</ul>
+'''},
+  'es': {
+   'slug': 'etiqueta-ia-instagram',
+   'title': 'Por qué Instagram pone «Información de IA» en tu foto y cómo quitar los metadatos que la activan',
+   'seo_title': '¿Instagram pone «Información de IA» en tu foto? Por qué pasa y cómo quitar los metadatos',
+   'desc': 'Instagram y Facebook leen los metadatos C2PA e IPTC para poner la etiqueta «Información de IA», incluso en fotos reales con pequeños retoques con IA. Así puedes revisar y limpiar tu imagen antes de publicarla.',
+   'lead': '¿Has subido una foto real e Instagram la ha marcado con «Información de IA»? Normalmente no son los píxeles: son los metadatos que tu app de edición escribió en el archivo. Te explicamos cómo funciona y cómo limpiarlo.',
+   'cta': 'files', 'mins': 5,
+   'body': '''
+<h2>¿Qué es la etiqueta «Información de IA»?</h2>
+<p>Meta añade la etiqueta <strong>«Información de IA»</strong> (antes «Hecho con IA») a publicaciones, reels e historias de Instagram, Facebook y Threads cuando cree que una imagen se ha creado o modificado con IA. Según el caso, aparece bajo tu nombre de usuario o en el menú de la publicación.</p>
+
+<h2>¿Por qué sale en mi foto real?</h2>
+<p>Una de las principales señales que lee Meta son los <strong>metadatos del archivo</strong>, según dos estándares del sector:</p>
+<ul>
+<li><strong>C2PA / Content Credentials:</strong> un registro firmado que los generadores de IA y algunos editores incrustan en la imagen.</li>
+<li><strong>IPTC <code>DigitalSourceType</code></strong> en los metadatos XMP, con valores como <code>trainedAlgorithmicMedia</code> (generada totalmente con IA) o <code>compositeWithTrainedAlgorithmicMedia</code> (foto editada con IA).</li>
+</ul>
+<p>Las apps de edición pueden escribir estos campos en cuanto usas una función generativa, por ejemplo el <strong>Relleno generativo o Eliminar generativo</strong> de Photoshop o Lightroom, o el borrador con IA de algunos móviles. Por eso muchos fotógrafos ven la etiqueta en fotos auténticas en las que la IA solo quitó un objeto pequeño.</p>
+
+<h2>Paso 1: revisa qué contiene tu imagen</h2>
+<ol>
+<li>Abre <a href="/es/#files">IA Cleaner → Imágenes y documentos</a>.</li>
+<li>Arrastra exactamente el archivo que ibas a publicar.</li>
+<li>Busca entradas marcadas con <strong>IA</strong>, como <em>XMP</em> con <code>DigitalSourceType</code> o <em>JUMBF / C2PA Content Credentials</em>.</li>
+</ol>
+
+<h2>Paso 2: quita los metadatos y publica la copia limpia</h2>
+<ol>
+<li>Pulsa <strong>Descargar</strong> para obtener la imagen limpia. Se limpia <strong>sin pérdida</strong>: mismos píxeles, sin compresión extra.</li>
+<li>Sube ese archivo limpio a Instagram.</li>
+<li>Haz que limpiar sea el <strong>último paso</strong>: si después vuelves a abrir y exportar la imagen en un editor, puede volver a escribir los metadatos.</li>
+</ol>
+<p>Desde el móvil, abre <a href="/es/#files">iacleaner.com</a> en el navegador, elige la foto de tu galería, descarga la copia limpia y publica esa.</p>
+
+<h2>Lo que no puede garantizar</h2>
+<ul>
+<li>Los metadatos son <strong>una</strong> de las señales. Meta también busca marcas de agua invisibles integradas en los píxeles (como SynthID de Google), usa su propia detección y pone la etiqueta si tú activas <em>«Añadir etiqueta de IA»</em>. Quitar los metadatos no afecta a nada de eso.</li>
+<li>Las normas de Meta piden <strong>declarar el contenido realista creado o muy modificado con IA</strong>, y pueden añadir la etiqueta o tomar medidas si no lo haces. Si tu imagen está generada con IA, etiquétala: esta herramienta es para archivos cuyos metadatos no reflejan lo que de verdad hiciste.</li>
+</ul>
+'''},
+ },
+ {
   'id': 'c2pa',
   'en': {
    'slug': 'remove-c2pa-content-credentials',
