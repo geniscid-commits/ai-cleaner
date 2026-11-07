@@ -277,6 +277,137 @@ GUIDES = [
 '''},
  },
  {
+  'id': 'docs-emails',
+  'en': {
+   'slug': 'remove-ai-traces-documents-emails',
+   'title': 'How to remove AI traces from documents and emails you polished with ChatGPT or Copilot',
+   'seo_title': 'Remove ChatGPT & Copilot Traces from Documents and Emails (Metadata Guide)',
+   'desc': 'Word files, PDFs and emails you polished with AI can carry metadata, embedded AI images, hidden characters and chatgpt.com links. See what they contain and clean them before sending.',
+   'lead': 'You used ChatGPT or Copilot to polish a report, a cover letter or an email. Before you send it, check the technical traces the file carries — they can say more than the text itself.',
+   'cta': 'files', 'mins': 6,
+   'body': '''
+<h2>1. Document metadata (Word, PowerPoint, Excel)</h2>
+<p>Every <code>.docx</code>, <code>.pptx</code> and <code>.xlsx</code> is a package that includes hidden properties:</p>
+<ul>
+<li><strong>Author</strong> and <strong>Last modified by</strong> — the account names that created and edited the file.</li>
+<li><strong>Company</strong>, <strong>Manager</strong> and the <strong>Template</strong> the document was based on.</li>
+<li><strong>Application</strong> and version, plus <strong>total editing time</strong>.</li>
+<li><strong>Custom properties</strong> added by add-ins, templates, online tools or your organisation (for example classification labels).</li>
+</ul>
+<p>If you started from a document generated or exported by an online AI tool, its name can remain in these fields even after you rewrite every line.</p>
+
+<h2>2. PDF properties</h2>
+<p>A PDF stores <strong>Creator</strong> (the app that made the original) and <strong>Producer</strong> (the PDF engine), plus an XMP block. PDFs exported from AI writing or presentation tools often carry that tool’s name there. See the full <a href="/guides/remove-pdf-metadata/">PDF metadata guide</a>.</p>
+
+<h2>3. AI images inside the document</h2>
+<p>An illustration you generated with ChatGPT, DALL·E, Firefly or Midjourney and pasted into a slide keeps its own metadata — C2PA Content Credentials and XMP fields such as <code>trainedAlgorithmicMedia</code> — <strong>inside</strong> the <code>.pptx</code> or <code>.docx</code>. Anyone can unzip the file and read it.</p>
+
+<h2>4. Copy-paste leftovers in the text</h2>
+<ul>
+<li><strong>Invisible characters</strong>: zero-width spaces, word joiners, special no-break spaces.</li>
+<li><strong>Citation markers</strong> such as <code>contentReference[oaicite:0]{index=0}</code> or <code>【4:0†source】</code>.</li>
+<li><strong>Links ending in <code>?utm_source=chatgpt.com</code></strong> — the recipient sees it when hovering or clicking.</li>
+</ul>
+<p>More details in <a href="/guides/chatgpt-hidden-characters/">ChatGPT hidden characters</a>.</p>
+
+<h2>5. Emails: what travels with your message</h2>
+<p>When you paste from a chat into Gmail or Outlook, you also paste its hidden characters, tracking parameters and sometimes HTML formatting (fonts, background colours). Attachments carry all the metadata above.</p>
+<ol>
+<li>Clean the text in <a href="/">IA Cleaner → Text</a> and copy the result.</li>
+<li>Paste it into your email as <strong>plain text</strong>: <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>V</kbd> (<kbd>⌘</kbd>+<kbd>Shift</kbd>+<kbd>V</kbd> on Mac).</li>
+<li>Clean any attachment in <a href="/#files">Images &amp; documents</a> before attaching it.</li>
+</ol>
+
+<h2>How to clean a document with IA Cleaner</h2>
+<ol>
+<li>Open <a href="/#files">IA Cleaner → Images &amp; documents</a> and drop your <code>.docx</code>, <code>.pptx</code>, <code>.xlsx</code> or PDF.</li>
+<li>Keep both options on: <em>clean images embedded in documents</em> and <em>remove invisible characters from document text</em>.</li>
+<li>Review the report — author, company, application, custom properties and embedded images are listed, AI-related ones are flagged.</li>
+<li>Download the clean copy. Your text, layout and images are unchanged; only the hidden data is removed.</li>
+</ol>
+
+<h2>Other ways</h2>
+<ul>
+<li><strong>Word / PowerPoint on Windows:</strong> <em>File → Info → Check for Issues → Inspect Document → Document Properties and Personal Information → Remove All</em>.</li>
+<li><strong>Word on Mac:</strong> <em>Word → Preferences → Security → Remove personal information from this file on save</em>.</li>
+</ul>
+<p>These built-in tools don’t clean images embedded in the document or hidden characters in the text.</p>
+
+<h2>Checklist before you send</h2>
+<ul>
+<li>Text pasted as plain text, with no <code>oaicite</code> markers or <code>utm_source=chatgpt.com</code> links.</li>
+<li>Document properties empty or correct (author, company, application).</li>
+<li>Embedded images cleaned.</li>
+<li>PDF exported <em>after</em> cleaning the original, or cleaned itself.</li>
+</ul>
+<p>IA Cleaner removes technical traces; it doesn’t change your wording.</p>
+'''},
+  'es': {
+   'slug': 'quitar-rastros-ia-documentos-correos',
+   'title': 'Cómo quitar los rastros de IA de documentos y correos que has pulido con ChatGPT o Copilot',
+   'seo_title': 'Quitar rastros de ChatGPT y Copilot de documentos y correos (guía de metadatos)',
+   'desc': 'Los Word, PDF y correos que has pulido con IA pueden llevar metadatos, imágenes de IA incrustadas, caracteres ocultos y enlaces de chatgpt.com. Mira qué contienen y límpialos antes de enviarlos.',
+   'lead': 'Has usado ChatGPT o Copilot para pulir un informe, una carta de presentación o un correo. Antes de enviarlo, revisa los rastros técnicos que lleva el archivo: pueden decir más que el propio texto.',
+   'cta': 'files', 'mins': 6,
+   'body': '''
+<h2>1. Metadatos del documento (Word, PowerPoint, Excel)</h2>
+<p>Todo <code>.docx</code>, <code>.pptx</code> y <code>.xlsx</code> es un paquete que incluye propiedades ocultas:</p>
+<ul>
+<li><strong>Autor</strong> y <strong>Modificado por</strong>: los nombres de las cuentas que crearon y editaron el archivo.</li>
+<li><strong>Empresa</strong>, <strong>Administrador</strong> y la <strong>plantilla</strong> en la que se basó el documento.</li>
+<li><strong>Aplicación</strong> y versión, además del <strong>tiempo total de edición</strong>.</li>
+<li><strong>Propiedades personalizadas</strong> que añaden complementos, plantillas, herramientas online o tu organización (por ejemplo, etiquetas de clasificación).</li>
+</ul>
+<p>Si partiste de un documento generado o exportado por una herramienta de IA online, su nombre puede seguir en estos campos aunque hayas reescrito todas las líneas.</p>
+
+<h2>2. Propiedades del PDF</h2>
+<p>Un PDF guarda <strong>Creator</strong> (la aplicación del original) y <strong>Producer</strong> (el motor del PDF), además de un bloque XMP. Los PDF exportados desde herramientas de IA para escribir o hacer presentaciones suelen llevar ahí el nombre de la herramienta. Lo tienes explicado en la <a href="/es/guias/borrar-metadatos-pdf/">guía de metadatos de PDF</a>.</p>
+
+<h2>3. Imágenes de IA dentro del documento</h2>
+<p>Una ilustración que generaste con ChatGPT, DALL·E, Firefly o Midjourney y pegaste en una diapositiva conserva sus propios metadatos (Content Credentials C2PA y campos XMP como <code>trainedAlgorithmicMedia</code>) <strong>dentro</strong> del <code>.pptx</code> o <code>.docx</code>. Cualquiera puede descomprimir el archivo y leerlos.</p>
+
+<h2>4. Restos de copiar y pegar en el texto</h2>
+<ul>
+<li><strong>Caracteres invisibles</strong>: espacios de ancho cero, uniones de palabras, espacios especiales de no separación.</li>
+<li><strong>Marcas de citas</strong> como <code>contentReference[oaicite:0]{index=0}</code> o <code>【4:0†source】</code>.</li>
+<li><strong>Enlaces que terminan en <code>?utm_source=chatgpt.com</code></strong>: el destinatario lo ve al pasar el ratón o al hacer clic.</li>
+</ul>
+<p>Más detalles en <a href="/es/guias/caracteres-ocultos-chatgpt/">Caracteres ocultos de ChatGPT</a>.</p>
+
+<h2>5. Correos: lo que viaja con tu mensaje</h2>
+<p>Al pegar desde un chat en Gmail u Outlook también pegas sus caracteres ocultos, los parámetros de seguimiento y a veces formato HTML (fuentes, colores de fondo). Los adjuntos llevan todos los metadatos anteriores.</p>
+<ol>
+<li>Limpia el texto en <a href="/es/">IA Cleaner → Texto</a> y copia el resultado.</li>
+<li>Pégalo en el correo como <strong>texto sin formato</strong>: <kbd>Ctrl</kbd>+<kbd>Mayús</kbd>+<kbd>V</kbd> (<kbd>⌘</kbd>+<kbd>Mayús</kbd>+<kbd>V</kbd> en Mac).</li>
+<li>Limpia los adjuntos en <a href="/es/#files">Imágenes y documentos</a> antes de adjuntarlos.</li>
+</ol>
+
+<h2>Cómo limpiar un documento con IA Cleaner</h2>
+<ol>
+<li>Abre <a href="/es/#files">IA Cleaner → Imágenes y documentos</a> y arrastra tu <code>.docx</code>, <code>.pptx</code>, <code>.xlsx</code> o PDF.</li>
+<li>Deja activadas las dos opciones: <em>limpiar las imágenes incrustadas en documentos</em> y <em>quitar caracteres invisibles del texto de los documentos</em>.</li>
+<li>Revisa el informe: aparecen el autor, la empresa, la aplicación, las propiedades personalizadas y las imágenes incrustadas, y se marcan las relacionadas con IA.</li>
+<li>Descarga la copia limpia. El texto, el diseño y las imágenes no cambian; solo se eliminan los datos ocultos.</li>
+</ol>
+
+<h2>Otras formas</h2>
+<ul>
+<li><strong>Word / PowerPoint en Windows:</strong> <em>Archivo → Información → Comprobar si hay problemas → Inspeccionar documento → Propiedades del documento e información personal → Quitar todo</em>.</li>
+<li><strong>Word en Mac:</strong> <em>Word → Preferencias → Seguridad → Quitar información personal de este archivo al guardar</em>.</li>
+</ul>
+<p>Estas herramientas integradas no limpian las imágenes incrustadas en el documento ni los caracteres ocultos del texto.</p>
+
+<h2>Lista de comprobación antes de enviar</h2>
+<ul>
+<li>Texto pegado sin formato, sin marcas <code>oaicite</code> ni enlaces con <code>utm_source=chatgpt.com</code>.</li>
+<li>Propiedades del documento vacías o correctas (autor, empresa, aplicación).</li>
+<li>Imágenes incrustadas limpias.</li>
+<li>PDF exportado <em>después</em> de limpiar el original, o limpiado directamente.</li>
+</ul>
+<p>IA Cleaner elimina los rastros técnicos; no cambia tu redacción.</p>
+'''},
+ },
+ {
   'id': 'pdf',
   'en': {
    'slug': 'remove-pdf-metadata',
@@ -355,6 +486,7 @@ CSS = '''
 body{margin:0;background:radial-gradient(1200px 500px at 50% -180px,#e3eaf3 0%,transparent 70%),var(--bg);color:var(--ink);font:16px/1.7 Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
 a{color:var(--brand-2)}
 code{font-family:ui-monospace,Consolas,monospace;font-size:.88em;background:var(--surface-2);padding:1px 6px;border-radius:5px;word-break:break-word}
+kbd{font-family:inherit;font-size:.82em;background:var(--surface);border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:1px 6px}
 .top{max-width:1040px;margin:0 auto;padding:22px 24px;display:flex;align-items:center;justify-content:space-between}
 .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);font-weight:700;font-size:18px}
 .brand img{width:38px;height:38px;object-fit:contain;mix-blend-mode:multiply}
