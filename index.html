@@ -51,6 +51,7 @@
     --radius:18px; --shadow:0 1px 2px rgba(36,52,75,.04), 0 8px 28px rgba(36,52,75,.06);
   }
   *{box-sizing:border-box}
+  [hidden]{display:none!important}
   html{scroll-behavior:smooth}
   body{margin:0;background:
       radial-gradient(1200px 500px at 50% -180px, #e3eaf3 0%, transparent 70%), var(--bg);
@@ -160,8 +161,17 @@
   .note.warn{color:var(--warn)}
   .callout{display:flex;gap:10px;align-items:flex-start;background:var(--warn-soft);color:var(--warn);border-radius:10px;padding:10px 12px;font-size:13px;margin-top:12px}
   .callout.bad{background:var(--bad-soft);color:var(--bad);font-family:ui-monospace,Consolas,monospace}
-  .meta{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-top:14px;padding-top:14px;border-top:1px solid var(--line)}
-  .meta .size{color:var(--faint);font-size:12.5px}
+  .dl{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:14px;padding:14px 16px;background:var(--ok-soft);border:1px solid #cfe5db;border-radius:14px}
+  .dl-ok{flex:none;width:42px;height:42px;border-radius:50%;background:var(--ok);color:#fff;display:grid;place-items:center;box-shadow:0 4px 12px rgba(63,125,104,.3)}
+  .dl-txt{flex:1;min-width:180px}
+  .dl-txt strong{display:block;color:var(--ink);font-size:15.5px;font-weight:600}
+  .dl-txt span{display:block;color:var(--muted);font-size:12.5px;overflow-wrap:anywhere;margin-top:2px}
+  .btn-dl{padding:13px 22px;font-size:15px;background:var(--ok);box-shadow:0 6px 18px rgba(63,125,104,.3)}
+  .btn-dl:hover{background:#346b59}
+  details.removed{margin-top:12px}
+  details.removed summary{cursor:pointer;color:var(--muted);font-size:13px;font-weight:600;padding:4px 0}
+  details.removed summary:hover{color:var(--ink)}
+  @media (max-width:560px){.btn-dl{width:100%;justify-content:center}}
   .bulk{display:flex;justify-content:flex-end;gap:10px;margin-top:16px}
   .bulk[hidden]{display:none}
 
@@ -409,7 +419,10 @@ const ES = {
   'Possible traces remain': 'Pueden quedar rastros', '✓ Clean · {x} removed': '✓ Limpio · eliminados: {x}', '✓ No metadata found': '✓ Sin metadatos',
   'AI traces found in the original:': 'Rastros de IA encontrados en el original:', 'AI': 'IA',
   'After cleaning, these words still appear in the file (they may be part of the visible content):': 'Tras limpiar, estas palabras siguen apareciendo en el archivo (pueden formar parte del contenido visible):',
-  '{x} removed': 'eliminados: {x}', 'Download': 'Descargar', 'ia-cleaner-files.zip': 'ia-cleaner-archivos.zip'
+  '{x} removed': 'eliminados: {x}', 'Download': 'Descargar',
+  'Your clean image is ready': 'Tu imagen limpia está lista', 'Your clean document is ready': 'Tu documento limpio está listo', 'Your clean file is ready': 'Tu archivo limpio está listo',
+  'Download clean image': 'Descargar imagen limpia', 'Download clean document': 'Descargar documento limpio', 'Download clean file': 'Descargar archivo limpio',
+  'What was removed': 'Qué se ha eliminado', 'ia-cleaner-files.zip': 'ia-cleaner-archivos.zip'
 };
 const PL_ES = {
   'hidden character': ['carácter oculto', 'caracteres ocultos'], 'change': ['cambio', 'cambios'], 'item': ['elemento', 'elementos'],
@@ -979,18 +992,23 @@ async function processFile(file){
     const badge = after.length ? `<span class="badge warn">${tr('Possible traces remain')}</span>`
       : res.removed.length ? `<span class="badge ok">${tr('✓ Clean · {x} removed', {x: plural(res.removed.length, 'item')})}</span>`
       : `<span class="badge ok">${tr('✓ No metadata found')}</span>`;
+    const what = mime.startsWith('image/') ? 'image' : (kind === 'pdf' || kind === 'zip') ? 'document' : 'file';
+    const READY = {image: 'Your clean image is ready', document: 'Your clean document is ready', file: 'Your clean file is ready'};
+    const DL = {image: 'Download clean image', document: 'Download clean document', file: 'Download clean file'};
     card.innerHTML = head(file, badge) + `
-      ${beforeAI.length ? `<div class="callout">${tr('AI traces found in the original:')} ${esc(beforeAI.join(', '))}</div>` : ''}
-      ${res.removed.length ? `<ul class="items">${res.removed.map(r => `<li><span class="k">${esc(r.name)}</span>${hasAI(r.name + ' ' + r.detail) ? `<span class="ai">${tr('AI')}</span>` : ''}${r.detail ? `<div class="d">${esc(r.detail)}</div>` : ''}</li>`).join('')}</ul>` : ''}
-      ${(res.notes || []).map(n => `<p class="note">${esc(n)}</p>`).join('')}
-      ${after.length ? `<p class="note warn">${tr('After cleaning, these words still appear in the file (they may be part of the visible content):')} ${esc(after.join(', '))}</p>` : ''}
-      <div class="meta">
-        <span class="size">${fmtSize(u8.length)} → ${fmtSize(res.bytes.length)}${aiItems ? ` · ${tr('{x} removed', {x: plural(aiItems, 'AI-related item')})}` : ''}</span>
-        <button class="btn">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v12M7 11l5 5 5-5M5 20h14"/></svg>${tr('Download')}
+      <div class="dl">
+        <div class="dl-ok"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+        <div class="dl-txt"><strong>${tr(READY[what])}</strong><span>${esc(name)} · ${fmtSize(u8.length)} → ${fmtSize(res.bytes.length)}${aiItems ? ` · ${tr('{x} removed', {x: plural(aiItems, 'AI-related item')})}` : ''}</span></div>
+        <button class="btn btn-dl">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v12M7 11l5 5 5-5M5 20h14"/></svg>${tr(DL[what])}
         </button>
-      </div>`;
-    card.querySelector('.btn').onclick = () => download(blob, name);
+      </div>
+      ${beforeAI.length ? `<div class="callout">${tr('AI traces found in the original:')} ${esc(beforeAI.join(', '))}</div>` : ''}
+      ${res.removed.length ? `<details class="removed" open><summary>${tr('What was removed')} (${res.removed.length})</summary><ul class="items">${res.removed.map(r => `<li><span class="k">${esc(r.name)}</span>${hasAI(r.name + ' ' + r.detail) ? `<span class="ai">${tr('AI')}</span>` : ''}${r.detail ? `<div class="d">${esc(r.detail)}</div>` : ''}</li>`).join('')}</ul></details>` : ''}
+      ${(res.notes || []).map(n => `<p class="note">${esc(n)}</p>`).join('')}
+      ${after.length ? `<p class="note warn">${tr('After cleaning, these words still appear in the file (they may be part of the visible content):')} ${esc(after.join(', '))}</p>` : ''}`;
+    card.querySelector('.btn-dl').onclick = () => download(blob, name);
+    if (results.length === 1) card.scrollIntoView({behavior: 'smooth', block: 'center'});
   }catch(e){
     console.error(e);
     card.innerHTML = head(file, '<span class="badge bad">Error</span>') + `<p class="note warn">${esc(e.message || e)}</p>`;
