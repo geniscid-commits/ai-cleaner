@@ -103,6 +103,8 @@
   .seg button{display:flex;align-items:center;gap:8px;background:none;border:0;color:var(--muted);padding:9px 20px;font:inherit;font-weight:600;font-size:14px;cursor:pointer;border-radius:10px;transition:.2s}
   .seg button:hover{color:var(--ink)}
   .seg button[aria-selected=true]{background:var(--brand);color:#fff;box-shadow:0 4px 12px rgba(63,90,125,.25)}
+  .mode-hint{margin:12px 2px 0;color:var(--muted);font-size:13px;text-align:center}
+  @media (max-width:600px){.seg{width:100%}.seg button{flex:1;justify-content:center;padding:9px 6px;gap:6px;font-size:13px}.seg button svg{display:none}}
   .panel{display:none;animation:fade .35s ease}.panel.active{display:block}
   @keyframes fade{from{opacity:0;transform:translateY(6px)}}
 
@@ -215,8 +217,14 @@
     <button role="tab" aria-selected="true" data-tab="text">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7V5h16v2M9 19h6M12 5v14"/></svg><span data-i18n="tab.text">Texto</span>
     </button>
-    <button role="tab" aria-selected="false" data-tab="files">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/></svg><span data-i18n="tab.files">Imágenes y documentos</span>
+    <button role="tab" aria-selected="false" data-tab="files" data-mode="images">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="9" cy="9" r="2"/><path d="m21 15-5-5L5 21"/></svg><span data-i18n="tab.images">Imágenes</span>
+    </button>
+    <button role="tab" aria-selected="false" data-tab="files" data-mode="video">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="14" height="14" rx="2"/><path d="m16 10 6-4v12l-6-4"/></svg><span data-i18n="tab.video">Vídeo</span>
+    </button>
+    <button role="tab" aria-selected="false" data-tab="files" data-mode="documents">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg><span data-i18n="tab.docs">Documentos</span>
     </button>
   </div>
 
@@ -256,14 +264,15 @@
         <div class="ico">
           <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg>
         </div>
-        <strong data-i18n="drop.title">Arrastra archivos aquí o haz clic para elegirlos</strong>
-        <small>JPG · PNG · WebP · MP4 · MOV · GIF · AVIF · PDF · DOCX · XLSX · PPTX · ODT · TXT · MD · CSV · HTML</small>
+        <strong id="dropTitle">Drop images here or click to browse</strong>
+        <small id="dropFormats">JPG · PNG · WebP · GIF · AVIF</small>
       </div>
       <input type="file" id="fileIn" multiple hidden>
-      <div class="opts" style="margin-bottom:0">
-        <label><input type="checkbox" id="optEmbedded" checked> <span data-i18n="opt.embedded">Limpiar también las imágenes incrustadas en documentos</span></label>
-        <label><input type="checkbox" id="optDocText" checked> <span data-i18n="opt.doctext">Quitar caracteres invisibles del texto de los documentos</span></label>
-        <label><input type="checkbox" id="optReencode"> <span data-i18n="opt.reencode">Re-codificar imágenes (píxeles nuevos; más a fondo, puede reducir algo la calidad)</span></label>
+      <p class="mode-hint" id="dropHint"></p>
+      <div class="opts" id="fileOpts" style="margin-bottom:0">
+        <label data-for="documents" hidden><input type="checkbox" id="optEmbedded" checked> <span data-i18n="opt.embedded">Limpiar también las imágenes incrustadas en documentos</span></label>
+        <label data-for="documents" hidden><input type="checkbox" id="optDocText" checked> <span data-i18n="opt.doctext">Quitar caracteres invisibles del texto de los documentos</span></label>
+        <label data-for="images"><input type="checkbox" id="optReencode"> <span data-i18n="opt.reencode">Re-codificar imágenes (píxeles nuevos; más a fondo, puede reducir algo la calidad)</span></label>
       </div>
     </div>
     <div class="bulk" id="bulk" hidden>
@@ -326,7 +335,7 @@ const UI_ES = {
   'hero.sub': 'Elimina los metadatos ocultos y los caracteres invisibles que vinculan tus textos, imágenes y documentos con herramientas de IA.',
   'hero.pill': 'Todo se procesa en tu navegador. No se sube nada.',
   'tab.text': 'Texto',
-  'tab.files': 'Imágenes y documentos',
+  'tab.images': 'Imágenes', 'tab.video': 'Vídeo', 'tab.docs': 'Documentos',
   'txt.ph': 'Pega aquí tu texto…',
   'txt.clean': 'Limpiar texto',
   'txt.hiddenTitle': 'Caracteres ocultos en el original',
@@ -334,7 +343,6 @@ const UI_ES = {
   'txt.copy': 'Copiar',
   'txt.download': 'Descargar .txt',
   'drop.aria': 'Elegir archivos',
-  'drop.title': 'Arrastra archivos aquí o haz clic para elegirlos',
   'opt.embedded': 'Limpiar también las imágenes incrustadas en documentos',
   'opt.doctext': 'Quitar caracteres invisibles del texto de los documentos',
   'opt.reencode': 'Re-codificar imágenes (píxeles nuevos; más a fondo, puede reducir algo la calidad)',
@@ -423,6 +431,12 @@ const ES = {
   'Your clean video is ready': 'Tu vídeo limpio está listo', 'Download clean video': 'Descargar vídeo limpio',
   'Invalid MP4/MOV file': 'Archivo MP4/MOV no válido', 'User data (udta)': 'Datos de usuario (udta)', 'Metadata (meta)': 'Metadatos (meta)',
   'Random-access index (mfra)': 'Índice de acceso aleatorio (mfra)', 'Optional; not needed for playback': 'Opcional; no hace falta para reproducir el vídeo',
+  'Drop images here or click to browse': 'Arrastra imágenes aquí o haz clic para elegirlas',
+  'Drop videos here or click to browse': 'Arrastra vídeos aquí o haz clic para elegirlos',
+  'Drop documents here or click to browse': 'Arrastra documentos aquí o haz clic para elegirlos',
+  'Lossless: only metadata is removed, pixels and colour profile stay the same.': 'Sin pérdida: solo se quitan los metadatos; los píxeles y el perfil de color no cambian.',
+  'Lossless: frames are never re-encoded, so quality and size stay the same.': 'Sin pérdida: los fotogramas no se vuelven a codificar, así que la calidad y el tamaño no cambian.',
+  'Author, company, software and AI-related properties are removed; your content stays the same.': 'Se quitan el autor, la empresa, el software y las propiedades relacionadas con IA; tu contenido no cambia.',
   'Download clean image': 'Descargar imagen limpia', 'Download clean document': 'Descargar documento limpio', 'Download clean file': 'Descargar archivo limpio',
   'What was removed': 'Qué se ha eliminado', 'ia-cleaner-files.zip': 'ia-cleaner-archivos.zip'
 };
@@ -1136,15 +1150,39 @@ $('#dlAll').onclick = async () => {
 };
 $('#clearAll').onclick = () => { results.length = 0; $('#cards').innerHTML = ''; $('#bulk').hidden = true; };
 
-/* Tabs */
-document.querySelectorAll('.seg button').forEach(t => t.onclick = () => {
+/* Tabs: Text / Images / Video / Documents (the three file tabs share one panel) */
+const MODES = {
+  images: {title: 'Drop images here or click to browse', formats: 'JPG · PNG · WebP · GIF · AVIF',
+    hint: 'Lossless: only metadata is removed, pixels and colour profile stay the same.', accept: 'image/*'},
+  video: {title: 'Drop videos here or click to browse', formats: 'MP4 · MOV · M4V',
+    hint: 'Lossless: frames are never re-encoded, so quality and size stay the same.', accept: 'video/mp4,video/quicktime,.mp4,.mov,.m4v'},
+  documents: {title: 'Drop documents here or click to browse', formats: 'PDF · DOCX · XLSX · PPTX · ODT · TXT · MD · CSV · HTML',
+    hint: 'Author, company, software and AI-related properties are removed; your content stays the same.',
+    accept: '.pdf,' + [...ZIP_EXT, ...TEXT_EXT].map(e => '.' + e).join(',')},
+};
+function setMode(mode){
+  const m = MODES[mode] || MODES.images;
+  $('#dropTitle').textContent = tr(m.title);
+  $('#dropFormats').textContent = m.formats;
+  $('#dropHint').textContent = tr(m.hint);
+  fileIn.accept = m.accept;
+  document.querySelectorAll('[data-for]').forEach(el => el.hidden = el.dataset.for !== mode);
+  $('#fileOpts').hidden = mode === 'video';
+}
+function openTab(t, push){
   document.querySelectorAll('.seg button').forEach(x => x.setAttribute('aria-selected', x === t));
   document.querySelectorAll('.panel').forEach(p => p.classList.toggle('active', p.id === 'panel-' + t.dataset.tab));
-});
+  if (t.dataset.mode) setMode(t.dataset.mode);
+  if (push) history.replaceState(null, '', t.dataset.mode ? '#' + t.dataset.mode : location.pathname + location.search);
+}
+document.querySelectorAll('.seg button').forEach(t => t.onclick = () => openTab(t, true));
 
-// Deep link: /#files opens the files tab
-if (location.hash === '#files') document.querySelector('.seg button[data-tab=files]').click();
 setLang(PAGE_LANG);
+// Deep links: /#images, /#video, /#documents (and the old /#files)
+const HASH_MODE = {files: 'images', images: 'images', video: 'video', videos: 'video', documents: 'documents', docs: 'documents'};
+const fromHash = () => { const m = HASH_MODE[location.hash.slice(1)]; if (m) openTab(document.querySelector(`.seg button[data-mode=${m}]`), false); return m; };
+if (!fromHash()) setMode('images');
+window.addEventListener('hashchange', fromHash);
 </script>
 <!-- Cloudflare Web Analytics: cookieless, anonymous page-view counts -->
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "fa9ba728ece1485f8ff40f3ab5f2eb02"}'></script>

@@ -68,7 +68,7 @@ footer{text-align:center;color:var(--faint);font-size:12.5px;padding:24px 24px 4
 <h1>How to remove C2PA / Content Credentials from an image</h1>
 <p class="lead">Images made or edited with AI tools often carry a hidden, signed record of how they were created. Here is what it is, how to check for it and how to remove it.</p>
 <div class="meta">Updated 2026-11-07 · 4 min read</div>
-<div class="cta"><img src="/logo.webp" alt=""><div><strong>Clean your files in seconds</strong><span>Free, no sign-up, and everything runs in your browser — nothing is uploaded.</span></div><a class="btn" href="/#files">Open IA Cleaner</a></div>
+<div class="cta"><img src="/logo.webp" alt=""><div><strong>Clean your files in seconds</strong><span>Free, no sign-up, and everything runs in your browser — nothing is uploaded.</span></div><a class="btn" href="/#images">Open IA Cleaner</a></div>
 <h2>What is C2PA?</h2>
 <p><strong>C2PA</strong> (Coalition for Content Provenance and Authenticity) is an open standard for attaching a <em>provenance record</em> to a file. Adobe calls it <strong>Content Credentials</strong>. The record — called a <em>manifest</em> — is cryptographically signed and can say which app created the image, whether AI was used and what edits were made.</p>
 <p>Images exported by tools such as ChatGPT / DALL·E, Adobe Firefly or Microsoft Designer, and some cameras and phones, can include a C2PA manifest. Some platforms read it to show an “AI info” or “Made with AI” label.</p>
@@ -84,12 +84,12 @@ footer{text-align:center;color:var(--faint);font-size:12.5px;padding:24px 24px 4
 <h2>How to check if an image has Content Credentials</h2>
 <ol>
 <li>Upload it to the official verifier at <a href="https://contentcredentials.org/verify" rel="noopener">contentcredentials.org/verify</a>, or</li>
-<li>Drop it into <a href="/#files">IA Cleaner</a>: it lists every metadata block it finds and flags AI-related ones before removing them.</li>
+<li>Drop it into <a href="/#images">IA Cleaner</a>: it lists every metadata block it finds and flags AI-related ones before removing them.</li>
 </ol>
 
 <h2>How to remove C2PA with IA Cleaner (step by step)</h2>
 <ol>
-<li>Open <a href="/#files">IA Cleaner → Images &amp; documents</a>.</li>
+<li>Open <a href="/#images">IA Cleaner → Images</a>.</li>
 <li>Drag your JPG, PNG or WebP onto the drop zone (you can add several at once).</li>
 <li>Check the report: blocks such as <em>JUMBF / C2PA Content Credentials (APP11)</em> or <em>XMP</em> are listed and marked <strong>AI</strong>.</li>
 <li>Click <strong>Download</strong>. The image is cleaned <strong>losslessly</strong> — only metadata is removed, pixels stay untouched.</li>
@@ -104,7 +104,7 @@ footer{text-align:center;color:var(--faint);font-size:12.5px;padding:24px 24px 4
 
 <h2>What removing C2PA does not do</h2>
 <p>Some AI images also carry <strong>invisible watermarks</strong> woven into the pixels themselves (for example Google’s SynthID). These are not metadata, so no metadata tool can remove them. And if a platform, publication or law requires you to disclose AI use, removing metadata doesn’t change that obligation.</p>
-<div class="cta"><img src="/logo.webp" alt=""><div><strong>Clean your files in seconds</strong><span>Free, no sign-up, and everything runs in your browser — nothing is uploaded.</span></div><a class="btn" href="/#files">Open IA Cleaner</a></div>
+<div class="cta"><img src="/logo.webp" alt=""><div><strong>Clean your files in seconds</strong><span>Free, no sign-up, and everything runs in your browser — nothing is uploaded.</span></div><a class="btn" href="/#images">Open IA Cleaner</a></div>
 </article>
 <h2>More guides</h2>
 <div class="cards"><a class="card" href="/guides/instagram-ai-info-label/"><strong>Why Instagram shows “AI info” on your photo — and how to remove the metadata behind it</strong><span>Instagram and Facebook read C2PA and IPTC metadata to add the “AI info” label — even to real photos with small AI edits. Here is how to check and clean your image before posting.</span></a><a class="card" href="/guides/tiktok-ai-generated-label/"><strong>Why TikTok labels your photo or video “AI-generated” — and how to remove the metadata behind it</strong><span>TikTok reads C2PA Content Credentials in the photos and videos you upload to add the “AI-generated” label automatically. Here is how to check your images (JPG, PNG) and videos (MP4, MOV) and clean them before posting.</span></a><a class="card" href="/guides/chatgpt-hidden-characters/"><strong>ChatGPT hidden characters: what they are and how to remove them</strong><span>Why text copied from ChatGPT can contain invisible characters, contentReference[oaicite] markers and utm_source=chatgpt.com links — and how to clean them.</span></a><a class="card" href="/guides/remove-ai-traces-documents-emails/"><strong>How to remove AI traces from documents and emails you polished with ChatGPT or Copilot</strong><span>Word files, PDFs and emails you polished with AI can carry metadata, embedded AI images, hidden characters and chatgpt.com links. See what they contain and clean them before sending.</span></a><a class="card" href="/guides/remove-pdf-metadata/"><strong>How to remove metadata from a PDF</strong><span>See what metadata a PDF contains (author, creator app, dates, XMP) and remove it for free, without Acrobat and without uploading the file.</span></a></div>

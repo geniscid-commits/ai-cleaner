@@ -10,14 +10,14 @@ SITE = 'https://iacleaner.com'
 UPDATED = '2026-11-07'
 
 T = {
-  'en': {'home': '/', 'guides': '/guides/', 'guides_name': 'Guides', 'open': 'Open IA Cleaner', 'files': '/#files',
+  'en': {'home': '/', 'guides': '/guides/', 'guides_name': 'Guides', 'open': 'Open IA Cleaner', 'files': '/#images',
          'cta_title': 'Clean your files in seconds', 'cta_text': 'Free, no sign-up, and everything runs in your browser — nothing is uploaded.',
          'related': 'More guides', 'updated': 'Updated', 'read': 'min read', 'footer': 'IA Cleaner · Private by design — your files never leave your device.',
          'idx_title': 'Guides — remove AI metadata and hidden characters | IA Cleaner',
          'idx_desc': 'Step-by-step guides to remove C2PA, EXIF and PDF metadata and to clean hidden characters from AI-generated text.',
          'idx_h1': 'Guides', 'idx_lead': 'Practical, step-by-step guides about the hidden data inside your files — and how to remove it.',
          'locale': 'en_US'},
-  'es': {'home': '/es/', 'guides': '/es/guias/', 'guides_name': 'Guías', 'open': 'Abrir IA Cleaner', 'files': '/es/#files',
+  'es': {'home': '/es/', 'guides': '/es/guias/', 'guides_name': 'Guías', 'open': 'Abrir IA Cleaner', 'files': '/es/#images',
          'cta_title': 'Limpia tus archivos en segundos', 'cta_text': 'Gratis, sin registro y todo se procesa en tu navegador: no se sube nada.',
          'related': 'Más guías', 'updated': 'Actualizado', 'read': 'min de lectura', 'footer': 'IA Cleaner · Privado por diseño: tus archivos nunca salen de tu dispositivo.',
          'idx_title': 'Guías: elimina metadatos de IA y caracteres ocultos | IA Cleaner',
@@ -35,7 +35,7 @@ GUIDES = [
    'seo_title': 'Instagram “AI info” Label on Your Photo? Why It Happens & How to Remove the Metadata',
    'desc': 'Instagram and Facebook read C2PA and IPTC metadata to add the “AI info” label — even to real photos with small AI edits. Here is how to check and clean your image before posting.',
    'lead': 'Posted a real photo and Instagram tagged it with “AI info”? It is usually not the pixels — it is the metadata your editing app wrote into the file. Here is how it works and how to clean it.',
-   'cta': 'files', 'mins': 5,
+   'cta': 'images', 'mins': 5,
    'body': '''
 <h2>What is the “AI info” label?</h2>
 <p>Meta adds an <strong>“AI info”</strong> label (formerly “Made with AI”) to posts, Reels and Stories on Instagram, Facebook and Threads when it believes an image was created or modified with AI. Depending on the case it appears under your username or in the post’s menu.</p>
@@ -50,7 +50,7 @@ GUIDES = [
 
 <h2>Step 1 — Check what your image contains</h2>
 <ol>
-<li>Open <a href="/#files">IA Cleaner → Images &amp; documents</a>.</li>
+<li>Open <a href="/#images">IA Cleaner → Images</a>.</li>
 <li>Drop the exact file you were going to post.</li>
 <li>Look for entries marked <strong>AI</strong>, such as <em>XMP</em> with <code>DigitalSourceType</code> or <em>JUMBF / C2PA Content Credentials</em>.</li>
 </ol>
@@ -61,7 +61,7 @@ GUIDES = [
 <li>Upload that cleaned file to Instagram.</li>
 <li>Make cleaning the <strong>last step</strong>: if you open and re-export the image in an editor afterwards, it may write the metadata again.</li>
 </ol>
-<p>On a phone, open <a href="/#files">iacleaner.com</a> in your browser, choose the photo from your gallery, download the clean copy and post that one.</p>
+<p>On a phone, open <a href="/#images">iacleaner.com</a> in your browser, choose the photo from your gallery, download the clean copy and post that one.</p>
 
 <h2>What this can’t guarantee</h2>
 <ul>
@@ -75,7 +75,7 @@ GUIDES = [
    'seo_title': '¿Instagram pone «Información de IA» en tu foto? Por qué pasa y cómo quitar los metadatos',
    'desc': 'Instagram y Facebook leen los metadatos C2PA e IPTC para poner la etiqueta «Información de IA», incluso en fotos reales con pequeños retoques con IA. Así puedes revisar y limpiar tu imagen antes de publicarla.',
    'lead': '¿Has subido una foto real e Instagram la ha marcado con «Información de IA»? Normalmente no son los píxeles: son los metadatos que tu app de edición escribió en el archivo. Te explicamos cómo funciona y cómo limpiarlo.',
-   'cta': 'files', 'mins': 5,
+   'cta': 'images', 'mins': 5,
    'body': '''
 <h2>¿Qué es la etiqueta «Información de IA»?</h2>
 <p>Meta añade la etiqueta <strong>«Información de IA»</strong> (antes «Hecho con IA») a publicaciones, reels e historias de Instagram, Facebook y Threads cuando cree que una imagen se ha creado o modificado con IA. Según el caso, aparece bajo tu nombre de usuario o en el menú de la publicación.</p>
@@ -90,7 +90,7 @@ GUIDES = [
 
 <h2>Paso 1: revisa qué contiene tu imagen</h2>
 <ol>
-<li>Abre <a href="/es/#files">IA Cleaner → Imágenes y documentos</a>.</li>
+<li>Abre <a href="/es/#images">IA Cleaner → Imágenes</a>.</li>
 <li>Arrastra exactamente el archivo que ibas a publicar.</li>
 <li>Busca entradas marcadas con <strong>IA</strong>, como <em>XMP</em> con <code>DigitalSourceType</code> o <em>JUMBF / C2PA Content Credentials</em>.</li>
 </ol>
@@ -101,7 +101,7 @@ GUIDES = [
 <li>Sube ese archivo limpio a Instagram.</li>
 <li>Haz que limpiar sea el <strong>último paso</strong>: si después vuelves a abrir y exportar la imagen en un editor, puede volver a escribir los metadatos.</li>
 </ol>
-<p>Desde el móvil, abre <a href="/es/#files">iacleaner.com</a> en el navegador, elige la foto de tu galería, descarga la copia limpia y publica esa.</p>
+<p>Desde el móvil, abre <a href="/es/#images">iacleaner.com</a> en el navegador, elige la foto de tu galería, descarga la copia limpia y publica esa.</p>
 
 <h2>Lo que no puede garantizar</h2>
 <ul>
@@ -118,7 +118,7 @@ GUIDES = [
    'seo_title': 'TikTok “AI-generated” Label on Your Photo or Video? Why It Happens & How to Remove It',
    'desc': 'TikTok reads C2PA Content Credentials in the photos and videos you upload to add the “AI-generated” label automatically. Here is how to check your images (JPG, PNG) and videos (MP4, MOV) and clean them before posting.',
    'lead': 'Posted a photo, a carousel or a video and TikTok tagged it “AI-generated” even though you only used AI for a small part of it? The label is often triggered by metadata inside the file. Here is how it works and how to clean it.',
-   'cta': 'files', 'mins': 5,
+   'cta': 'images', 'mins': 5,
    'body': '''
 <h2>What is TikTok’s “AI-generated” label?</h2>
 <p>TikTok shows an <strong>“AI-generated”</strong> label on videos and photos that were created or significantly edited with AI. It can appear because you turned on the AI-generated content setting yourself, because the content was made with TikTok’s own AI effects, or because TikTok detected it automatically.</p>
@@ -136,7 +136,7 @@ GUIDES = [
 
 <h2>Step 1 — Check what your video contains</h2>
 <ol>
-<li>Open <a href="/#files">IA Cleaner → Images &amp; documents</a>.</li>
+<li>Open IA Cleaner → <a href="/#images">Images</a> (photos) or <a href="/#video">Video</a>.</li>
 <li>Drop the photos (JPG, PNG, WebP) or the video (MP4, MOV) you were going to post. You can also do it from your phone’s browser.</li>
 <li>Look for entries such as <em>C2PA / Content Credentials (uuid)</em>, <em>XMP (uuid)</em> or <em>User data (udta)</em>, and for AI-related words in the report.</li>
 </ol>
@@ -160,7 +160,7 @@ GUIDES = [
    'seo_title': '¿TikTok pone «Generado por IA» en tu foto o vídeo? Por qué pasa y cómo quitarlo',
    'desc': 'TikTok lee las Content Credentials (C2PA) de las fotos y vídeos que subes para añadir automáticamente la etiqueta «Generado por IA». Así puedes revisar tus imágenes (JPG, PNG) y vídeos (MP4, MOV) y limpiarlos antes de publicarlos.',
    'lead': '¿Has subido una foto, un carrusel o un vídeo y TikTok lo ha marcado como «Generado por IA» aunque solo usaste la IA para una parte pequeña? Muchas veces la etiqueta la activan los metadatos del archivo. Te explicamos cómo funciona y cómo limpiarlo.',
-   'cta': 'files', 'mins': 5,
+   'cta': 'images', 'mins': 5,
    'body': '''
 <h2>¿Qué es la etiqueta «Generado por IA» de TikTok?</h2>
 <p>TikTok muestra la etiqueta <strong>«Generado por IA»</strong> en vídeos y fotos creados o muy editados con IA. Puede aparecer porque tú activaste el ajuste de contenido generado por IA, porque usaste los efectos de IA de TikTok o porque TikTok lo detectó automáticamente.</p>
@@ -178,7 +178,7 @@ GUIDES = [
 
 <h2>Paso 1: revisa qué contiene tu vídeo</h2>
 <ol>
-<li>Abre <a href="/es/#files">IA Cleaner → Imágenes y documentos</a>.</li>
+<li>Abre IA Cleaner → <a href="/es/#images">Imágenes</a> (fotos) o <a href="/es/#video">Vídeo</a>.</li>
 <li>Arrastra las fotos (JPG, PNG, WebP) o el vídeo (MP4, MOV) que ibas a publicar. También puedes hacerlo desde el navegador del móvil.</li>
 <li>Busca entradas como <em>C2PA / Content Credentials (uuid)</em>, <em>XMP (uuid)</em> o <em>Datos de usuario (udta)</em>, y palabras relacionadas con IA en el informe.</li>
 </ol>
@@ -205,7 +205,7 @@ GUIDES = [
    'seo_title': 'How to Remove C2PA & Content Credentials from an Image (Free)',
    'desc': 'What C2PA Content Credentials are, how to check if your image has them, and how to remove them for free without losing quality.',
    'lead': 'Images made or edited with AI tools often carry a hidden, signed record of how they were created. Here is what it is, how to check for it and how to remove it.',
-   'cta': 'files', 'mins': 4,
+   'cta': 'images', 'mins': 4,
    'body': '''
 <h2>What is C2PA?</h2>
 <p><strong>C2PA</strong> (Coalition for Content Provenance and Authenticity) is an open standard for attaching a <em>provenance record</em> to a file. Adobe calls it <strong>Content Credentials</strong>. The record — called a <em>manifest</em> — is cryptographically signed and can say which app created the image, whether AI was used and what edits were made.</p>
@@ -222,12 +222,12 @@ GUIDES = [
 <h2>How to check if an image has Content Credentials</h2>
 <ol>
 <li>Upload it to the official verifier at <a href="https://contentcredentials.org/verify" rel="noopener">contentcredentials.org/verify</a>, or</li>
-<li>Drop it into <a href="/#files">IA Cleaner</a>: it lists every metadata block it finds and flags AI-related ones before removing them.</li>
+<li>Drop it into <a href="/#images">IA Cleaner</a>: it lists every metadata block it finds and flags AI-related ones before removing them.</li>
 </ol>
 
 <h2>How to remove C2PA with IA Cleaner (step by step)</h2>
 <ol>
-<li>Open <a href="/#files">IA Cleaner → Images &amp; documents</a>.</li>
+<li>Open <a href="/#images">IA Cleaner → Images</a>.</li>
 <li>Drag your JPG, PNG or WebP onto the drop zone (you can add several at once).</li>
 <li>Check the report: blocks such as <em>JUMBF / C2PA Content Credentials (APP11)</em> or <em>XMP</em> are listed and marked <strong>AI</strong>.</li>
 <li>Click <strong>Download</strong>. The image is cleaned <strong>losslessly</strong> — only metadata is removed, pixels stay untouched.</li>
@@ -249,7 +249,7 @@ GUIDES = [
    'seo_title': 'Cómo quitar C2PA y Content Credentials de una imagen (gratis)',
    'desc': 'Qué son las Content Credentials (C2PA), cómo saber si tu imagen las tiene y cómo eliminarlas gratis sin perder calidad.',
    'lead': 'Las imágenes creadas o editadas con herramientas de IA suelen llevar un registro oculto y firmado de cómo se hicieron. Te explicamos qué es, cómo detectarlo y cómo quitarlo.',
-   'cta': 'files', 'mins': 4,
+   'cta': 'images', 'mins': 4,
    'body': '''
 <h2>¿Qué es C2PA?</h2>
 <p><strong>C2PA</strong> (Coalition for Content Provenance and Authenticity) es un estándar abierto para añadir a un archivo un <em>registro de procedencia</em>. Adobe lo llama <strong>Content Credentials</strong> («credenciales de contenido»). Ese registro —el <em>manifiesto</em>— va firmado criptográficamente y puede indicar qué aplicación creó la imagen, si se usó IA y qué ediciones se hicieron.</p>
@@ -266,12 +266,12 @@ GUIDES = [
 <h2>Cómo saber si una imagen tiene Content Credentials</h2>
 <ol>
 <li>Súbela al verificador oficial en <a href="https://contentcredentials.org/verify" rel="noopener">contentcredentials.org/verify</a>, o</li>
-<li>Arrástrala a <a href="/es/#files">IA Cleaner</a>: muestra todos los bloques de metadatos que encuentra y marca los relacionados con IA antes de eliminarlos.</li>
+<li>Arrástrala a <a href="/es/#images">IA Cleaner</a>: muestra todos los bloques de metadatos que encuentra y marca los relacionados con IA antes de eliminarlos.</li>
 </ol>
 
 <h2>Cómo quitar C2PA con IA Cleaner (paso a paso)</h2>
 <ol>
-<li>Abre <a href="/es/#files">IA Cleaner → Imágenes y documentos</a>.</li>
+<li>Abre <a href="/es/#images">IA Cleaner → Imágenes</a>.</li>
 <li>Arrastra tu JPG, PNG o WebP a la zona de carga (puedes añadir varios a la vez).</li>
 <li>Revisa el informe: aparecen bloques como <em>JUMBF / C2PA Content Credentials (APP11)</em> o <em>XMP</em>, marcados con <strong>IA</strong>.</li>
 <li>Pulsa <strong>Descargar</strong>. La imagen se limpia <strong>sin pérdida</strong>: solo se quitan los metadatos y los píxeles no se tocan.</li>
@@ -324,7 +324,7 @@ GUIDES = [
 <p>A less common trick uses <strong>Unicode tag characters</strong> (<code>U+E0000–E007F</code>) to hide whole sentences inside normal-looking text — sometimes used for prompt injection. IA Cleaner decodes and shows any hidden message before removing it.</p>
 
 <h2>Cleaning text inside Word and PowerPoint files</h2>
-<p>If you already pasted AI text into a document, drop the <code>.docx</code>, <code>.pptx</code> or <code>.xlsx</code> into <a href="/#files">Images &amp; documents</a>: invisible characters are removed from the document text and its metadata is cleaned too.</p>
+<p>If you already pasted AI text into a document, drop the <code>.docx</code>, <code>.pptx</code> or <code>.xlsx</code> into <a href="/#documents">Documents</a>: invisible characters are removed from the document text and its metadata is cleaned too.</p>
 '''},
   'es': {
    'slug': 'caracteres-ocultos-chatgpt',
@@ -360,7 +360,7 @@ GUIDES = [
 <p>Un truco menos habitual usa <strong>caracteres de etiqueta Unicode</strong> (<code>U+E0000–E007F</code>) para esconder frases enteras dentro de un texto normal; a veces se usa para inyección de prompts. IA Cleaner descodifica y te muestra el mensaje oculto antes de eliminarlo.</p>
 
 <h2>Limpiar el texto dentro de archivos Word y PowerPoint</h2>
-<p>Si ya pegaste el texto en un documento, arrastra el <code>.docx</code>, <code>.pptx</code> o <code>.xlsx</code> a <a href="/es/#files">Imágenes y documentos</a>: se eliminan los caracteres invisibles del texto y también se limpian sus metadatos.</p>
+<p>Si ya pegaste el texto en un documento, arrastra el <code>.docx</code>, <code>.pptx</code> o <code>.xlsx</code> a <a href="/es/#documents">Documentos</a>: se eliminan los caracteres invisibles del texto y también se limpian sus metadatos.</p>
 '''},
  },
  {
@@ -371,7 +371,7 @@ GUIDES = [
    'seo_title': 'Remove ChatGPT & Copilot Traces from Documents and Emails (Metadata Guide)',
    'desc': 'Word files, PDFs and emails you polished with AI can carry metadata, embedded AI images, hidden characters and chatgpt.com links. See what they contain and clean them before sending.',
    'lead': 'You used ChatGPT or Copilot to polish a report, a cover letter or an email. Before you send it, check the technical traces the file carries — they can say more than the text itself.',
-   'cta': 'files', 'mins': 6,
+   'cta': 'documents', 'mins': 6,
    'body': '''
 <h2>1. Document metadata (Word, PowerPoint, Excel)</h2>
 <p>Every <code>.docx</code>, <code>.pptx</code> and <code>.xlsx</code> is a package that includes hidden properties:</p>
@@ -402,12 +402,12 @@ GUIDES = [
 <ol>
 <li>Clean the text in <a href="/">IA Cleaner → Text</a> and copy the result.</li>
 <li>Paste it into your email as <strong>plain text</strong>: <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>V</kbd> (<kbd>⌘</kbd>+<kbd>Shift</kbd>+<kbd>V</kbd> on Mac).</li>
-<li>Clean any attachment in <a href="/#files">Images &amp; documents</a> before attaching it.</li>
+<li>Clean any attachment in <a href="/#documents">Documents</a> before attaching it.</li>
 </ol>
 
 <h2>How to clean a document with IA Cleaner</h2>
 <ol>
-<li>Open <a href="/#files">IA Cleaner → Images &amp; documents</a> and drop your <code>.docx</code>, <code>.pptx</code>, <code>.xlsx</code> or PDF.</li>
+<li>Open <a href="/#documents">IA Cleaner → Documents</a> and drop your <code>.docx</code>, <code>.pptx</code>, <code>.xlsx</code> or PDF.</li>
 <li>Keep both options on: <em>clean images embedded in documents</em> and <em>remove invisible characters from document text</em>.</li>
 <li>Review the report — author, company, application, custom properties and embedded images are listed, AI-related ones are flagged.</li>
 <li>Download the clean copy. Your text, layout and images are unchanged; only the hidden data is removed.</li>
@@ -435,7 +435,7 @@ GUIDES = [
    'seo_title': 'Quitar rastros de ChatGPT y Copilot de documentos y correos (guía de metadatos)',
    'desc': 'Los Word, PDF y correos que has pulido con IA pueden llevar metadatos, imágenes de IA incrustadas, caracteres ocultos y enlaces de chatgpt.com. Mira qué contienen y límpialos antes de enviarlos.',
    'lead': 'Has usado ChatGPT o Copilot para pulir un informe, una carta de presentación o un correo. Antes de enviarlo, revisa los rastros técnicos que lleva el archivo: pueden decir más que el propio texto.',
-   'cta': 'files', 'mins': 6,
+   'cta': 'documents', 'mins': 6,
    'body': '''
 <h2>1. Metadatos del documento (Word, PowerPoint, Excel)</h2>
 <p>Todo <code>.docx</code>, <code>.pptx</code> y <code>.xlsx</code> es un paquete que incluye propiedades ocultas:</p>
@@ -466,12 +466,12 @@ GUIDES = [
 <ol>
 <li>Limpia el texto en <a href="/es/">IA Cleaner → Texto</a> y copia el resultado.</li>
 <li>Pégalo en el correo como <strong>texto sin formato</strong>: <kbd>Ctrl</kbd>+<kbd>Mayús</kbd>+<kbd>V</kbd> (<kbd>⌘</kbd>+<kbd>Mayús</kbd>+<kbd>V</kbd> en Mac).</li>
-<li>Limpia los adjuntos en <a href="/es/#files">Imágenes y documentos</a> antes de adjuntarlos.</li>
+<li>Limpia los adjuntos en <a href="/es/#documents">Documentos</a> antes de adjuntarlos.</li>
 </ol>
 
 <h2>Cómo limpiar un documento con IA Cleaner</h2>
 <ol>
-<li>Abre <a href="/es/#files">IA Cleaner → Imágenes y documentos</a> y arrastra tu <code>.docx</code>, <code>.pptx</code>, <code>.xlsx</code> o PDF.</li>
+<li>Abre <a href="/es/#documents">IA Cleaner → Documentos</a> y arrastra tu <code>.docx</code>, <code>.pptx</code>, <code>.xlsx</code> o PDF.</li>
 <li>Deja activadas las dos opciones: <em>limpiar las imágenes incrustadas en documentos</em> y <em>quitar caracteres invisibles del texto de los documentos</em>.</li>
 <li>Revisa el informe: aparecen el autor, la empresa, la aplicación, las propiedades personalizadas y las imágenes incrustadas, y se marcan las relacionadas con IA.</li>
 <li>Descarga la copia limpia. El texto, el diseño y las imágenes no cambian; solo se eliminan los datos ocultos.</li>
@@ -502,7 +502,7 @@ GUIDES = [
    'seo_title': 'How to Remove Metadata from a PDF (Author, Creator, XMP) — Free',
    'desc': 'See what metadata a PDF contains (author, creator app, dates, XMP) and remove it for free, without Acrobat and without uploading the file.',
    'lead': 'Every PDF carries information about who made it and with what software. Here is what is inside, why it matters and how to strip it without uploading your file anywhere.',
-   'cta': 'files', 'mins': 4,
+   'cta': 'documents', 'mins': 4,
    'body': '''
 <h2>What metadata does a PDF contain?</h2>
 <ul>
@@ -514,7 +514,7 @@ GUIDES = [
 
 <h2>How to remove PDF metadata with IA Cleaner</h2>
 <ol>
-<li>Open <a href="/#files">IA Cleaner → Images &amp; documents</a>.</li>
+<li>Open <a href="/#documents">IA Cleaner → Documents</a>.</li>
 <li>Drop your PDF. The report lists every field found — Author, Creator, Producer, XMP — and flags AI-related values.</li>
 <li>Click <strong>Download</strong> to get the cleaned copy.</li>
 </ol>
@@ -536,7 +536,7 @@ GUIDES = [
    'seo_title': 'Cómo borrar los metadatos de un PDF (autor, creador, XMP) gratis',
    'desc': 'Descubre qué metadatos tiene un PDF (autor, aplicación, fechas, XMP) y elimínalos gratis, sin Acrobat y sin subir el archivo.',
    'lead': 'Todo PDF lleva información sobre quién lo hizo y con qué programa. Te contamos qué contiene, por qué importa y cómo eliminarla sin subir tu archivo a ningún sitio.',
-   'cta': 'files', 'mins': 4,
+   'cta': 'documents', 'mins': 4,
    'body': '''
 <h2>¿Qué metadatos tiene un PDF?</h2>
 <ul>
@@ -548,7 +548,7 @@ GUIDES = [
 
 <h2>Cómo borrar los metadatos de un PDF con IA Cleaner</h2>
 <ol>
-<li>Abre <a href="/es/#files">IA Cleaner → Imágenes y documentos</a>.</li>
+<li>Abre <a href="/es/#documents">IA Cleaner → Documentos</a>.</li>
 <li>Arrastra tu PDF. El informe muestra cada campo encontrado (Autor, Creator, Producer, XMP) y marca los valores relacionados con IA.</li>
 <li>Pulsa <strong>Descargar</strong> para obtener la copia limpia.</li>
 </ol>
@@ -656,7 +656,7 @@ def page(lang, url, alt, title, desc, body, ld):
 
 def cta(lang, kind):
     t = T[lang]
-    href = t['files'] if kind == 'files' else t['home']
+    href = t['home'] + ('#' + kind if kind in ('images', 'video', 'documents') else '')
     return (f'<div class="cta"><img src="/logo.webp" alt=""><div><strong>{t["cta_title"]}</strong><span>{t["cta_text"]}</span></div>'
             f'<a class="btn" href="{href}">{t["open"]}</a></div>')
 
