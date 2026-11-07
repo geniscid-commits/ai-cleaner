@@ -2,16 +2,72 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://iacleaner.com/</loc>
-    <lastmod>2026-11-06</lastmod>
+    <lastmod>2026-11-07</lastmod>
     <xhtml:link rel="alternate" hreflang="en" href="https://iacleaner.com/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://iacleaner.com/es/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://iacleaner.com/"/>
   </url>
   <url>
     <loc>https://iacleaner.com/es/</loc>
-    <lastmod>2026-11-06</lastmod>
+    <lastmod>2026-11-07</lastmod>
     <xhtml:link rel="alternate" hreflang="en" href="https://iacleaner.com/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://iacleaner.com/es/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://iacleaner.com/"/>
+  </url>
+  <url>
+    <loc>https://iacleaner.com/guides/</loc>
+    <lastmod>2026-11-07</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://iacleaner.com/guides/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://iacleaner.com/es/guias/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://iacleaner.com/guides/"/>
+  </url>
+  <url>
+    <loc>https://iacleaner.com/es/guias/</loc>
+    <lastmod>2026-11-07</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://iacleaner.com/guides/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://iacleaner.com/es/guias/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://iacleaner.com/guides/"/>
+  </url>
+  <url>
+    <loc>https://iacleaner.com/guides/remove-c2pa-content-credentials/</loc>
+    <lastmod>2026-11-07</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://iacleaner.com/guides/remove-c2pa-content-credentials/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://iacleaner.com/es/guias/quitar-c2pa-content-credentials/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://iacleaner.com/guides/remove-c2pa-content-credentials/"/>
+  </url>
+  <url>
+    <loc>https://iacleaner.com/es/guias/quitar-c2pa-content-credentials/</loc>
+    <lastmod>2026-11-07</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://iacleaner.com/guides/remove-c2pa-content-credentials/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://iacleaner.com/es/guias/quitar-c2pa-content-credentials/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://iacleaner.com/guides/remove-c2pa-content-credentials/"/>
+  </url>
+  <url>
+    <loc>https://iacleaner.com/guides/chatgpt-hidden-characters/</loc>
+    <lastmod>2026-11-07</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://iacleaner.com/guides/chatgpt-hidden-characters/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://iacleaner.com/es/guias/caracteres-ocultos-chatgpt/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://iacleaner.com/guides/chatgpt-hidden-characters/"/>
+  </url>
+  <url>
+    <loc>https://iacleaner.com/es/guias/caracteres-ocultos-chatgpt/</loc>
+    <lastmod>2026-11-07</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://iacleaner.com/guides/chatgpt-hidden-characters/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://iacleaner.com/es/guias/caracteres-ocultos-chatgpt/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://iacleaner.com/guides/chatgpt-hidden-characters/"/>
+  </url>
+  <url>
+    <loc>https://iacleaner.com/guides/remove-pdf-metadata/</loc>
+    <lastmod>2026-11-07</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://iacleaner.com/guides/remove-pdf-metadata/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://iacleaner.com/es/guias/borrar-metadatos-pdf/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://iacleaner.com/guides/remove-pdf-metadata/"/>
+  </url>
+  <url>
+    <loc>https://iacleaner.com/es/guias/borrar-metadatos-pdf/</loc>
+    <lastmod>2026-11-07</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://iacleaner.com/guides/remove-pdf-metadata/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://iacleaner.com/es/guias/borrar-metadatos-pdf/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://iacleaner.com/guides/remove-pdf-metadata/"/>
   </url>
 </urlset>

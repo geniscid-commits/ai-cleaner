@@ -70,6 +70,13 @@
   .lang a:hover{color:var(--ink)}
   .lang a[aria-current=page]{background:var(--brand);color:#fff}
   .faq{margin-top:48px}
+  .guides{margin-top:48px}
+  .guides h2{font-size:22px;letter-spacing:-.02em;margin:0 0 14px;text-align:center}
+  .guide-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+  .guide-cards a{display:block;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px 18px;text-decoration:none;color:var(--ink);box-shadow:var(--shadow);transition:.2s}
+  .guide-cards a:hover{border-color:var(--brand-2);transform:translateY(-2px)}
+  .guide-cards strong{display:block;font-size:15px;margin-bottom:4px}
+  .guide-cards span{color:var(--muted);font-size:13px;line-height:1.5}
   .faq h2{font-size:22px;letter-spacing:-.02em;margin:0 0 14px;text-align:center}
   .faq details{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:0 18px;margin-bottom:10px;box-shadow:var(--shadow)}
   .faq summary{cursor:pointer;list-style:none;padding:15px 0;font-weight:600;display:flex;justify-content:space-between;gap:12px}
@@ -176,6 +183,7 @@
 <div class="top">
   <a class="brand" href="/"><img src="/logo.webp" alt=""><span>IA <b>Cleaner</b></span></a>
   <div class="top-right">
+    <span data-i18n="nav.guides"><a class="link" href="/guides/">Guides</a></span>
     <a class="link" href="#how" data-i18n="nav.how">How it works</a>
     <nav class="lang" aria-label="Language"><a href="/" hreflang="en" lang="en" data-lang="en" aria-current="page">EN</a><a href="/es/" hreflang="es" lang="es" data-lang="es">ES</a></nav>
   </div>
@@ -280,6 +288,10 @@
   <div class="limits" data-i18n="limits">
     <b>What it can’t remove:</b> invisible watermarks embedded in the pixels themselves or in the statistical pattern of the words (e.g. SynthID). Those aren’t metadata — they’re part of the content.
   </div>
+  <section class="guides" id="guides">
+    <h2 data-i18n="guides.title">Guides</h2>
+    <div class="guide-cards" data-i18n="guides.list"><a href="/guides/remove-c2pa-content-credentials/"><strong>Remove C2PA / Content Credentials</strong><span>What the AI provenance record is and how to strip it from images.</span></a><a href="/guides/chatgpt-hidden-characters/"><strong>ChatGPT hidden characters</strong><span>Invisible characters, oaicite markers and utm_source links — and how to clean them.</span></a><a href="/guides/remove-pdf-metadata/"><strong>Remove metadata from a PDF</strong><span>Author, creator app, dates and XMP: see what’s inside and remove it.</span></a></div>
+  </section>
   <section class="faq" id="faq">
     <h2 data-i18n="faq.title">Frequently asked questions</h2>
     <details><summary data-i18n="faq.q1">Are my files uploaded anywhere?</summary><p data-i18n="faq.a1">No. IA Cleaner runs entirely in your browser with JavaScript. Your text, images and documents never leave your device, and the page keeps working even if you disconnect after it loads.</p></details>
@@ -329,6 +341,9 @@ const UI_ES = {
   'feat.txt.p': 'Espacios de ancho cero y especiales, controles bidi, etiquetas Unicode ocultas, selectores esteganográficos y restos de chats como <code>oaicite</code>.',
   'limits': '<b>Lo que no puede eliminar:</b> marcas de agua invisibles incrustadas en los propios píxeles o en el patrón estadístico de las palabras (p. ej. SynthID). Eso no son metadatos: forma parte del contenido.',
   'footer': 'IA Cleaner · Privado por diseño: tus archivos nunca salen de tu dispositivo.',
+  'nav.guides': '<a class="link" href="/es/guias/">Guías</a>',
+  'guides.title': 'Guías',
+  'guides.list': '<a href="/es/guias/quitar-c2pa-content-credentials/"><strong>Quitar C2PA / Content Credentials</strong><span>Qué es el registro de procedencia de la IA y cómo quitarlo de tus imágenes.</span></a><a href="/es/guias/caracteres-ocultos-chatgpt/"><strong>Caracteres ocultos de ChatGPT</strong><span>Caracteres invisibles, marcas oaicite y enlaces utm_source: cómo limpiarlos.</span></a><a href="/es/guias/borrar-metadatos-pdf/"><strong>Borrar los metadatos de un PDF</strong><span>Autor, aplicación, fechas y XMP: mira qué contiene y elimínalo.</span></a>',
   'faq.title': 'Preguntas frecuentes',
   'faq.q1': '¿Se suben mis archivos a algún sitio?',
   'faq.a1': 'No. IA Cleaner funciona por completo en tu navegador con JavaScript. Tus textos, imágenes y documentos nunca salen de tu dispositivo, y la página sigue funcionando aunque te desconectes después de cargarla.',
@@ -1003,6 +1018,8 @@ document.querySelectorAll('.seg button').forEach(t => t.onclick = () => {
   document.querySelectorAll('.panel').forEach(p => p.classList.toggle('active', p.id === 'panel-' + t.dataset.tab));
 });
 
+// Deep link: /#files opens the files tab
+if (location.hash === '#files') document.querySelector('.seg button[data-tab=files]').click();
 setLang(PAGE_LANG);
 </script>
 </body>

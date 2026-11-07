@@ -20,4 +20,10 @@ It cannot remove watermarks embedded in the content itself (e.g. SynthID).
 python tools/build_es.py
 ```
 
-- `sitemap.xml`, `robots.txt` and `404.html` are served as-is by GitHub Pages at https://iacleaner.com.
+- Guides (`/guides/…`, `/es/guias/…`) and `sitemap.xml` are generated from `tools/build_guides.py`. Edit the `GUIDES` list there and run:
+
+```bash
+python tools/build_guides.py
+```
+
+- `robots.txt` and `404.html` are served as-is by GitHub Pages at https://iacleaner.com.
