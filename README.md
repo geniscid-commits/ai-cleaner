@@ -27,3 +27,7 @@ python tools/build_guides.py
 ```
 
 - `robots.txt` and `404.html` are served as-is by GitHub Pages at https://iacleaner.com.
+
+## License
+
+[MIT](LICENSE). The logo and the "IA Cleaner" name are not covered by the license.
