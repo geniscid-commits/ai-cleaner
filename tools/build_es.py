@@ -60,6 +60,12 @@ ES_HEAD = '''<!-- SEO:START -->
  "description":"Herramienta gratuita que elimina los metadatos relacionados con IA y los caracteres invisibles de imágenes, PDF, documentos de Office y textos, directamente en tu navegador.",
  "featureList":["Eliminar C2PA / Content Credentials","Eliminar metadatos EXIF, XMP e IPTC","Quitar prompts de Stable Diffusion y ComfyUI de PNG","Limpiar propiedades de PDF y documentos de Office","Quitar caracteres ocultos y marcas oaicite de ChatGPT","Procesamiento 100 % en el navegador"]}
 </script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+ {"@type":"WebSite","@id":"https://iacleaner.com/#website","name":"IA Cleaner","alternateName":["iacleaner","iacleaner.com","IACleaner"],"url":"https://iacleaner.com/","inLanguage":["en","es"],"publisher":{"@id":"https://iacleaner.com/#organization"}},
+ {"@type":"Organization","@id":"https://iacleaner.com/#organization","name":"IA Cleaner","alternateName":"iacleaner","url":"https://iacleaner.com/","logo":{"@type":"ImageObject","url":"https://iacleaner.com/logo.webp"},"sameAs":["https://github.com/geniscid-commits/ai-cleaner"]}
+]}
+</script>
 <!-- SEO:END -->'''
 
 a, b = out.index('<!-- SEO:START -->'), out.index('<!-- SEO:END -->') + len('<!-- SEO:END -->')
